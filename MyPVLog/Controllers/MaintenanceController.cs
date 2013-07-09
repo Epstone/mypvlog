@@ -29,7 +29,7 @@ namespace PVLog.Controllers
     // GET: /Maintenance/
     public ActionResult UpdateStatistics(string pw)
     {
-      if (isAuthorized(pw))
+      if (!isAuthorized(pw))
       {
         return View("NotLocal");
       }
