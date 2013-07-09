@@ -45,16 +45,12 @@
 		an.</i>
     </p>
     <h2>News</h2>
-    <%--<h3>09.07.2013 Serverumzug, Logging Adresse überprüfen!!! </h3>
+    <h3>09.07.2013 Serverumzug, Logging Adresse überprüfen!!! </h3>
     <p>
         Nach dem Serverumzug gab es ein paar Probleme mit nicht nachvollziehbaren Abstürzen des Apache Web Servers in Kombination mit Mono (.NET Framework Alternative).
-        Die Seite ist deshalb nun weiter in die Azure Cloud umgezogen und läuft hoffentlich von nun an wieder reibungslos für die nächsten Jahre. <br />
+        Die Seite ist deshalb nun weiter in die Azure Cloud umgezogen und läuft hoffentlich von nun an reibungslos für die nächsten Jahre. <br />
     </p>
-    <p>
-        <strong>Wichtig:</strong> Nach dem Umzug muss unbedingt im Client die Log Adresse mit der Subdomain "WWW" beginnen, also <strong>http://www.mypvlog.de/...</strong> sonst werden die Logs nicht gespeichert! Dies ist notwendig, damit das Portal den Azure Service kostenfrei nutzen kann. <br />
-        Außerdem sollte der Client morgen neugestartet werden, damit die DNS Änderung greift.
-
-    </p>--%>
+    
 
     <h2>Kommentare</h2>
     <%Html.RenderPartial("Disqus"); %>
