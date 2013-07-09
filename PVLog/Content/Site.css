@@ -1,0 +1,887 @@
+﻿/*----------------------------------------------------------
+The base color for this template is #5c87b2. If you'd like
+to use a different color start by replacing all instances of
+#5c87b2 with your new color.
+----------------------------------------------------------*/
+* {
+  margin: 0;
+  padding: 0;
+}
+html {
+  height: 100%;
+}
+body {
+  background: #CCC url(/Content/img/header-bg.png) repeat-x;
+  font-size: .75em;
+  font-family: Arial, Helvetica, Sans-Serif; /*font-family: 'Doppio One' , sans-serif;*/
+  color: Black;
+  min-width: 900px;
+  height: 100%;
+}
+
+.content a:link {
+  /*color: #FFFFFF;*/
+  text-decoration: underline;
+}
+.content a:visited {
+  color: #3A185E;
+}
+.content a:hover {
+  color: darkGray;
+  text-decoration: underline;
+}
+.content a:active {
+  color: #3A185E;
+}
+
+.footer-content a:link, .footer-content a:hover, .footer-content a:active, .footer-content a:visited {
+  color: #FFF;
+  text-decoration: none;
+  text-shadow: 1px 1px 0px #000;
+}
+
+p, ul, dl {
+  line-height: 1.6em;
+}
+
+p, dl {
+  margin-bottom: 20px;
+}
+
+dt {
+  font-size: 1.1em;
+  display: block;
+  border-bottom: 1px solid #3A185E;
+  margin-top: 1em;
+}
+dd {
+  display: block;
+  padding-left: 150px;
+}
+
+
+/* HEADINGS   
+----------------------------------------------------------*/
+h1, h2, h3, h4, h5, h6 {
+  font-size: 1.5em; /*color: #FFF;*/
+}
+
+h1 {
+  font-size: 2em;
+  padding-bottom: 0;
+  margin-bottom: 0;
+}
+h2 {
+  margin-bottom: 10px;
+  font-family: 'voces' , cursive;
+  color: darkgray;
+  font-size: 2.3em;
+}
+h3 {
+  font-size: 1.2em;
+  margin-bottom: 15px;
+}
+h4 {
+  font-size: 1.1em;
+  margin: 15px 0 10px 0;
+}
+h5, h6 {
+  font-size: 1em;
+}
+
+/* this rule styles <h2> tags that are the 
+first child of the left and right table columns */
+.rightColumn > h1, .rightColumn > h2, .leftColumn > h1, .leftColumn > h2 {
+  margin-top: 0;
+}
+
+/* PRIMARY LAYOUT ELEMENTS   
+----------------------------------------------------------*/
+
+/* you can specify a greater or lesser percentage for the 
+page width. Or, you can specify an exact pixel width. */
+.page, .footer-outer {
+  width: 93%;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 1024px;
+}
+.page {
+  height: 100%;
+  position: relative;
+  background-color: White;
+  height: auto !important; /* real browsers */
+  height: 100%; /* IE6: treaded as min-height*/
+  min-height: 100%; /* real browsers */ /*border: 1px solid #2B3A7D;*/
+}
+
+#content {
+  margin-top: 15px;
+  padding: 0 15px 5em 15px;
+}
+#footer {
+  /*position: absolute;   bottom: 0;   left:0;*/
+  width: 100%;
+  height: 35px;
+  background: #3A185E url(/Content/img/footer-bg.png) repeat-x; /*font-family: 'Doppio One' , sans-serif;*/
+  font-family: 'voces' , cursive;
+}
+.footer-content {
+  height: 25px;
+  padding: 5px 15px;
+  vertical-align: middle;
+  line-height: 1em;
+  font-size: .9em !important;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+  position: relative;
+}
+.footer-content li {
+}
+
+/*#header a {
+  text-decoration: none;
+}*/
+#header {
+  position: relative; /*margin-bottom: 15px; /*color: #696969;*/
+  padding: 10px 0;
+  background: #3A185E url(/Content/img/header-bg.png) repeat-x;
+  height: 48px; /*font-family: 'Doppio One' , sans-serif;*/
+  font-family: 'voces' , cursive;
+  text-shadow: 1px 1px 0px #000;
+}
+
+.left-right-shadow {
+  -moz-box-shadow: 0px 0px 5px #000;
+  -webkit-box-shadow: 0px 0px 5px #000;
+  box-shadow: 0px 0px 5px #000; /* For IE 8 */
+  -ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=5, Direction=90, Color='#000000')"; /* For IE 5.5 - 7 */
+  filter: progid:DXImageTransform.Microsoft.Shadow(Strength=5, Direction=90 , Color='#000000');
+}
+
+.bottom-shadow {
+  -moz-box-shadow: 0px 3px 4px #000;
+  -webkit-box-shadow: 0px 3px 4px #000;
+  box-shadow: 0px 3px 4px #000; /* For IE 8 */
+  -ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=4, Direction=180, Color='#000000')"; /* For IE 5.5 - 7 */
+  filter: progid:DXImageTransform.Microsoft.Shadow(Strength=4, Direction=180, Color='#000000');
+}
+.top-shadow {
+  -moz-box-shadow: 0px -3px 4px #000;
+  -webkit-box-shadow: 0px -3px 4px #000;
+  box-shadow: 0px -3px 4px #000; /* For IE 8 */
+  -ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=4, Direction=0, Color='#000000')"; /* For IE 5.5 - 7 */
+  filter: progid:DXImageTransform.Microsoft.Shadow(Strength=4, Direction=0, Color='#000000');
+  z-index: 100;
+}
+
+/* TOP BANNER
+----------------------------------------------------------*/
+
+
+#header h1 {
+  font-weight: bold;
+  font-size: 4em !important;
+  text-decoration: none;
+  position: absolute;
+  bottom: 5px;
+  left: 15px;
+  font-family: 'voces' , cursive;
+}
+
+#heading:hover, #heading:link, #heading:visited, #heading:active {
+  text-decoration: none !important;
+  color: #FFF;
+}
+
+/* TOP MENU
+----------------------------------------------------------*/
+ul.top-menu {
+  left: 305px;
+  bottom: 15px;
+  position: absolute;
+}
+ul.horizontal-menu {
+  display: inline-block;
+}
+
+ul.horizontal-menu li {
+  display: inline-block;
+  color: #977B00;
+  margin-right: .3em;
+}
+
+ul.horizontal-menu li.last {
+  margin-right: 0;
+}
+
+ul.horizontal-menu li a, .win8box {
+  color: #FFF; /*font-weight: bold;*/
+  font-size: 1.1em;
+  display: inline-block;
+  padding: .5em 1em;
+  margin: 0;
+  text-decoration: none;
+}
+
+
+/* SUB MENU
+----------------------------------------------------------*/
+h2.win8box {
+  font-size: 1.5em;
+  margin-bottom: 1em;
+}
+/* LOGON USER CONTROL
+----------------------------------------------------------*/
+div.logon-user-control label {
+  display: inline-block;
+  min-width: 6em;
+}
+div.logon-user-control {
+  margin-left: 1em;
+  position: absolute;
+  right: 15px;
+  bottom: 15px;
+  color: White;
+}
+div.logon-user-control a {
+  padding: 1em;
+}
+div.logon-user-control br {
+  margin-bottom: 10px;
+}
+
+div.tbx-logon-name {
+  margin-bottom: 5px;
+}
+div.logon-user-control input[type='text'], div.logon-user-control input[type='password'] {
+  display: inline-block;
+  width: 6em;
+}
+#btn-logon {
+  cursor: pointer;
+  margin: 0;
+  width: auto !important;
+  padding: 1em;
+  margin-right: .3em; /*font-family: 'Doppio One',sans-serif;*/
+  font-family: 'voces' , cursive;
+  text-shadow: 1px 1px 0px #000;
+}
+
+/* COLORS
+----------------------------------------------------------*/
+.blue {
+  background-color: #3862BB;
+}
+.gray {
+  background-color: #30ABAB;
+}
+.yellow {
+  background-color: #FEEA0D;
+}
+.red {
+  background-color: #DC3912;
+}
+.violett {
+  background-color: #0256A8;
+}
+
+.orange {
+  background-color: #FF9900;
+}
+.green {
+  background-color: #109618;
+}
+
+.shadow {
+  text-shadow: 1px 1px 0px #000;
+}
+
+.top-left {
+  float: left;
+}
+.top-right {
+  float: right;
+}
+
+/* ...   
+----------------------------------------------------------*/
+#main {
+  padding: 30px 30px 15px 30px;
+  background-color: #fff;
+  margin-bottom: 30px;
+  _height: 1px; /* only IE6 applies CSS properties starting with an underscore */
+}
+
+
+
+/* PLANT SUMMARY PAGE  
+----------------------------------------------------------*/
+
+#contentwrapper {
+  float: left;
+  width: 100%;
+}
+
+div.right-layout-col {
+  /* float: left;     width: 60%;*/
+  margin-left: 280px; /*Set left margin to LeftColumnWidth*/
+}
+
+div.left-layout-col {
+  width: 240px;
+  float: left; /*background-color: #E9BD00;*/
+  margin-left: -100%;
+}
+
+/* PLANT LIST
+----------------------------------------------------------*/
+ul.plant-list {
+}
+a.plant-list-button {
+  width: 100%;
+  height: 100%;
+  display: block;
+  text-decoration: none !important;
+}
+a.plant-list-button:hover {
+  background-color: #FF9900;
+  color: White;
+}
+ul.plant-list li {
+  display: block;
+  float: left;
+  width: 15em;
+  border: 1px solid #CCC;
+  text-align: center;
+  margin: 0 1em 2em 0;
+}
+div.list-box-head {
+  font-size: 1.2em;
+  text-align: center;
+  padding: 5px;
+  font-weight: bold;
+  height: 3em;
+  overflow: hidden;
+}
+img.pv-module {
+  height: 9em;
+}
+.inline-block{
+  display:inline-block;
+  margin-right:1em;
+}
+div.heading-description{
+    font-size: 1.3em;
+}
+h3.big{
+   font-family: 'voces',cursive;
+    font-size: 1.5em;
+    
+}
+
+/* TAB MENU   
+----------------------------------------------------------*/
+ul#menu {
+  border-bottom: 1px #5C87B2 solid;
+  padding: 0 0 2px;
+  position: relative;
+  margin: 0;
+  text-align: right;
+}
+
+ul#menu li {
+  display: inline;
+  list-style: none;
+}
+
+ul#menu li#greeting {
+  padding: 10px 20px;
+  font-weight: bold;
+  text-decoration: none;
+  line-height: 2.8em;
+  color: #fff;
+}
+
+ul#menu li a {
+  padding: 10px 20px;
+  font-weight: bold;
+  text-decoration: none;
+  line-height: 2.8em;
+  background-color: #e8eef4;
+  color: #034af3;
+}
+
+ul#menu li a:hover {
+  background-color: #fff;
+  text-decoration: none;
+}
+
+ul#menu li a:active {
+  background-color: #a6e2a6;
+  text-decoration: none;
+}
+
+ul#menu li.selected a {
+  background-color: #fff;
+}
+
+/* PLANT HEADER
+----------------------------------------------------------*/
+#plant-header {
+  position: relative;
+  height: 3em;
+  margin-bottom: 1em;
+}
+#plant-header h2 {
+  display: inline-block;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  margin: 0;
+  color: Black;
+  font-size: 1.5em;
+  font-family: Arial,Helvetica,Sans-Serif;
+}
+#plant-header .plant-menu {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  font-family: 'voces' , cursive;
+}
+ul.plant-menu {
+  font-size: .8em;
+}
+ul.plant-menu li {
+  background-color: #0256A8;
+}
+
+
+
+/* FORM LAYOUT ELEMENTS   
+----------------------------------------------------------*/
+
+fieldset {
+  margin: 1em 0;
+  padding: 1em;
+  border: 1px solid #CCC;
+}
+
+fieldset p {
+  margin: 2em 0 0 0;
+}
+
+legend {
+  font-size: 1.1em;
+  font-weight: 600;
+  padding: 2px 4px 8px 4px;
+}
+
+
+
+input[type="text"], input[type="submit"], input[type="button"], select {
+  width: 200px;
+  border: 0;
+}
+input[type="submit"], button, input[type="button"] {
+  background-color: #0256A8;
+}
+
+input[type="submit"]::-moz-focus-inner {
+  border: 0;
+}
+input[type='text'] {
+  border: 1px solid #CCC;
+}
+
+input[type="password"] {
+  width: 200px;
+  border: 1px solid #CCC;
+}
+
+input[type="submit"], button, input[type="button"], .button {
+  color: #FFF !important; /*font-weight: bold;*/
+  font-size: 1.1em;
+  display: inline-block;
+  padding: .5em;
+  cursor: pointer;
+  text-decoration: none !important; /*font-family: 'Doppio One' , sans-serif;*/
+  font-family: 'voces' , cursive;
+}
+
+a.win8box {
+  text-decoration: none;
+  color: #FFF;
+}
+
+
+/* TABLE
+----------------------------------------------------------*/
+
+table {
+  border: solid 1px #e8eef4;
+  border-collapse: collapse;
+}
+
+table td {
+  padding: 5px;
+  border: solid 1px #e8eef4;
+}
+
+table th {
+  padding: 6px 5px;
+  text-align: left;
+  background-color: #3A185E;
+  border: solid 1px #e8eef4;
+  color: #FFF;
+  font-weight: normal;
+}
+
+/* JQUERY UI
+----------------------------------------------------------*/
+.ui-button-text {
+  font-size: .8em !important;
+}
+
+/* MISC  
+----------------------------------------------------------*/
+
+
+.clear {
+  clear: both;
+}
+
+.error {
+  color: Red;
+}
+
+#menucontainer {
+  margin-top: 40px;
+}
+
+div#title {
+  display: block;
+  float: left;
+  text-align: left;
+}
+
+
+
+#logindisplay a:link {
+  text-decoration: underline;
+}
+
+#logindisplay a:visited {
+  text-decoration: underline;
+}
+
+#logindisplay a:hover {
+  text-decoration: none;
+}
+
+/* Styles for validation helpers
+-----------------------------------------------------------*/
+.field-validation-error {
+  color: #ff0000;
+}
+
+.field-validation-valid {
+  display: none;
+}
+
+.input-validation-error {
+  border: 1px solid #ff0000;
+  background-color: #ffeeee;
+}
+
+div.info, div.validation-summary-errors {
+  padding: 1em;
+  font-weight: bold;
+}
+.validation-summary-errors {
+  font-weight: bold;
+  color: #000;
+  background-color: #FEEA0D;
+}
+.validation-summary-errors li {
+  list-style-type: none;
+}
+
+.validation-summary-valid {
+  display: none;
+}
+
+/* STYLES FOR EDITOR AND DISPLAY HELPERS
+----------------------------------------------------------*/
+.display-label, .editor-label, .display-field, .editor-field {
+  margin: 0.5em 0;
+}
+
+.text-box {
+  width: 30em;
+}
+
+.text-box.multi-line {
+  height: 6.5em;
+}
+
+.tri-state {
+  width: 6em;
+}
+
+/* USER MESSAGES
+----------------------------------------------------------*/
+
+
+div.info {
+  background-color: green;
+  color: #FFF;
+}
+
+/* MAIN PAGE
+----------------------------------------------------------*/
+
+h3.main-page {
+  font-family: 'voces' , cursive;
+  color: darkGray;
+  font-size: 3em;
+}
+img.simple-architecture {
+  width: 70%;
+  float: left;
+}
+div.image-overlay {
+  position: relative;
+  font-family: 'voces' , cursive;
+}
+div.image-overlay span {
+  position: absolute;
+}
+ol.how-it-works {
+  width: 30%;
+  float: left;
+  display: block;
+  list-style-position: inside;
+  list-style-type: lower-latin;
+  font-size: 1.5em;
+  font-family: 'voces' , cursive;
+}
+ol.how-it-works li {
+  line-height: 4em;
+}
+
+/* Summary Charting
+----------------------------------------------------------*/
+
+.outer-box {
+  /*background-color:#B5B0A7;*/ /*padding: .5em;*/
+  margin: 1em 0 1em 1em;
+}
+div.box-heading {
+  /*display: inline-block;*/
+  margin-bottom: 1em;
+  border-bottom: 1px solid #CCC;
+}
+div.box-heading > h3 {
+  display: inline;
+  margin: 0;
+}
+.child-box {
+  /*background-color:#FFFFFF;*/
+}
+div.inverter-gauge-box {
+  /*border-bottom: 1px dashed #CCC;*/
+  margin-bottom: 1em;
+}
+.inverter-gauge-box h3 {
+  font-size: .9em;
+  display: inline;
+}
+div.gauges-header {
+  border-bottom: 1px dashed #CCC;
+}
+
+span.measure-time {
+  float: right;
+  color: darkGray;
+}
+
+div.gauge {
+  float: left;
+}
+.wattage-chart-top-bar {
+  position: relative;
+}
+.wattage-chart-top-bar h3 {
+}
+.wattage-chart-top-bar .detailed-toggle-buttons {
+  position: absolute;
+  right: 100px;
+  top: -10px;
+}
+.wattage-chart-top-bar div.day-choose {
+  position: absolute;
+  right: 0;
+  top: -10px;
+}
+
+
+div.wattage-box-outer {
+  /*   background-color #0000FF;*/
+  margin-top: 5em;
+}
+div.wattage-chart {
+  width: 100%;
+  height: 300px;
+}
+
+div.chartArea * {
+  background-color: Black !important;
+}
+
+table.kwh-summary {
+  width: 100%;
+}
+
+input.datepicker {
+  width: 6em;
+  text-align: center;
+}
+
+span.kwp {
+  color: darkGray;
+}
+
+/* RETURN OF INVESTMENT CHARTS
+----------------------------------------------------------*/
+#roi-bar-chart {
+  width: 100%;
+  height: 300px;
+  margin-bottom: 30px;
+}
+
+.google-visualization-table-table {
+  width: 100%;
+}
+.chart-toolbar {
+  margin-top: 3em;
+  position: relative;
+}
+div#year-picker {
+  position: absolute;
+  right: 10px;
+}
+div#toggle-buttons {
+  position: absolute;
+  right: 300px; /*float:right;   display:inline-block;*/
+}
+.chart-toolbar h3 {
+  position: absolute;
+  display: inline-block; /*   float:left;   margin-right:1em;*/
+}
+
+.transparency {
+  background-color: black;
+  background-image: none;
+}
+.no-background-color {
+  background-color: #210D36;
+}
+
+#month-year-label {
+  float: right;
+  font-size: 1.2em;
+  font-weight: bold;
+  margin-top: 10px;
+}
+.monthpick {
+  margin-right: .3em;
+}
+.big-select-parent select {
+  font-size: 1.2em;
+  height: 1.6em; /*font-weight:bold;*/
+  background-color: #0256A8;
+  color: White;
+  width: auto;
+  text-align: center;
+  width: 7em; /*font-family: 'Doppio One' , sans-serif;*/
+  font-family: 'voces' , cursive;
+  border: none;
+}
+
+/* API 
+----------------------------------------------------------*/
+div.api-note a:active, div.api-note a:visited, div.api-note a:link, div.api-note a:hover {
+  color: White;
+  text-decoration: none;
+}
+div.api-note a:hover {
+  text-shadow: none;
+}
+div.api-note {
+  overflow: auto;
+  background-color: #3862BB;
+  font-weight: bold;
+  padding: 1em;
+  white-space: nowrap;
+  margin-bottom: 10px;
+  color: White;
+}
+
+/* EDIT PLANT
+----------------------------------------------------------*/
+ol.inverter-list {
+  list-style-type: none;
+}
+
+ol.inverter-list > li {
+  display: inline-block;
+  margin: 0 1em 1em 0;
+}
+ol.inverter-list a.edit-inverter {
+  background-color: #30ABAB;
+  padding: 1em;
+  height: 11em;
+  width: 9em;
+  text-align: center;
+  font-size: 1.2em;
+  display: inline-block;
+  text-decoration: none !important;
+  color: White;
+  position: relative;
+}
+div.inverter-money {
+  bottom: 10px;
+    display: block;
+    left: 0;
+    position: absolute;
+    text-align: center;
+    width: 100%;
+}
+
+
+ol.inverter-list > li > a > div.inverter-id {
+  font-size: 2em;
+}
+ol.inverter-list > li > a > p {
+  margin-top: 5em;
+}
+
+div.export-link-box {
+  padding: 15px;
+  float: right;
+  border: 1px solid #CCC;
+}
+div.export-link-box ul {
+  list-style-type: none;
+}
+div.export-link-box h4 {
+  margin: 0;
+}
+/* JQUERY UI 
+----------------------------------------------------------*/
+.ui-widget {
+  /*font-family: Arial, Helvetica, Sans-Serif;*/ /*font-family: 'Doppio One' , sans-serif;*/
+  font-family: 'voces' , cursive;
+}

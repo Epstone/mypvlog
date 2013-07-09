@@ -1,3 +1,10 @@
+#mysql connection strings
+external_appsettings.config
+mysql_dev.config
+mysql_prd.config
+#personal logging scripts
+LoggingScripts/
+
 # Build Folders (you can keep bin if you'd like, to store dlls and pdbs)
 [Bb]in/
 [Oo]bj/

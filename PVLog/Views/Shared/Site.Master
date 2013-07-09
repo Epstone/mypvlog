@@ -1,0 +1,39 @@
+﻿<%@ Master Language="C#" Inherits="System.Web.Mvc.ViewMasterPage" %>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+	<title>
+		<asp:ContentPlaceHolder ID="TitleContent" runat="server">
+		</asp:ContentPlaceHolder>
+	</title>
+	<% Html.RenderPartial("DefaultHeadContent"); %>
+	<asp:ContentPlaceHolder ID="HeadContent" runat="server" />
+</head>
+<body>
+	<div class="page left-right-shadow">
+		<% Html.RenderPartial("TopBanner"); %>
+		<div id="content">
+			<asp:ContentPlaceHolder ID="MainContent" runat="server" />
+		</div>
+	</div>
+	<div id="footer">
+		<div class="footer-outer left-right-shadow">
+			<ul class="footer-content horizontal-menu">
+				<li><a href="http://techcrawler.riedme.de/2012/02/25/mypvlog-ist-online/">About</a> </li>
+				<li>
+					<%=Html.ActionLink("Impressum","Impressum","Home") %>
+				</li>
+				<li>
+				<a href="http://www.pv-log.com">PV-Log.com</a></li><li><a href="http://www.sonnenertrag.eu/">Sonnenertrag.eu</a></li>
+				<li><a href="http://www.photovoltaikforum.com/">Photovoltaikforum</a></li>
+			</ul>
+		</div>
+	</div>
+	<%if (!Request.IsLocal)
+		 Html.RenderPartial("Piwik"); %>
+	<%=Html.JavascriptImport("/Scripts/jquery.ui.datepicker-de.js")%>
+	<asp:ContentPlaceHolder ID="JSPlaceHolder" runat="server" />
+	<%--<%Html.RenderPartial("FeedbackButton"); %>--%>
+</body>
+</html>

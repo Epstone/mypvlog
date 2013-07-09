@@ -1,0 +1,45 @@
+﻿.pager {
+  margin-top: 1em;
+}
+
+/* ADMIN MENÜ
+----------------------------------------------------------*/
+ul.admin-menu li {
+  list-style-type: none;
+  text-indent: 1em;
+  border-bottom: 1px solid #CCC;
+}
+ul.admin-menu li a {
+  display: table-cell;
+  vertical-align: middle;
+  line-height: 4.5em;
+  width: 150px;
+}
+ul.admin-menu li:hover {
+  background-color: #DC3912;
+}
+
+
+.left-menu {
+  float: left;
+  width: 150px;
+  min-height: 500px;
+}
+
+.right-content {
+  margin-left: 150px;
+  min-height: 500px;
+  padding: 0 1em;
+  border-left: 1px solid #CCC;
+}
+
+
+.manage-roles-box, .add-user-box {
+  float: left;
+  display: inline-block;
+  margin-right: 1em;
+}
+
+table {
+  width: 100%;
+}

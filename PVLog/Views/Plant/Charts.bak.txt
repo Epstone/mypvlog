@@ -1,0 +1,92 @@
+﻿<div class="outerbox ui-corner-all">
+		<h2>
+			Tagesertrag</h2>
+		<div id="inner_roi_day" class="inner_box has_roi_chart">
+			<label for="tbx_roi_day">
+				Datum:
+			</label>
+			<input id="tbx_roi_day" type="text" />
+			<button id="btn_roi_day_prev" class="btn_previous">
+				Zurück</button>
+			<button id="btn_roi_day_next" class="btn_next">
+				Vor</button>
+			<span id="btns_day">
+				<input type="radio" id="rd_roi_day_kwh" name="roi_day_yMode" value="kwh" checked="checked" />
+				<label for="rd_roi_day_kwh">
+					Kilowattstunden
+				</label>
+				<input type="radio" id="rd_roi_day_money" name="roi_day_yMode" value="money" />
+				<label for="rd_roi_day_money">
+					Euro
+				</label>
+			</span>
+			<div id="graph_roi_day" class="roi_chart_div">
+				<img alt="loading" src="../../Content/img/ajax-loader.gif" />
+			</div>
+		</div>
+	</div>
+	<div class="outerbox ui-corner-all">
+		<h2>
+			Monatsertrag</h2>
+		<div id="inner_roi_month" class="inner_box has_roi_chart">
+			<span id="btns_month">
+				<input type="radio" id="rd_roi_month_kwh" name="roi_month_yMode" value="kwh" checked="checked" />
+				<label for="rd_roi_month_kwh">
+					Kilowattstunden
+				</label>
+				<input type="radio" id="rd_roi_month_money" name="roi_month_yMode" value="money" />
+				<label for="rd_roi_month_money">
+					Euro
+				</label>
+			</span>
+			<div id="monthpicker" style="max-width: 700px; margin-right: 1em" class="MonthPicker left ui-corner-all">
+			</div>
+			<div id="graph_roi_month" class="roi_chart_div">
+				<img alt="loading" src="../../Content/img/ajax-loader.gif" />
+			</div>
+		</div>
+	</div>
+	<div class="outerbox ui-corner-all">
+		<h2>
+			Jahresertrag</h2>
+		<div id="inner_roi_year" class="inner_box has_roi_chart">
+			<select id="yearSelect" name="yearSelect" size="1">
+			</select>
+			<span id="btns_year">
+				<input type="radio" id="rd_roi_year_kwh" name="roi_year_yMode" value="kwh" checked="checked" />
+				<label for="rd_roi_year_kwh">
+					Kilowattstunden
+				</label>
+				<input type="radio" id="rd_roi_year_money" name="roi_year_yMode" value="money" />
+				<label for="rd_roi_year_money">
+					Euro
+				</label>
+			</span>
+			<div id="graph_roi_year" class="roi_chart_div">
+				<img alt="loading" src="../../Content/img/ajax-loader.gif" />
+			</div>
+		</div>
+	</div>
+	<div class="outerbox ui-corner-all">
+		<h2>
+			Ertrag in Dekade</h2>
+		<div class="inner_box has_roi_chart">
+			<span id="btns_decade">
+				<input type="radio" id="rd_roi_decade_kwh" name="roi_decade_yMode" value="kwh" checked="checked" />
+				<label for="rd_roi_decade_kwh">
+					Kilowattstunden
+				</label>
+				<input type="radio" id="rd_roi_decade_money" name="roi_decade_yMode" value="money" />
+				<label for="rd_roi_decade_money">
+					Euro
+				</label>
+			</span>
+			<div id="graph_roi_decade" class="roi_chart_div">
+				<img alt="loading" src="../../Content/img/ajax-loader.gif" />
+			</div>
+		</div>
+	</div>
+
+	<%--<label for="cbx_auto_refresh" style="float: right;display:none">
+				Refresh</label>
+				<input type="checkbox" id="cbx_auto_refresh" checked="checked" style="float: right;display:none"/>--%>

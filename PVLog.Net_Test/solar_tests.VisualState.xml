@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<VisualState xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ShowCheckBoxes="false">
+  <TopNode>[0-1000]D:\Projekte\PVLog\trunk\PVLog.Net_Test\solar_tests.nunit</TopNode>
+  <SelectedNode>[0-1028]solar_tests.ControllerTest.ExportControllerTest.min_day_Export_Test</SelectedNode>
+  <ExcludeCategories>false</ExcludeCategories>
+  <Nodes>
+    <Node UniqueName="[0-1000]D:\Projekte\PVLog\trunk\PVLog.Net_Test\solar_tests.nunit" Expanded="true" />
+    <Node UniqueName="[0-1056]D:\Projekte\PVLog\trunk\PVLog.Net_Test\bin\Debug\PVLog.Net_Test.exe" Expanded="true" />
+    <Node UniqueName="[0-1052]solar_tests.Setup" Expanded="true" />
+    <Node UniqueName="[0-1059]solar_tests.ControllerTest" Expanded="true" />
+    <Node UniqueName="[0-1027]solar_tests.ControllerTest.ExportControllerTest" Expanded="true" />
+    <Node UniqueName="[0-1025]solar_tests.ControllerTest.MaintenanceControllerTest" Expanded="true" />
+    <Node UniqueName="[0-1051]solar_tests.DatabaseTest.TestDbSetup" Expanded="true" />
+    <Node UniqueName="[0-1001]solar_tests.DatabaseTest.MeasureRepositoryTest" Expanded="true" />
+    <Node UniqueName="[0-1008]solar_tests.DatabaseTest.PlantRepositoryTest" Expanded="true" />
+    <Node UniqueName="[0-1060]zPVLogIntegrationTests" Expanded="true" />
+    <Node UniqueName="[0-1061]zPVLogIntegrationTests.ManagementTest" Expanded="true" />
+  </Nodes>
+</VisualState>

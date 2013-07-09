@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<VisualState xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ShowCheckBoxes="false">
+  <TopNode>[0-1000]C:\Projekte\PVLog.Net\PVLog.Net_Test\pvlog_tests.nunit</TopNode>
+  <SelectedNode>[0-1010]solar_tests.DatabaseTest.DatabaseTest.CalculateAverageMeasuresBySystem</SelectedNode>
+  <ExcludeCategories>false</ExcludeCategories>
+  <Nodes>
+    <Node UniqueName="[0-1000]C:\Projekte\PVLog.Net\PVLog.Net_Test\pvlog_tests.nunit" Expanded="true" />
+    <Node UniqueName="[0-1039]C:\Projekte\PVLog.Net\PVLog.Net_Test\bin\Debug\PVLog.Net_Test.exe" Expanded="true" />
+    <Node UniqueName="[0-1028]solar_tests.Setup" Expanded="true" />
+    <Node UniqueName="[0-1001]solar_tests.AverageCalctulatorTest" Expanded="true" />
+    <Node UniqueName="[0-1015]solar_tests.CalculatorTest" Expanded="true" />
+    <Node UniqueName="[0-1021]solar_tests.DatabaseTest.Initialization" Expanded="true" />
+    <Node UniqueName="[0-1004]solar_tests.DatabaseTest.DatabaseTest" Expanded="true" />
+    <Node UniqueName="[0-1035]solar_tests.DatabaseTest.SolarPlantDatabaseTest" Expanded="true" />
+    <Node UniqueName="[0-1029]solar_tests.LogMinute2Test" Expanded="true" />
+    <Node UniqueName="[0-1042]solar_tests.ManagementTest" Expanded="true" />
+    <Node UniqueName="[0-1022]solar_tests.ManagementTest.MeasureManagementTest" Expanded="true" />
+    <Node UniqueName="[0-1026]solar_tests.MeasureReaderTest" Expanded="true" />
+    <Node UniqueName="[0-1032]solar_tests.UtilityTest" Expanded="true" />
+  </Nodes>
+</VisualState>
