@@ -136,7 +136,7 @@
       <HintPath>bin\Visualization.dll</HintPath>
     </Reference>
     <Reference Include="System.Web.WebPages">
-      <Private>True</Private>
+      <Private>False</Private>
     </Reference>
     <Reference Include="System.Web.Helpers">
       <Private>True</Private>
@@ -276,7 +276,9 @@
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Views\Shared\NotLocal.aspx" />
-    <None Include="external_appsettings.config" />
+    <None Include="external_appsettings.config">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Properties\PublishProfiles\mypvlog transfer.pubxml" />
     <None Include="Properties\PublishProfiles\PVLog PRD.pubxml" />
     <None Include="Ressources\sql to bool.txt" />
