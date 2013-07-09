@@ -276,7 +276,7 @@
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Views\Shared\NotLocal.aspx" />
-    <Content Include="external_appsettings.config" />
+    <None Include="external_appsettings.config" />
     <None Include="Properties\PublishProfiles\mypvlog transfer.pubxml" />
     <None Include="Properties\PublishProfiles\PVLog PRD.pubxml" />
     <None Include="Ressources\sql to bool.txt" />
