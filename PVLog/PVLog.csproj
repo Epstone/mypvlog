@@ -52,7 +52,7 @@
       <HintPath>..\libs\AccountHelperRepositoryMySql.dll</HintPath>
     </Reference>
     <Reference Include="CommonUtilities">
-      <HintPath>..\..\..\Epstone\Utility\bin\Release\CommonUtilities.dll</HintPath>
+      <HintPath>..\libs\CommonUtilities.dll</HintPath>
     </Reference>
     <Reference Include="Dapper, Version=1.12.1.1, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>

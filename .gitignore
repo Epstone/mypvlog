@@ -6,8 +6,8 @@ mysql_prd.config
 LoggingScripts/
 
 # Build Folders (you can keep bin if you'd like, to store dlls and pdbs)
-[Bb]in/
-[Oo]bj/
+#[Bb]in/
+#[Oo]bj/
 
 # mstest test results
 TestResults
@@ -96,7 +96,7 @@ csx
 AppPackages/
 
 # Others
-[Bb]in
+#[Bb]in
 [Oo]bj
 sql
 TestResults
