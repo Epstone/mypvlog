@@ -296,9 +296,9 @@
     <Content Include="Global.asax" />
     <Content Include="Ressources\sql to bool.txt" />
     <Content Include="Scripts\excanvas.compiled.js" />
-    <Content Include="external_appsettings.config">
+    <None Include="external_appsettings.config">
       <SubType>Designer</SubType>
-    </Content>
+    </None>
     <None Include="Scripts\jquery-1.4.4-vsdoc.js" />
     <Content Include="Scripts\jquery-1.4.4.js" />
     <Content Include="Scripts\jquery-1.4.4.min.js" />
