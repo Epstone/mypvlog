@@ -227,12 +227,12 @@ namespace PVLog.Utility
     }
 
     const string tzId = "W. Europe Standard Time";
-    internal static DateTime GetGermanNow()
+    public static DateTime GetGermanNow()
     {
       return TimeZoneInfo.ConvertTimeBySystemTimeZoneId(DateTime.UtcNow, tzId);
     }
 
-    internal static TimeZoneInfo GetGermanTimeZone()
+    public static TimeZoneInfo GetGermanTimeZone()
     {
       return TimeZoneInfo.FindSystemTimeZoneById(tzId);
     }
