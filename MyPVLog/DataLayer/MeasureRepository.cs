@@ -179,7 +179,7 @@ LIMIT 1;";
       var startDate = Utils.CropHourMinuteSecond(date);
       var endDate = startDate.AddDays(1);
 
-      var utcOffsetMs = TimeZone.CurrentTimeZone.GetUtcOffset(DateTime.Now).TotalMilliseconds;
+      var utcOffsetMs = TimeZoneInfo.FindSystemTimeZoneById("W. Europe Standard Time").GetUtcOffset(Utils.GetGermanNow()).TotalMilliseconds;
 
       string text = @"
 SELECT (UNIX_TIMESTAMP(m.DateTime)*1000) as timeValue , ROUND(SUM(m.OutputWattage)) 
@@ -351,7 +351,7 @@ INNER JOIN inverter i
 
     public List<FlotLineChartTable> GetInverterWiseMinuteWiseWattageChartData(int plantId, DateTime date)
     {
-      var utcOffsetMs = TimeZone.CurrentTimeZone.GetUtcOffset(DateTime.Now).TotalMilliseconds;
+      var utcOffsetMs = Utils.GetGermanTimeZone().GetUtcOffset(Utils.GetGermanNow()).TotalMilliseconds;
       var startDate = Utils.CropHourMinuteSecond(date);
       var endDate = startDate.AddDays(1);
 
@@ -451,7 +451,7 @@ FROM inverter i
 
     public void RemoveMeasuresOlderThan(int dayCount)
     {
-      var dateTime = DateTime.Now.AddDays(dayCount * (-1));
+      var dateTime = Utils.GetGermanNow().AddDays(dayCount * (-1));
 
       var sql = "DELETE FROM measure WHERE DateTime < @dateTime";
 

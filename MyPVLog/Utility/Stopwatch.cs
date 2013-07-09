@@ -7,13 +7,13 @@ namespace PVLog.Utility
 {
   public class Stopwatch
   {
-    DateTime _startTime = DateTime.Now;
+    DateTime _startTime = Utils.GetGermanNow();
 
     public TimeSpan LifeTime
     {
       get
       {
-        return new TimeSpan(DateTime.Now.Ticks - _startTime.Ticks);
+        return new TimeSpan(Utils.GetGermanNow().Ticks - _startTime.Ticks);
       }
     }
   }

@@ -109,7 +109,7 @@ namespace PVLog.Utility
     /// <returns></returns>
     public static DateTime GetCurrentMinute()
     {
-      var now = DateTime.Now;
+      var now = GetGermanNow();
       return new DateTime(now.Year, now.Month, now.Day, now.Hour, now.Minute, 0);
     }
     /// <summary>
@@ -118,7 +118,7 @@ namespace PVLog.Utility
     /// <returns></returns>
     public static DateTime GetLastMinute()
     {
-      var now = DateTime.Now;
+      var now = GetGermanNow();
       return new DateTime(now.Year, now.Month, now.Day, now.Hour, now.Minute, 0).AddMinutes(-1);
     }
 
@@ -129,7 +129,7 @@ namespace PVLog.Utility
 
     internal static TimeSpan GetTimeSpanToNextMinute(int seconds)
     {
-      var now = DateTime.Now;
+      var now = GetGermanNow();
       var startMinute = Utils.GetCurrentMinute().AddMinutes(1).AddSeconds(seconds);
 
       return startMinute - now;
@@ -141,7 +141,7 @@ namespace PVLog.Utility
     /// <returns></returns>
     public static DateTime GetTodaysDate()
     {
-      return new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
+      return new DateTime(GetGermanNow().Year, GetGermanNow().Month, GetGermanNow().Day);
     }
 
     public static bool EarlierThanThisMinute(DateTime itemDateTime)
@@ -180,7 +180,7 @@ namespace PVLog.Utility
 
     internal static DateTime FirstDayOfMonth()
     {
-      var now = DateTime.Now;
+      var now = GetGermanNow();
       return new DateTime(now.Year, now.Month, 1);
     }
 
@@ -196,7 +196,7 @@ namespace PVLog.Utility
 
     internal static DateTime FirstDayOfYear()
     {
-      return new DateTime(DateTime.Now.Year, 1, 1);
+      return new DateTime(GetGermanNow().Year, 1, 1);
     }
 
 
@@ -219,11 +219,22 @@ namespace PVLog.Utility
 
     }
 
-    public  static string GenerateRandomString(int p)
+    public static string GenerateRandomString(int p)
     {
       string rStr = Path.GetRandomFileName();
-      rStr = rStr.Replace(".", "").Substring(0,p); // For Removing the .
+      rStr = rStr.Replace(".", "").Substring(0, p); // For Removing the .
       return rStr;
+    }
+
+    const string tzId = "W. Europe Standard Time";
+    internal static DateTime GetGermanNow()
+    {
+      return TimeZoneInfo.ConvertTimeBySystemTimeZoneId(DateTime.UtcNow, tzId);
+    }
+
+    internal static TimeZoneInfo GetGermanTimeZone()
+    {
+      return TimeZoneInfo.FindSystemTimeZoneById(tzId);
     }
   }
 

@@ -105,7 +105,7 @@ namespace PVLog.Controllers
 
     private bool IsInTimeRange(DateTime startTime, DateTime endTime)
     {
-      return (DateTime.Now > startTime) && (DateTime.Now < endTime);
+      return (Utils.GetGermanNow() > startTime) && (Utils.GetGermanNow() < endTime);
     }
 
     private void UpdateTodaysKwhValues()

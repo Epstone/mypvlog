@@ -13,15 +13,15 @@ namespace PVLog.Controllers
 {
   public class LogController : MyController
   {
-   
-  
+
+
     public LogController()
     {
 
     }
-   
 
-   
+
+
 
     public LogController(I_MeasureRepository measureRepository, I_PlantRepository plantRepository)
     {
@@ -127,7 +127,7 @@ namespace PVLog.Controllers
           //parse the measure
           var measure = new Measure()
           {
-            DateTime = (timestamp == null) ? DateTime.Now
+            DateTime = (timestamp == null) ? Utils.GetGermanNow()
                                            : Utils.UnixTimeStampToDateTime(timestamp.Value),
             GeneratorAmperage = generatorcurrent,
             GeneratorVoltage = generatorvoltage,

@@ -42,7 +42,7 @@ namespace PVLog.DataLayer
       sqlCom.Parameters.AddWithValue("@ExceptionMessage", ExceptionMessage);
       sqlCom.Parameters.AddWithValue("@ExceptionStacktrace", ExceptionStacktrace);
       sqlCom.Parameters.AddWithValue("@CustomMessage", customMessage);
-      sqlCom.Parameters.AddWithValue("@Date", DateTime.Now);
+      sqlCom.Parameters.AddWithValue("@Date", Utils.GetGermanNow());
 
       sqlCom.ExecuteNonQuery();
     }

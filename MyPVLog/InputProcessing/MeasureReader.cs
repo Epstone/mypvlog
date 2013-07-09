@@ -5,6 +5,7 @@ using System.Web;
 using PVLog.Models;
 using System.Globalization;
 using PVLog.DataLayer;
+using PVLog.Utility;
 
 namespace PVLog.InputProcessing
 {
@@ -28,10 +29,13 @@ namespace PVLog.InputProcessing
       measure.PrivateInverterId = privateInverterId;
       measure.PlantId = plantId;
 
-      measure.DateTime = DateTime.Now;
+      // everything to german time
+      measure.DateTime = Utils.GetGermanNow();
 
       return measure;
     }
+
+   
 
     private static double ParseDouble(string p)
     {
@@ -58,7 +62,7 @@ namespace PVLog.InputProcessing
       measure.Temperature = int.Parse(values[8]);
 
       measure.PlantId = plantId;
-      measure.DateTime = DateTime.Now;
+      measure.DateTime = Utils.GetGermanNow();
 
       return measure;
 
