@@ -47,7 +47,7 @@ namespace solar_tests.ControllerTest
       _plantRepositoryMock.Setup(x => x.GetAllInverters()).Returns(() => GetDummyInverterList());
 
 
-      _maintenanceController.UpdateStatistics();
+      _maintenanceController.UpdateStatistics("1234");
 
 
       //verify that the minute wise calculation process is started

@@ -27,9 +27,9 @@ namespace PVLog.Controllers
 
     //
     // GET: /Maintenance/
-    public ActionResult UpdateStatistics()
+    public ActionResult UpdateStatistics(string pw)
     {
-      if (!Request.IsLocal)
+      if (isAuthorized(pw))
       {
         return View("NotLocal");
       }
@@ -82,10 +82,17 @@ namespace PVLog.Controllers
       return new EmptyResult();
     }
 
-    [HttpGet]
-    public ActionResult RemoveOldMeasures()
+    private static bool isAuthorized(string pw)
     {
-      if (!Request.IsLocal)
+      var maintenancePassword = ConfigurationManager.AppSettings["maintenance-password"];
+      
+      return !string.IsNullOrEmpty(pw) && pw.Equals(maintenancePassword);
+    }
+
+    [HttpGet]
+    public ActionResult RemoveOldMeasures(string pw)
+    {
+      if (!isAuthorized(pw))
       {
         return View("NotLocal");
       }
