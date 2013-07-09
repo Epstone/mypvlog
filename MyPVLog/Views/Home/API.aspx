@@ -8,7 +8,7 @@
 		API</h2>
 		<p>Die Betriebsdaten werden per Get Request an den Server übertragen. Die aufzurufende Url ist nach folgendem Schema aufzubauen:</p>
 		<div class="api-note"> 
-		http://mypvlog.de/Log/{AddressType}?{QueryParameter}
+		http://www.mypvlog.de/Log/{AddressType}?{QueryParameter}
 		</div>
 		<p>Die verschiedenen Adresstypen sind im Folgenden aufgelistet.</p>
 	<h3>
