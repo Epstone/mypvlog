@@ -275,8 +275,6 @@
     <Content Include="Content\Site.css" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
-    <Content Include="mysql_dev.config" />
-    <Content Include="mysql_prd.config" />
     <Content Include="Views\Shared\NotLocal.aspx" />
     <Content Include="external_appsettings.config" />
     <None Include="Properties\PublishProfiles\mypvlog transfer.pubxml" />
