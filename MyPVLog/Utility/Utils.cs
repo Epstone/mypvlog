@@ -46,7 +46,8 @@ namespace PVLog.Utility
 
     public static DateTime JavascriptUtcTimestampToLocalTime(double timestamp)
     {
-      return new DateTime(1970, 01, 01).AddMilliseconds(timestamp).ToLocalTime();
+      var dateTime = new DateTime(1970, 01, 01).AddMilliseconds(timestamp);
+      return TimeZoneInfo.ConvertTime(dateTime, GetGermanTimeZone());
     }
 
     public static SortedList<DateTime, IMeasure> ConvertToSortedList(List<IMeasure> measures)
