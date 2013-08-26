@@ -44,7 +44,7 @@ namespace solar_tests.ControllerTest
                 Password = "123456"
             };
 
-            _plantController.Add(plantModel, true);
+            _plantController.Add(plantModel);
             _plantRepositoryMock.Verify(x => x.CreatePlant(plantModel), Times.Once());
             _plantRepositoryMock.Verify(x => x.StoreUserPlantRelation(userId, It.IsAny<int>(), PVLog.Enums.E_PlantRole.Owner), Times.Once());
         }

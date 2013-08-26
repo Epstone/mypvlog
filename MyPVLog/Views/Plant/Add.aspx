@@ -34,10 +34,9 @@
 			<%=Html.ValidationMessageFor(m => m.PostalCode)%>
 		</div>
 
-		<div class="editor-label" style="margin-top: 50px">
-			<label>
-				Bitte geben Sie den angezeigten Code unten ein.</label></div>
-		<%= Html.GenerateCaptcha() %>
+		    <%:Html.SpamPreventionFields() %>
+
 		<input type="submit" value="Anlage anlegen" /></fieldset>
 	<%} %>
+<%: Html.SpamPreventionScript() %>
 </asp:Content>

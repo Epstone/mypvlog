@@ -55,9 +55,6 @@
     <Reference Include="MvcMiniProfiler">
       <HintPath>..\libs\MvcMiniProfiler.dll</HintPath>
     </Reference>
-    <Reference Include="MvcReCaptcha">
-      <HintPath>..\libs\MvcReCaptcha.dll</HintPath>
-    </Reference>
     <Reference Include="MySql.Data">
       <HintPath>..\packages\MySql.Data.6.7.4\lib\net40\MySql.Data.dll</HintPath>
     </Reference>
@@ -67,8 +64,12 @@
     <Reference Include="MySqlRepository">
       <HintPath>..\libs\MySqlRepository.dll</HintPath>
     </Reference>
-    <Reference Include="Recaptcha">
-      <HintPath>..\libs\Recaptcha.dll</HintPath>
+    <Reference Include="PoliteCaptcha">
+      <HintPath>..\packages\PoliteCaptcha.0.4.0.1\lib\net40\PoliteCaptcha.dll</HintPath>
+    </Reference>
+    <Reference Include="Recaptcha, Version=1.0.5.0, Culture=neutral, PublicKeyToken=9afc4d65b28c38c2, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\recaptcha.1.0.5.0\lib\.NetFramework 4.0\Recaptcha.dll</HintPath>
     </Reference>
     <Reference Include="SimpleMvcUserManagement">
       <HintPath>..\libs\SimpleMvcUserManagement.dll</HintPath>
@@ -305,6 +306,9 @@
     <None Include="Scripts\jquery-1.7.1-vsdoc.js" />
     <Content Include="Scripts\jquery-1.7.1.js" />
     <Content Include="Scripts\jquery-1.7.1.min.js" />
+    <None Include="Scripts\jquery-2.0.3.intellisense.js" />
+    <Content Include="Scripts\jquery-2.0.3.js" />
+    <Content Include="Scripts\jquery-2.0.3.min.js" />
     <Content Include="Scripts\jquery-ui-1.8.17.custom.min.js" />
     <Content Include="Scripts\jquery-ui-1.8.9.custom.min.js" />
     <Content Include="Scripts\jquery-ui.js" />
@@ -319,6 +323,7 @@
     <Content Include="Scripts\jquery.ui.datepicker-de.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
+    <Content Include="Scripts\jquery-2.0.3.min.map" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
@@ -392,7 +397,9 @@
     <Content Include="Views\Shared\Piwik.ascx" />
     <Content Include="Views\Shared\PlantInfoTable.ascx" />
     <Content Include="Views\Shared\TopBanner.ascx" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -429,7 +436,7 @@
         <WebProjectProperties>
           <UseIIS>True</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>0</DevelopmentServerPort>
+          <DevelopmentServerPort>4057</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>http://localhost:21143/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
