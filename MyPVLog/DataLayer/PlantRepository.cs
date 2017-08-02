@@ -51,15 +51,7 @@ namespace PVLog.DataLayer
 
       return (int)result.ID;
     }
-
-    //public void CreateDemoPlant(string password, string plantName)
-    //{
-    //  int plantId = this.CreatePlant(SolarPlant, true);
-
-    //  //Create one inverter also
-    //  this.CreateInverter(plantId, null, 0.4F, "test-inverter");
-    //}
-
+        
     public bool IsDemoPlantExsting()
     {
       long demoPlantCount = ProfiledReadConnection.Query<long>( "SELECT COUNT(PlantId) FROM plants WHERE IsDemoPlant = true" ).First();
@@ -190,9 +182,10 @@ SELECT * FROM plants p
                                     (PlantId, PublicInverterId, EuroPerKwh, Name)
                                   VALUES
                                     (@plantId, @publicInverterId,@EuroPerKwh, @name);
-                            SELECT LAST_INSERT_ID();";
+                            SELECT CAST(LAST_INSERT_ID() AS UNSIGNED INTEGER);";
 
-      return (int)base.ProfiledReadConnection.Query<long>( cmd, new { plantId, publicInverterId, euroPerKwh, name } ).First();
+        var inverterId = base.ProfiledReadConnection.Query<ulong>(cmd, new { plantId, publicInverterId, euroPerKwh, name }).First();
+        return (int) inverterId;
     }
 
 
