@@ -8,7 +8,7 @@ using PVLog.Utility;
 
 namespace solar_tests
 {
-  public class BigMama
+  public class TestdataGenerator
   {
     public static List<Measure> GetAverageMeasures(int count, DateTime date)
     {

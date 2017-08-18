@@ -101,7 +101,7 @@ namespace solar_tests.DatabaseTest
     {
       string password = "12345";
 
-      var plant = BigMama.GetPlant();
+      var plant = TestdataGenerator.GetPlant();
       plant.Password = password;
 
       var plantId = _plantRepository.CreatePlant(plant);
@@ -178,7 +178,7 @@ namespace solar_tests.DatabaseTest
     public void DemoPlantTest()
     {
       Assert.IsFalse(_plantRepository.IsDemoPlantExsting());
-      var plant = BigMama.GetPlant();
+      var plant = TestdataGenerator.GetPlant();
       plant.IsDemoPlant = true;
 
       //create demo plant

@@ -42,7 +42,7 @@ namespace solar_tests.ControllerTest
       _measureRepositoryMock.Setup(x => x.GetMinuteWiseMeasures(It.IsAny<DateTime>(), It.IsAny<DateTime>(), It.IsAny<int>()))
         .Returns(
         (DateTime startDate, DateTime endDate, int inverterId)
-          => { return BigMama.GetMeasureList(startDate, endDate, 1000, inverterId); });
+          => { return TestdataGenerator.GetMeasureList(startDate, endDate, 1000, inverterId); });
 
 
       Console.WriteLine(_exportController.min_day(1).Script);

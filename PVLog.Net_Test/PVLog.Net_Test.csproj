@@ -119,7 +119,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AverageCalctulatorTest.cs" />
-    <Compile Include="BigMama.cs" />
+    <Compile Include="TestdataGenerator.cs" />
     <Compile Include="ControllerTest\ExportControllerTest.cs" />
     <Compile Include="ControllerTest\LogControllerTest.cs" />
     <Compile Include="ControllerTest\MaintenanceControllerTest.cs" />

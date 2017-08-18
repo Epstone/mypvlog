@@ -62,9 +62,9 @@ namespace zPVLogIntegrationTests.ManagementTest
       var dayAfterTomorowEnd = dayAfterTomorowStart.AddHours(8);
 
       //create test data and merge into one list
-      var measureList = BigMama.GetMeasureList(todayStart, todayEnd, 1000, privateInverterID);
-      var measureList_tomorow = BigMama.GetMeasureList(tomorowStart, tomorowEnd, 2000, privateInverterID);
-      var measureList_dayAfterTomorow = BigMama.GetMeasureList(dayAfterTomorowStart, dayAfterTomorowEnd, 3000, privateInverterID);
+      var measureList = TestdataGenerator.GetMeasureList(todayStart, todayEnd, 1000, privateInverterID);
+      var measureList_tomorow = TestdataGenerator.GetMeasureList(tomorowStart, tomorowEnd, 2000, privateInverterID);
+      var measureList_dayAfterTomorow = TestdataGenerator.GetMeasureList(dayAfterTomorowStart, dayAfterTomorowEnd, 3000, privateInverterID);
 
       measureList.AddRange(measureList_tomorow);
       measureList.AddRange(measureList_dayAfterTomorow);

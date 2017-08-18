@@ -11,7 +11,7 @@ namespace solar_tests.DatabaseTest
     public static int CreatePlantGetId()
     {
       var plantDb = new PlantRepository();
-      var plant = BigMama.GetPlant();
+      var plant = TestdataGenerator.GetPlant();
       return plantDb.CreatePlant(plant);
     }
 

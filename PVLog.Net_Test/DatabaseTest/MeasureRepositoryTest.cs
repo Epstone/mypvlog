@@ -39,7 +39,7 @@ namespace solar_tests.DatabaseTest
       var plantId = DatabaseHelpers.CreatePlantGetId();
       var inverterId = DatabaseHelpers.CreateInverter(plantId);
 
-      Measure expected_1 = BigMama.GetTestMeasure(plantId);
+      Measure expected_1 = TestdataGenerator.GetTestMeasure(plantId);
       expected_1.PrivateInverterId = inverterId;
 
       //insert measure
@@ -76,7 +76,7 @@ namespace solar_tests.DatabaseTest
     {
       var plant = DatabaseHelpers.CreatePlantWithOneInverter();
 
-      var referenceMeasure = BigMama.GetTestMeasure(plant.PlantId);
+      var referenceMeasure = TestdataGenerator.GetTestMeasure(plant.PlantId);
 
       //generate measures for 5 minutes. 10 each minute.
       var now = Utils.GetWith0Second(DateTime.Now);
@@ -131,7 +131,7 @@ namespace solar_tests.DatabaseTest
 
       var plant = DatabaseHelpers.CreatePlantWithOneInverter();
 
-      var measures = BigMama.GetMeasureListWattageOnly(DateTime.Now, DateTime.Now.AddMinutes(11), 1000, plant.InverterId);
+      var measures = TestdataGenerator.GetMeasureListWattageOnly(DateTime.Now, DateTime.Now.AddMinutes(11), 1000, plant.InverterId);
 
       //fill measure table with some measures
       foreach (var measure in measures)

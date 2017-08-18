@@ -18,10 +18,10 @@ namespace solar_tests
       private static List<IMeasure> GetTestDay(DateTime date)
       {
         //create measures from 12:30 - 15:39
-        var averageListHour12 = BigMama.GetAverageMeasures(20, date, 1000); //check a data hole
-        var averageListHour13 = BigMama.GetAverageMeasures(60, date.AddMinutes(30), 2000);
-        var averageListHour14 = BigMama.GetAverageMeasures(60, date.AddMinutes(90), 1500);
-        var averageListHour15 = BigMama.GetAverageMeasures(15, date.AddMinutes(165), 1000); //check a data hole
+        var averageListHour12 = TestdataGenerator.GetAverageMeasures(20, date, 1000); //check a data hole
+        var averageListHour13 = TestdataGenerator.GetAverageMeasures(60, date.AddMinutes(30), 2000);
+        var averageListHour14 = TestdataGenerator.GetAverageMeasures(60, date.AddMinutes(90), 1500);
+        var averageListHour15 = TestdataGenerator.GetAverageMeasures(15, date.AddMinutes(165), 1000); //check a data hole
 
         //combine lists
         List<List<Measure>> measurelists = new List<List<Measure>>();
@@ -29,7 +29,7 @@ namespace solar_tests
         measurelists.Add(averageListHour13);
         measurelists.Add(averageListHour14);
         measurelists.Add(averageListHour15);
-        List<IMeasure> testDay = BigMama.CombineMeasureLists(measurelists);
+        List<IMeasure> testDay = TestdataGenerator.CombineMeasureLists(measurelists);
         return testDay;
       }
 
@@ -39,7 +39,7 @@ namespace solar_tests
         [Test]
         public void GetKwhOfDayTest()
         {
-            DateTime date = BigMama.GetTestDate().AddMinutes(30);
+            DateTime date = TestdataGenerator.GetTestDate().AddMinutes(30);
 
             List<IMeasure> testDay = GetTestDay(date);
 
@@ -47,10 +47,10 @@ namespace solar_tests
             SortedList<DateTime, MeasureKwH> KwhDay = KwhCalculator.GetKwhHourlyForOneDay(testDay);
 
             //Check result
-            var result12 = KwhDay[BigMama.GetTestDate()];
-            var result13 = KwhDay[BigMama.GetTestDate().AddHours(1)];
-            var result14 = KwhDay[BigMama.GetTestDate().AddHours(2)];
-            var result15 = KwhDay[BigMama.GetTestDate().AddHours(3)];
+            var result12 = KwhDay[TestdataGenerator.GetTestDate()];
+            var result13 = KwhDay[TestdataGenerator.GetTestDate().AddHours(1)];
+            var result14 = KwhDay[TestdataGenerator.GetTestDate().AddHours(2)];
+            var result15 = KwhDay[TestdataGenerator.GetTestDate().AddHours(3)];
 
             Assert.AreEqual(0.5, result12.Value);
             Assert.AreEqual(2, result13.Value);
@@ -153,8 +153,8 @@ namespace solar_tests
             DateTime startDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
             DateTime endDate = startDate.AddMonths(1);
 
-            MeasureKwH measure_day_1 = BigMama.GetKwhDay(1.0);
-            MeasureKwH measure_day_2 = BigMama.GetKwhDay(3.0);
+            MeasureKwH measure_day_1 = TestdataGenerator.GetKwhDay(1.0);
+            MeasureKwH measure_day_2 = TestdataGenerator.GetKwhDay(3.0);
             measure_day_1.DateTime = startDate.AddDays(1);
             measure_day_2.DateTime = measure_day_1.DateTime.AddDays(1);
 
