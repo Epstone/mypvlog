@@ -7,7 +7,7 @@ using System.Text;
 using System.Windows.Forms;
 using System.IO;
 using PVLog.DataLayer;
-using MySql.Data.MySqlClient;
+//using MySql.Data.MySqlClient;
 using PVLog;
 using System.Linq;
 namespace File_Renamer
