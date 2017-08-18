@@ -420,7 +420,7 @@ FROM inverter i
 
     /* Temporary Measure */
 
-    public void InsertTemporaryPower(Measure measure)
+    public void InsertTemporary(Measure measure)
     {
       ProfiledWriteConnection.Execute(@"
     INSERT INTO temporary_measure

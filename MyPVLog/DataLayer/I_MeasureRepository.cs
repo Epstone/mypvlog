@@ -27,7 +27,7 @@ namespace PVLog.DataLayer
 
         void UpdateTemporaryToMinuteWise(int inverterId);
 
-        void InsertTemporaryPower(Measure measure);
+        void InsertTemporary(Measure measure);
 
         void RemoveMeasuresOlderThan(int dayCount);
     }

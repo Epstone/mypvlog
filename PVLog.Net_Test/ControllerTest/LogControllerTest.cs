@@ -39,7 +39,7 @@ namespace solar_tests.ControllerTest
             _logController.Kaco1(data, 1, "1234", 1);
 
             _measureRepositoryMock.Verify(m => m.InsertMeasure(It.IsAny<Measure>()), Times.Never());
-            _measureRepositoryMock.Verify(m => m.InsertTemporaryPower(It.IsAny<Measure>()), Times.Once());
+            _measureRepositoryMock.Verify(m => m.InsertTemporary(It.IsAny<Measure>()), Times.Once());
         }
 
         [Test]
@@ -48,7 +48,7 @@ namespace solar_tests.ControllerTest
           _logController.Kaco2("*020;4;378.2;3.96;1498;228.9;6.55;1438;29;5000;", 2, "fadsd");
 
           _measureRepositoryMock.Verify(m => m.InsertMeasure(It.IsAny<Measure>()), Times.Never());
-          _measureRepositoryMock.Verify(m => m.InsertTemporaryPower(It.IsAny<Measure>()), Times.Once());
+          _measureRepositoryMock.Verify(m => m.InsertTemporary(It.IsAny<Measure>()), Times.Once());
 
         }
 
@@ -58,7 +58,7 @@ namespace solar_tests.ControllerTest
           _logController.Generic(1, "fsa", 2, 142, 243, 234, 234, null, 432, 3, 32, null);
 
           _measureRepositoryMock.Verify(m => m.InsertMeasure(It.IsAny<Measure>()), Times.Never());
-          _measureRepositoryMock.Verify(m => m.InsertTemporaryPower(It.IsAny<Measure>()), Times.Once());
+          _measureRepositoryMock.Verify(m => m.InsertTemporary(It.IsAny<Measure>()), Times.Once());
 
         }
 

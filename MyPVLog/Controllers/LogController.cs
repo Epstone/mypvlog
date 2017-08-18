@@ -47,7 +47,7 @@ namespace PVLog.Controllers
           var measure = MeasureReader.ReadKaco1Data(data, plant, privateInverterId);
 
           //store measure in repository and return the success view
-          _measureRepository.InsertTemporaryPower(measure);
+          _measureRepository.InsertTemporary(measure);
 
           return View("MeasureSuccess");
 
@@ -75,7 +75,7 @@ namespace PVLog.Controllers
           measure.PrivateInverterId = ValidateGetPrivateInverterId(plant, measure.PublicInverterId);
 
           //store measure in repository and return the success view
-          _measureRepository.InsertTemporaryPower(measure);
+          _measureRepository.InsertTemporary(measure);
 
           return View("MeasureSuccess");
 
@@ -144,7 +144,7 @@ namespace PVLog.Controllers
           };
 
           //store measure in repository and return the success view
-          _measureRepository.InsertTemporaryPower(measure);
+          _measureRepository.InsertTemporary(measure);
 
           return View("MeasureSuccess");
 

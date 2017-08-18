@@ -89,7 +89,7 @@ namespace solar_tests.DatabaseTest
           referenceMeasure.OutputWattage = 1000 + j;
           referenceMeasure.PrivateInverterId = plant.InverterId;
 
-          _measureRepository.InsertTemporaryPower(referenceMeasure);
+          _measureRepository.InsertTemporary(referenceMeasure);
         }
       }
       ((MeasureRepository)_measureRepository).CommitTransaction();
