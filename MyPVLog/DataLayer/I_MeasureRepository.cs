@@ -7,29 +7,28 @@ using PVLog.Models;
 
 namespace PVLog.DataLayer
 {
-  public interface I_MeasureRepository
-  {
-    long InsertMeasure(Measure measure);
-    
+    public interface I_MeasureRepository : IDisposable
+    {
+        long InsertMeasure(Measure measure);
 
-    IEnumerable<Measure> GetMinuteWiseMeasures(int inverterId);
-    IEnumerable<Measure> GetMinuteWiseMeasures(DateTime startDate, DateTime endDate, int inverterID);
-    
-    //Measure GetLatesMeasureByInverter(int inverterId);
+        IEnumerable<Measure> GetMinuteWiseMeasures(int inverterId);
+        IEnumerable<Measure> GetMinuteWiseMeasures(DateTime startDate, DateTime endDate, int inverterID);
 
-    IList<Measure> GetLatestMeasuresByPlant(int plantId);
+        //Measure GetLatesMeasureByInverter(int inverterId);
 
-    FlotLineChartTable GetCumulatedMinuteWiseWattageChartData(int plantId, DateTime date);
+        IList<Measure> GetLatestMeasuresByPlant(int plantId);
 
-    //IEnumerable<Models.IMeasure> GetCumulatedMinuteWiseForKwhChart(DateTime dateTime, int plantId);
+        FlotLineChartTable GetCumulatedMinuteWiseWattageChartData(int plantId, DateTime date);
 
-    List<FlotLineChartTable> GetInverterWiseMinuteWiseWattageChartData(int plantId, DateTime date);
-    void Cleanup();
+        //IEnumerable<Models.IMeasure> GetCumulatedMinuteWiseForKwhChart(DateTime dateTime, int plantId);
 
-    void UpdateTemporaryToMinuteWise(int inverterId);
+        List<FlotLineChartTable> GetInverterWiseMinuteWiseWattageChartData(int plantId, DateTime date);
+        void Cleanup();
 
-    void InsertTemporaryPower(Measure measure);
+        void UpdateTemporaryToMinuteWise(int inverterId);
 
-    void RemoveMeasuresOlderThan(int dayCount);
-  }
+        void InsertTemporaryPower(Measure measure);
+
+        void RemoveMeasuresOlderThan(int dayCount);
+    }
 }

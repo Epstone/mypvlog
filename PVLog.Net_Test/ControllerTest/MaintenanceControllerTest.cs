@@ -47,13 +47,10 @@ namespace solar_tests.ControllerTest
       // setup plant repository
       _plantRepositoryMock.Setup(x => x.GetAllInverters()).Returns(() => GetDummyInverterList());
 
-
       _maintenanceController.UpdateStatistics("1234");
-
 
       //verify that the minute wise calculation process is started
       _measureRepositoryMock.Verify(x => x.UpdateTemporaryToMinuteWise(It.IsAny<int>()), Times.Once());
-
     }
 
     private IEnumerable<PVLog.Models.Inverter> GetDummyInverterList()
@@ -66,5 +63,11 @@ namespace solar_tests.ControllerTest
       return dummyList;
     }
 
+
+      [TearDown]
+      public void TearDown()
+      {
+          _maintenanceController.Dispose();
+      }
   }
 }

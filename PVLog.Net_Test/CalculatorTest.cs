@@ -13,7 +13,7 @@ using Bortosky.Google.Visualization;
 namespace solar_tests
 {
     [TestFixture]
-    class CalculatorTest
+    public class CalculatorTest
     {
       private static List<IMeasure> GetTestDay(DateTime date)
       {
