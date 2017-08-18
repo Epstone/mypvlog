@@ -17,10 +17,9 @@ namespace solar_tests.DatabaseTest
     [TestFixture]
     public class MeasureRepositoryTest
     {
-
         TestDbSetup _testDb;
-        I_MeasureRepository _measureRepository;
-        I_PlantRepository _plantRepository;
+        MeasureRepository _measureRepository;
+        PlantRepository _plantRepository;
 
         [SetUp]
         public void Setup()
@@ -30,6 +29,13 @@ namespace solar_tests.DatabaseTest
             _testDb.TruncateAllTables();
             _measureRepository = new MeasureRepository();
             _plantRepository = new PlantRepository();
+        }
+
+        [TearDown]
+        public void TearDown()
+        {
+            _measureRepository.Dispose();
+            _plantRepository.Dispose();
         }
 
         [Test]
@@ -79,7 +85,7 @@ namespace solar_tests.DatabaseTest
 
             //generate measures for 5 minutes. 10 each minute.
             var now = Utils.GetWith0Second(DateTime.Now);
-            ((MeasureRepository)_measureRepository).StartTransaction();
+            _measureRepository.StartTransaction();
             for (int i = 1; i < 6; i++)
             {
                 for (int j = 0; j < 10; j++)
@@ -91,7 +97,7 @@ namespace solar_tests.DatabaseTest
                     _measureRepository.InsertTemporary(referenceMeasure);
                 }
             }
-          ((MeasureRepository)_measureRepository).CommitTransaction();
+            _measureRepository.CommitTransaction();
 
             //move the temporary power measures into minute_wise power table
             _measureRepository.UpdateTemporaryToMinuteWise(plant.InverterId);
