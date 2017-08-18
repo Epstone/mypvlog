@@ -65,7 +65,7 @@ namespace PVLog.Controllers
 
     public JsonResult MinuteWiseWattageDay(int plantId, long timeStamp, E_InverterMode mode)
     {
-      DateTime date = Utils.JavascriptUtcTimestampToLocalTime(timeStamp);
+      DateTime date = DateTimeUtils.JavascriptUtcTimestampToLocalTime(timeStamp);
       object result;
 
       if (mode == E_InverterMode.Cumulated)
@@ -81,7 +81,7 @@ namespace PVLog.Controllers
 
     public JsonResult MonthData(int plantId, int month, int year, E_EurKwh yMode)
     {
-      var startDate = Utils.FirstDayOfMonth(month, year);
+      var startDate = DateTimeUtils.FirstDayOfMonth(month, year);
       var endDate = startDate.AddMonths(1);
       string googleTableContent = _dataProvider.GoogleDataTableContent(startDate, endDate,
                                                             plantId, yMode, E_TimeMode.day);
@@ -89,7 +89,7 @@ namespace PVLog.Controllers
       return Json(new
       {
         tableContent = googleTableContent,
-        monthName = Utils.GetMonthName(month),
+        monthName = DateTimeUtils.GetMonthName(month),
         year = year
       }
       , JsonRequestBehavior.AllowGet);
@@ -97,8 +97,8 @@ namespace PVLog.Controllers
 
     public JsonResult YearData(int plantId, int year, E_EurKwh yMode)
     {
-      string googleTableContent = _dataProvider.GoogleDataTableContent(Utils.FirstDayOfYear(year),
-                                                              Utils.FirstDayOfYear(year + 1),
+      string googleTableContent = _dataProvider.GoogleDataTableContent(DateTimeUtils.FirstDayOfYear(year),
+                                                              DateTimeUtils.FirstDayOfYear(year + 1),
                                                               plantId, yMode, E_TimeMode.month);
       return Json(new
       {

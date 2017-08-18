@@ -48,10 +48,10 @@ namespace PVLog.DataLayer
 
     public SortedKwhTable GetDayKwhByDateRange(DateTime startDate, DateTime endDate, int systemID)
     {
-      startDate = Utils.CropHourMinuteSecond(startDate);
+      startDate = DateTimeUtils.CropHourMinuteSecond(startDate);
 
       //mysql handles "between date" inclusive so we have to shrink the timeframe
-      endDate = Utils.CropHourMinuteSecond(endDate).AddDays(-1);
+      endDate = DateTimeUtils.CropHourMinuteSecond(endDate).AddDays(-1);
 
 
       SortedKwhTable result = new SortedKwhTable();

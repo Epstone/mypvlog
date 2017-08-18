@@ -211,6 +211,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Statistics\KwhCalculator.cs" />
     <Compile Include="Utility\AppLog.cs" />
+    <Compile Include="Utility\DateTimeUtils.cs" />
     <Compile Include="Utility\Logger.cs" />
     <Compile Include="Utility\MyXmlSerializer.cs" />
     <Compile Include="Utility\SerializableDiactionary.cs" />

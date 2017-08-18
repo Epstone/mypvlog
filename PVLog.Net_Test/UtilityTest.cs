@@ -56,10 +56,10 @@ namespace solar_tests
       long input = 1328455638;
 
       var expected = new DateTime(2012, 2, 5, 15, 27, 0);
-      var actual = Utils.UnixTimeStampToDateTime(input);
+      var actual = DateTimeUtils.UnixTimeStampToDateTime(input);
 
       //crop second and milliseconds
-      actual = Utils.GetWith0Second(actual);
+      actual = DateTimeUtils.GetWith0Second(actual);
 
       Assert.AreEqual(expected, actual);
     }
@@ -73,12 +73,12 @@ namespace solar_tests
       var input3 = new DateTime(2012, 2, 5, 16, 37, 0, 0);
 
       var expected = 1328452620000;
-      var actual = Utils.DateTimeToJavascriptTimestamp(input);
+      var actual = DateTimeUtils.DateTimeToJavascriptTimestamp(input);
 
       
 
-      Console.WriteLine(Utils.DateTimeToJavascriptTimestamp(input2));
-      Console.WriteLine(Utils.DateTimeToJavascriptTimestamp(input3));
+      Console.WriteLine(DateTimeUtils.DateTimeToJavascriptTimestamp(input2));
+      Console.WriteLine(DateTimeUtils.DateTimeToJavascriptTimestamp(input3));
 
       //crop second and milliseconds
       Assert.AreEqual(expected, actual);

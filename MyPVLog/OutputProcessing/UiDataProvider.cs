@@ -112,9 +112,9 @@ namespace PVLog.OutputProcessing
     internal SortedKwhTable GetMonthTable(int plantId)
     {
       var startDate = _kwhRepository.GetFirstDateOfKwhDay(plantId);
-      startDate = Utils.FirstDayOfMonth(startDate.Month, startDate.Year);
+      startDate = DateTimeUtils.FirstDayOfMonth(startDate.Month, startDate.Year);
 
-      var endDate = Utils.FirstDayNextMonth();
+      var endDate = DateTimeUtils.FirstDayNextMonth();
 
       //Get kwhdays from database
       var dailyResult = _kwhRepository.GetDayKwhByDateRange(startDate, endDate, plantId);

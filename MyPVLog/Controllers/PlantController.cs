@@ -69,12 +69,12 @@ namespace PVLog.Controllers
       // build view model
       var plantModel = PlantHomeModel.Create( plant );
       //var today =Utils.GetTodaysDate();
-      var today = Utils.GetTodaysDate();
+      var today = DateTimeUtils.GetTodaysDate();
       plantModel.SummaryTable = new PlantSummaryTableModel();
 
       plantModel.SummaryTable.Today = _dataProvider.GetkwhAndMoneyPerTimeFrame( today, today.AddDays( 1 ), id, E_TimeMode.day );
-      plantModel.SummaryTable.ThisMonth = _dataProvider.GetkwhAndMoneyPerTimeFrame( Utils.FirstDayOfMonth(), Utils.FirstDayNextMonth(), id, E_TimeMode.month );
-      plantModel.SummaryTable.ThisYear = _dataProvider.GetkwhAndMoneyPerTimeFrame( Utils.FirstDayOfYear(), Utils.FirstDayNextYear(), id, E_TimeMode.year );
+      plantModel.SummaryTable.ThisMonth = _dataProvider.GetkwhAndMoneyPerTimeFrame( DateTimeUtils.FirstDayOfMonth(), DateTimeUtils.FirstDayNextMonth(), id, E_TimeMode.month );
+      plantModel.SummaryTable.ThisYear = _dataProvider.GetkwhAndMoneyPerTimeFrame( DateTimeUtils.FirstDayOfYear(), DateTimeUtils.FirstDayNextYear(), id, E_TimeMode.year );
 
 
       //is user allowed to edit the plant?
@@ -138,8 +138,8 @@ namespace PVLog.Controllers
     public ActionResult Month(int id)
     {
       //get kwh data
-      string googleTableContent = _dataProvider.GoogleDataTableContent( Utils.FirstDayOfMonth(),
-                                                            Utils.FirstDayNextMonth(), id,
+      string googleTableContent = _dataProvider.GoogleDataTableContent( DateTimeUtils.FirstDayOfMonth(),
+                                                            DateTimeUtils.FirstDayNextMonth(), id,
                                                             E_EurKwh.kwh, E_TimeMode.day );
       var plant = _plantRepository.GetPlantById( id );
       var model = new PlantDayModel()
@@ -165,8 +165,8 @@ namespace PVLog.Controllers
     public ActionResult Year(int id)
     {
       //get kwh data
-      string googleTableContent = _dataProvider.GoogleDataTableContent( Utils.FirstDayOfYear(),
-                                                            Utils.FirstDayNextYear(), id,
+      string googleTableContent = _dataProvider.GoogleDataTableContent( DateTimeUtils.FirstDayOfYear(),
+                                                            DateTimeUtils.FirstDayNextYear(), id,
                                                             E_EurKwh.kwh, E_TimeMode.month );
       var plant = _plantRepository.GetPlantById( id );
       var model = new PlantDayModel()

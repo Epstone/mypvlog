@@ -127,8 +127,8 @@ namespace PVLog.Controllers
           //parse the measure
           var measure = new Measure()
           {
-            DateTime = (timestamp == null) ? Utils.GetGermanNow()
-                                           : Utils.UnixTimeStampToDateTime(timestamp.Value),
+            DateTime = (timestamp == null) ? DateTimeUtils.GetGermanNow()
+                                           : DateTimeUtils.UnixTimeStampToDateTime(timestamp.Value),
             GeneratorAmperage = generatorcurrent,
             GeneratorVoltage = generatorvoltage,
             GeneratorWattage = generatorpower,

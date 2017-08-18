@@ -144,7 +144,7 @@ namespace solar_tests
     internal static MeasureKwH GetKwhDay(double kwhValue)
     {
       MeasureKwH kwh = new MeasureKwH();
-      kwh.DateTime = Utils.GetTodaysDate();
+      kwh.DateTime = DateTimeUtils.GetTodaysDate();
       kwh.PrivateInverterId = 2;
       kwh.TimeMode = PVLog.Enums.E_TimeMode.day;
       kwh.Value = kwhValue;

@@ -15,7 +15,7 @@
 	</thead>
 	<tr>
 		<td>
-			Eispeisung heute (<%=Utils.GetGermanNow().ToShortDateString() %>)
+			Eispeisung heute (<%=DateTimeUtils.GetGermanNow().ToShortDateString() %>)
 		</td>
 		<td>
 			<%=Model.Today.Kwh.ToKwhString() %>
@@ -26,7 +26,7 @@
 	</tr>
 	<tr>
 		<td>
-			<%=  Utils.GetGermanNow().ToString("MMMM") %>, <%=  Utils.GetGermanNow().ToString("yyyy") %>
+			<%=  DateTimeUtils.GetGermanNow().ToString("MMMM") %>, <%=  DateTimeUtils.GetGermanNow().ToString("yyyy") %>
 		</td>
 		<td>
 			<%=Model.ThisMonth.Kwh.ToKwhString() %>

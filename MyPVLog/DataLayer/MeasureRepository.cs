@@ -175,10 +175,10 @@ LIMIT 1;";
         /// <returns>multiple rows of type 'long'</returns>
         public FlotLineChartTable GetCumulatedMinuteWiseWattageChartData(int plantId, DateTime date)
         {
-            var startDate = Utils.CropHourMinuteSecond(date);
+            var startDate = DateTimeUtils.CropHourMinuteSecond(date);
             var endDate = startDate.AddDays(1);
 
-            var utcOffsetMs = TimeZoneInfo.FindSystemTimeZoneById("W. Europe Standard Time").GetUtcOffset(Utils.GetGermanNow()).TotalMilliseconds;
+            var utcOffsetMs = TimeZoneInfo.FindSystemTimeZoneById("W. Europe Standard Time").GetUtcOffset(DateTimeUtils.GetGermanNow()).TotalMilliseconds;
 
             string text = @"
 SELECT (UNIX_TIMESTAMP(m.DateTime)*1000) as timeValue , ROUND(SUM(m.OutputWattage)) 
@@ -239,7 +239,7 @@ WHERE m.InverterId = @inverterId;";
             if (endTime != null)
             {
                 //crop second information from date time
-                endTime = Utils.GetWith0Second(endTime.Value);
+                endTime = DateTimeUtils.GetWith0Second(endTime.Value);
 
                 /* get the measures minutewise cumulated */
 
@@ -347,8 +347,8 @@ INNER JOIN inverter i
 
         public List<FlotLineChartTable> GetInverterWiseMinuteWiseWattageChartData(int plantId, DateTime date)
         {
-            var utcOffsetMs = Utils.GetGermanTimeZone().GetUtcOffset(Utils.GetGermanNow()).TotalMilliseconds;
-            var startDate = Utils.CropHourMinuteSecond(date);
+            var utcOffsetMs = DateTimeUtils.GetGermanTimeZone().GetUtcOffset(DateTimeUtils.GetGermanNow()).TotalMilliseconds;
+            var startDate = DateTimeUtils.CropHourMinuteSecond(date);
             var endDate = startDate.AddDays(1);
 
             // sorting the measures is important, first publicInverterId then DateTime
@@ -447,7 +447,7 @@ FROM inverter i
 
         public void RemoveMeasuresOlderThan(int dayCount)
         {
-            var dateTime = Utils.GetGermanNow().AddDays(dayCount * (-1));
+            var dateTime = DateTimeUtils.GetGermanNow().AddDays(dayCount * (-1));
 
             var sql = "DELETE FROM measure WHERE DateTime < @dateTime";
 

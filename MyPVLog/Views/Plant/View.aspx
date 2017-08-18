@@ -29,7 +29,7 @@
                         </div>
                         <div class="day-choose">
                             <button id="btn-previous">Vorheriger Tag</button>
-                            <input type="text" id="wattage_datepicker" class="datepicker" value="<%=Utils.GetGermanNow().ToShortDateString() %>" />
+                            <input type="text" id="wattage_datepicker" class="datepicker" value="<%=DateTimeUtils.GetGermanNow().ToShortDateString() %>" />
                             <button id="btn-next">Nächster Tag</button>
                         </div>
                     </div>

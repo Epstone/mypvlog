@@ -43,12 +43,12 @@ namespace zPVLogIntegrationTests.ManagementTest
       int publicInverterId = plantDb.GetAllInvertersByPlant(testPlantId).First().PublicInverterId;
 
 
-      var today = Utils.GetTodaysDate();
+      var today = DateTimeUtils.GetTodaysDate();
       var tomorow = today.AddDays(1);
       var dayAfterTomorow = tomorow.AddDays(1);
 
       //time frame for kwh calculation
-      var timeFrameStart = Utils.CropHourMinuteSecond(today);
+      var timeFrameStart = DateTimeUtils.CropHourMinuteSecond(today);
       var timeFrameEnd = timeFrameStart.AddDays(3);
 
       //time frame of test measures

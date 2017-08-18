@@ -53,8 +53,8 @@ namespace PVLog.Management
     public void ReCalculateKwh_by_dayToDB(DateTime startDate, DateTime endDate, int plantId)
     {
 
-      startDate = Utils.CropHourMinuteSecond(startDate);
-      endDate = Utils.CropHourMinuteSecond(endDate);
+      startDate = DateTimeUtils.CropHourMinuteSecond(startDate);
+      endDate = DateTimeUtils.CropHourMinuteSecond(endDate);
 
       List<int> inverterIDs = _plantRepo.GetPrivateInverterIdsByPlant(plantId);
       var hourly = GetkwhHourlyByTimeFrame(startDate, endDate, inverterIDs);

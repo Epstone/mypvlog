@@ -30,7 +30,7 @@ namespace PVLog.InputProcessing
       measure.PlantId = plantId;
 
       // everything to german time
-      measure.DateTime = Utils.GetGermanNow();
+      measure.DateTime = DateTimeUtils.GetGermanNow();
 
       return measure;
     }
@@ -62,7 +62,7 @@ namespace PVLog.InputProcessing
       measure.Temperature = int.Parse(values[8]);
 
       measure.PlantId = plantId;
-      measure.DateTime = Utils.GetGermanNow();
+      measure.DateTime = DateTimeUtils.GetGermanNow();
 
       return measure;
 

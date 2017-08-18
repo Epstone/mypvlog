@@ -94,7 +94,7 @@ namespace solar_tests.DatabaseTest
             var expectedMeasure = TestdataGenerator.GetTestMeasure(plant.PlantId);
 
             //generate measures for 5 minutes. 10 each minute.
-            var now = Utils.GetWith0Second(DateTime.Now);
+            var now = DateTimeUtils.GetWith0Second(DateTime.Now);
             _measureRepository.StartTransaction();
             for (int i = 1; i < 6; i++)
             {

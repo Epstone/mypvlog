@@ -37,8 +37,8 @@ namespace PVLog.Controllers
             }
 
             //only update between 4am and 23pm
-            DateTime startTime = Utils.GetTodaysDate().AddHours(4);
-            DateTime endTime = Utils.GetTodaysDate().AddHours(23);
+            DateTime startTime = DateTimeUtils.GetTodaysDate().AddHours(4);
+            DateTime endTime = DateTimeUtils.GetTodaysDate().AddHours(23);
             var totalStopWatch = new Stopwatch();
 
             try
@@ -112,13 +112,13 @@ namespace PVLog.Controllers
 
         private bool IsInTimeRange(DateTime startTime, DateTime endTime)
         {
-            return (Utils.GetGermanNow() > startTime) && (Utils.GetGermanNow() < endTime);
+            return (DateTimeUtils.GetGermanNow() > startTime) && (DateTimeUtils.GetGermanNow() < endTime);
         }
 
         private void UpdateTodaysKwhValues()
         {
             var plantRepo = new PlantRepository();
-            var today = Utils.GetTodaysDate();
+            var today = DateTimeUtils.GetTodaysDate();
 
             foreach (var plant in plantRepo.GetAllPlants())
             {

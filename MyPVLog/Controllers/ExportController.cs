@@ -109,7 +109,7 @@ namespace PVLog.Controllers
           da[dx++]="12.02.09|123456;1234|123456;1234"
           da[dx++]="11.02.09|123456;1234|123456;1234" */
       string dateFormat = "dd.MM.yy";
-      var dayResult = _kwhRepository.GetDayKwhByDateRange(Utils.GetGermanNow().AddYears(-10), Utils.GetGermanNow(), plantId);
+      var dayResult = _kwhRepository.GetDayKwhByDateRange(DateTimeUtils.GetGermanNow().AddYears(-10), DateTimeUtils.GetGermanNow(), plantId);
 
 
       StringBuilder builder = new StringBuilder();
@@ -150,7 +150,7 @@ namespace PVLog.Controllers
        * m[mi++]="15.02.09 08:20:00|0;13;0;282;5|0;10;0;267;6" 
        */
 
-      string result = GetMinDayJsFileContent(Utils.GetGermanNow(), plantId);
+      string result = GetMinDayJsFileContent(DateTimeUtils.GetGermanNow(), plantId);
 
       return JavaScript(result);
     }
@@ -168,7 +168,7 @@ namespace PVLog.Controllers
     private string GetMinDayJsFileContent(DateTime dateTime, int plantId)
     {
       string dateTimeFormat = "dd.MM.yy HH:mm:ss";
-      var startDate = Utils.CropHourMinuteSecond(dateTime);
+      var startDate = DateTimeUtils.CropHourMinuteSecond(dateTime);
       var endDate = startDate.AddDays(1);
 
       List<Measure> allMeasures = new List<Measure>();
