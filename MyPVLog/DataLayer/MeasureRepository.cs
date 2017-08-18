@@ -267,10 +267,7 @@ WHERE m.InverterId = @inverterId;";
 
                 var temporaryCumulated = ProfiledReadConnection.Query<Measure>(selectSql, new { inverterId, endTime });
 
-
-
                 /* try to insert the cumulated measures into the measure table */
-
                 foreach (var measure in temporaryCumulated)
                 {
                     try

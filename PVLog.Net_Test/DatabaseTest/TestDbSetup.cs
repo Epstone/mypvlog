@@ -60,12 +60,16 @@ namespace solar_tests.DatabaseTest
                 var sqlCom = mySqlConn.CreateCommand();
                 sqlCom.CommandText = @"
 SET foreign_key_checks = 0;
-TRUNCATE TABLE plants;
-TRUNCATE TABLE user_has_plant;
+TRUNCATE TABLE generator;
+TRUNCATE TABLE grid;
+TRUNCATE TABLE inverter;
 TRUNCATE TABLE kwh_by_day;
-TRUNCATE TABLE user_has_plant;
+TRUNCATE TABLE logs;
 TRUNCATE TABLE measure;
+TRUNCATE TABLE plants;
+TRUNCATE TABLE temperature;
 TRUNCATE TABLE temporary_measure;
+TRUNCATE TABLE user_has_plant;
 SET foreign_key_checks = 1;";
                 sqlCom.ExecuteNonQuery();
                 
