@@ -14,6 +14,8 @@ using PVLog.Utility;
 
 namespace solar_tests.DatabaseTest
 {
+    using FluentAssertions;
+
     [TestFixture]
     public class MeasureRepositoryTest
     {
@@ -70,6 +72,14 @@ namespace solar_tests.DatabaseTest
             var actual = _measureRepository.GetMinuteWiseMeasures(plant.InverterId).First();
 
             Assert.AreEqual(measure, actual);
+        }
+
+
+        [Test]
+        public void
+            Given_measures_for_seconds_of_a_minute_When_I_aggregate_Then_they_are_aggregated_to_a_minute_measurement()
+        {
+            var plant = DatabaseHelpers.CreatePlantWithOneInverter();
 
         }
 
@@ -81,7 +91,7 @@ namespace solar_tests.DatabaseTest
         {
             var plant = DatabaseHelpers.CreatePlantWithOneInverter();
 
-            var referenceMeasure = TestdataGenerator.GetTestMeasure(plant.PlantId);
+            var expectedMeasure = TestdataGenerator.GetTestMeasure(plant.PlantId);
 
             //generate measures for 5 minutes. 10 each minute.
             var now = Utils.GetWith0Second(DateTime.Now);
@@ -90,11 +100,11 @@ namespace solar_tests.DatabaseTest
             {
                 for (int j = 0; j < 10; j++)
                 {
-                    referenceMeasure.DateTime = now.AddMinutes(i).AddSeconds(j);
-                    referenceMeasure.OutputWattage = 1000 + j;
-                    referenceMeasure.PrivateInverterId = plant.InverterId;
+                    expectedMeasure.DateTime = now.AddMinutes(i).AddSeconds(j);
+                    expectedMeasure.OutputWattage = 1000 + j;
+                    expectedMeasure.PrivateInverterId = plant.InverterId;
 
-                    _measureRepository.InsertTemporary(referenceMeasure);
+                    _measureRepository.InsertTemporary(expectedMeasure);
                 }
             }
             _measureRepository.CommitTransaction();
@@ -102,38 +112,26 @@ namespace solar_tests.DatabaseTest
             //move the temporary power measures into minute_wise power table
             _measureRepository.UpdateTemporaryToMinuteWise(plant.InverterId);
 
-            //check that the average is 1004.5 W foreach minute and we have 4 minute wise result values
             // 4 minute_wise values because the last minute may not be over yet.
-            IEnumerable<Measure> result = _measureRepository.GetMinuteWiseMeasures(plant.InverterId);
+            IEnumerable<Measure> actualMeasures = _measureRepository.GetMinuteWiseMeasures(plant.InverterId);
 
-            Assert.AreEqual(4, result.Count());
-            foreach (var measure in result)
+            actualMeasures.Count().Should().Be(4);
+            foreach (var measure in actualMeasures)
             {
-                Assert.AreEqual(1004.5, measure.Value);
-                Assert.Greater(measure.DateTime, DateTime.Now.AddMinutes(-10));
-                Assert.Less(measure.DateTime, DateTime.Now.AddMinutes(10));
-                Assert.AreEqual(referenceMeasure.GeneratorAmperage, measure.GeneratorAmperage);
-                Assert.AreEqual(referenceMeasure.GeneratorVoltage, measure.GeneratorVoltage);
-                Assert.AreEqual(referenceMeasure.GeneratorWattage, measure.GeneratorWattage);
-                Assert.AreEqual(referenceMeasure.GridAmperage, measure.GridAmperage);
-                Assert.AreEqual(referenceMeasure.GridVoltage, measure.GridVoltage);
-                Assert.AreNotEqual(0, measure.MeasureId);
-                Assert.AreEqual(referenceMeasure.PlantId, measure.PlantId);
-                Assert.AreEqual(referenceMeasure.PrivateInverterId, measure.PrivateInverterId);
-                Assert.AreNotEqual(0, measure.PublicInverterId);
-                Assert.AreEqual(null, measure.SystemStatus);
-                Assert.AreEqual(referenceMeasure.Temperature, measure.Temperature);
+                measure.Value.Should().BeInRange(1004, 1005);
+                measure.DateTime.Should().BeWithin(TimeSpan.FromMinutes(5));
+                measure.MeasureId.Should().NotBe(0);
+                measure.PlantId.Should().Be(expectedMeasure.PlantId);
+                measure.PrivateInverterId.Should().Be(expectedMeasure.PrivateInverterId);
+                measure.PublicInverterId.Should().NotBe(0);
+                measure.SystemStatus.Should().BeNull();
+                measure.Temperature.Should().Be(expectedMeasure.Temperature);
             }
-
         }
 
-
-
-
         [Test]
-        public void FlotChartDataTest()
+        public void Given_10_minute_wise_measures_When_I_request_measures_for_flot_line_chart_Then_they_are_formatted_correctly()
         {
-
             var plant = DatabaseHelpers.CreatePlantWithOneInverter();
 
             var measures = TestdataGenerator.GetMeasureListWattageOnly(DateTime.Now, DateTime.Now.AddMinutes(11), 1000, plant.InverterId);
@@ -152,28 +150,15 @@ namespace solar_tests.DatabaseTest
             var actual2 = _measureRepository.GetInverterWiseMinuteWiseWattageChartData(plant.PlantId, DateTime.Now);
             Assert.AreEqual(1, actual2.Count); // one inverter
             Assert.Greater(actual2.First().data.Count, 10); // 11 measures
-
         }
 
-
         [Test]
-        public void EmptyGaugeDataTest()
+        public void Given_a_new_plant_When_I_request_the_latest_measures_Then_there_should_be_not_measures()
         {
-            // don't throw an exception at the client!!!
             var plant = DatabaseHelpers.CreatePlantWithOneInverter();
-
             var result = _measureRepository.GetLatestMeasuresByPlant(plant.PlantId);
-
             Assert.IsTrue(result.Count == 0);
         }
-
-        [Test]
-        public void LoggerTest()
-        {
-            PVLog.Utility.Logger.LogError(new ApplicationException());
-        }
-
-
 
     }
 }
