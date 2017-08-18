@@ -42,6 +42,7 @@ namespace solar_tests.ControllerTest
       context.SetupGet(x => x.Request).Returns(requestMock.Object);
       
       _maintenanceController.ControllerContext = new ControllerContext(context.Object, new RouteData(), _maintenanceController);
+        _maintenanceController.AuthorizationOverride = true;
       
       // setup plant repository
       _plantRepositoryMock.Setup(x => x.GetAllInverters()).Returns(() => GetDummyInverterList());
