@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Data;
 using MySql.Data.MySqlClient;
-using PVLog.Statistics;
 using PVLog.Utility;
 using PVLog.Models;
 using System.Linq;
