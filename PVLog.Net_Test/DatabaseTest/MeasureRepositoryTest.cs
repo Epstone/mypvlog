@@ -22,6 +22,14 @@ namespace solar_tests.DatabaseTest
         TestDbSetup _testDb;
         MeasureRepository _measureRepository;
         PlantRepository _plantRepository;
+        private DateTime minute1;
+        private TestSolarPlant plant;
+        private Measure testMeasure;
+
+        public MeasureRepositoryTest()
+        {
+            minute1 = new DateTime(2017, 8, 4, 8, 20, 0);
+        }
 
         [SetUp]
         public void Setup()
@@ -31,6 +39,9 @@ namespace solar_tests.DatabaseTest
             _testDb.TruncateAllTables();
             _measureRepository = new MeasureRepository();
             _plantRepository = new PlantRepository();
+
+            plant = DatabaseHelpers.CreatePlantWithOneInverter();
+
         }
 
         [TearDown]
@@ -46,8 +57,7 @@ namespace solar_tests.DatabaseTest
             var plantId = DatabaseHelpers.CreatePlantGetId();
             var inverterId = DatabaseHelpers.CreateInverter(plantId);
 
-            Measure expected_1 = TestdataGenerator.GetTestMeasure(plantId);
-            expected_1.PrivateInverterId = inverterId;
+            Measure expected_1 = TestdataGenerator.GetTestMeasure(plantId, inverterId);
 
             //insert measure
             _measureRepository.InsertMeasure(expected_1);
@@ -77,56 +87,107 @@ namespace solar_tests.DatabaseTest
 
         [Test]
         public void
-            Given_measures_for_seconds_of_a_minute_When_I_aggregate_Then_they_are_aggregated_to_a_minute_measurement()
+            Given_measures_for_seconds_When_I_aggregate_Then_they_are_aggregated_to_a_minute_measurement()
         {
-            var plant = DatabaseHelpers.CreatePlantWithOneInverter();
+            Given_measures_for_five_seconds_of_a_minute(plant, minute1);
 
+            When_I_aggregate_the_measures_to_minute_wise();
+            Then_expected_measures_count_should_be(0);
+
+            When_I_create_the_measures_in_the_following_minute();
+            When_I_aggregate_the_measures_to_minute_wise();
+
+            Then_expected_measures_count_should_be(1);
         }
+
+        private void When_I_create_the_measures_in_the_following_minute()
+        {
+            Measure measureNextMinute = TestdataGenerator.GetTestMeasure(plant.PlantId, plant.InverterId);
+            measureNextMinute.DateTime = minute1.AddMinutes(1.1);
+            _measureRepository.InsertTemporary(measureNextMinute);
+        }
+
+        private void Then_expected_measures_count_should_be(int expectedMeasuresCount)
+        {
+            var actualMeasures = _measureRepository.GetMinuteWiseMeasures(plant.InverterId);
+            actualMeasures.Count().Should().Be(expectedMeasuresCount); // minute could not be complete yet
+        }
+
+        private void When_I_aggregate_the_measures_to_minute_wise()
+        {
+            _measureRepository.AggregateTemporaryToMinuteWiseMeasures(plant.InverterId);
+        }
+
+        private void Given_measures_for_five_seconds_of_a_minute(TestSolarPlant plant, DateTime minute_1)
+        {
+            var secondMeasures = Enumerable.Range(1, 5).Select(second =>
+            {
+                var measure = TestdataGenerator.GetTestMeasure(plant.PlantId, plant.InverterId);
+                measure.DateTime = minute_1.AddSeconds(second);
+                measure.OutputWattage = 1000;
+                return measure;
+            }).ToList();
+
+            secondMeasures.ForEach(measure => _measureRepository.InsertTemporary(measure));
+        }
+
+        // todo, write test case for transaction
 
         /// <summary>
         /// Tests the minute wise wattage generation 
         /// </summary>
         [Test]
-        public void GenerateMinutewiseMeasuresTest()
+        public void Given_measures_for_3_minutes_When_I_aggregate_Then_there_are_2_minute_wise_measures_created()
         {
-            var plant = DatabaseHelpers.CreatePlantWithOneInverter();
+            Given_measures_for_first_3_minutes();
 
-            var expectedMeasure = TestdataGenerator.GetTestMeasure(plant.PlantId);
+            When_I_aggregate_the_measures_to_minute_wise();
 
-            //generate measures for 5 minutes. 10 each minute.
-            var now = DateTimeUtils.GetWith0Second(DateTime.Now);
-            _measureRepository.StartTransaction();
-            for (int i = 1; i < 6; i++)
+            Then_expected_measures_count_should_be(2);
+
+            //foreach (var measure in actualMeasures)
+            //{
+            //    
+            //}
+        }
+
+        [Test]
+        public void Given_a_temporary_measure_is_aggregated_Then_the_values_should_be_consistent()
+        {
+            Given_a_completed_measure_minute_in_temporary_table();
+            When_I_aggregate_the_measures_to_minute_wise();
+            Then_the_values_should_be_equivalent();
+        }
+
+        private void Then_the_values_should_be_equivalent()
+        {
+            IEnumerable<Measure> measures = _measureRepository.GetMinuteWiseMeasures(plant.InverterId);
+            var measure = measures.First();
+                
+            measure.Value.Should().Be(1000);
+            measure.MeasureId.Should().NotBe(0);
+            measure.PlantId.Should().Be(plant.PlantId);
+            measure.PrivateInverterId.Should().Be(plant.InverterId);
+            measure.PublicInverterId.Should().NotBe(0);
+            measure.SystemStatus.Should().BeNull();
+            measure.Temperature.Should().Be(testMeasure.Temperature);
+        }
+
+        private void Given_a_completed_measure_minute_in_temporary_table()
+        {
+            testMeasure = TestdataGenerator.GetTestMeasure(minute1, 1000, plant.InverterId);
+            _measureRepository.InsertTemporary(testMeasure);
+            _measureRepository.InsertTemporary(TestdataGenerator.GetTestMeasure(minute1.AddMinutes(1.1), 1000, plant.InverterId));
+            
+        }
+
+        private void Given_measures_for_first_3_minutes()
+        {
+            Enumerable.Range(0, 3).ToList().ForEach(x =>
             {
-                for (int j = 0; j < 10; j++)
-                {
-                    expectedMeasure.DateTime = now.AddMinutes(i).AddSeconds(j);
-                    expectedMeasure.OutputWattage = 1000 + j;
-                    expectedMeasure.PrivateInverterId = plant.InverterId;
-
-                    _measureRepository.InsertTemporary(expectedMeasure);
-                }
-            }
-            _measureRepository.CommitTransaction();
-
-            //move the temporary power measures into minute_wise power table
-            _measureRepository.UpdateTemporaryToMinuteWise(plant.InverterId);
-
-            // 4 minute_wise values because the last minute may not be over yet.
-            IEnumerable<Measure> actualMeasures = _measureRepository.GetMinuteWiseMeasures(plant.InverterId);
-
-            actualMeasures.Count().Should().Be(4);
-            foreach (var measure in actualMeasures)
-            {
-                measure.Value.Should().BeInRange(1004, 1005);
-                measure.DateTime.Should().BeWithin(TimeSpan.FromMinutes(5));
-                measure.MeasureId.Should().NotBe(0);
-                measure.PlantId.Should().Be(expectedMeasure.PlantId);
-                measure.PrivateInverterId.Should().Be(expectedMeasure.PrivateInverterId);
-                measure.PublicInverterId.Should().NotBe(0);
-                measure.SystemStatus.Should().BeNull();
-                measure.Temperature.Should().Be(expectedMeasure.Temperature);
-            }
+                var measure = TestdataGenerator.GetTestMeasure(minute1.AddMinutes(x), 1000, plant.InverterId);
+                _measureRepository.InsertTemporary(measure);
+            });
         }
 
         [Test]

@@ -51,7 +51,7 @@ namespace PVLog.Controllers
 
                     foreach (var inverter in _plantRepository.GetAllInverters())
                     {
-                        _measureRepository.UpdateTemporaryToMinuteWise(inverter.InverterId);
+                        _measureRepository.AggregateTemporaryToMinuteWiseMeasures(inverter.InverterId);
 
                     }
 

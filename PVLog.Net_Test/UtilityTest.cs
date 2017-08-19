@@ -59,7 +59,7 @@ namespace solar_tests
       var actual = DateTimeUtils.UnixTimeStampToDateTime(input);
 
       //crop second and milliseconds
-      actual = DateTimeUtils.GetWith0Second(actual);
+      actual = DateTimeUtils.CropBelowSecondsInclusive(actual);
 
       Assert.AreEqual(expected, actual);
     }

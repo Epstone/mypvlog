@@ -61,7 +61,7 @@
             _maintenanceController.UpdateStatistics("1234");
 
             //verify that the minute wise calculation process is started
-            _measureRepositoryMock.Verify(x => x.UpdateTemporaryToMinuteWise(It.IsAny<int>()), Times.Once());
+            _measureRepositoryMock.Verify(x => x.AggregateTemporaryToMinuteWiseMeasures(It.IsAny<int>()), Times.Once());
         }
     }
 }

@@ -230,7 +230,7 @@ WHERE m.InverterId = @inverterId;";
         /// Takes all temporary measures for the specified inverter, cumulates them to minutewise and stores them to the measure tables
         /// </summary>
         /// <param name="inverterId">The inverter which should be used for generating minutewise data</param>
-        public void UpdateTemporaryToMinuteWise(int inverterId)
+        public void AggregateTemporaryToMinuteWiseMeasures(int inverterId)
         {
             // get latest datetime and set this as upper bound
             var endTime = this.GetLatestTemporaryMeasureDateTime(inverterId);
@@ -239,7 +239,7 @@ WHERE m.InverterId = @inverterId;";
             if (endTime != null)
             {
                 //crop second information from date time
-                endTime = DateTimeUtils.GetWith0Second(endTime.Value);
+                endTime = DateTimeUtils.CropBelowSecondsInclusive(endTime.Value);
 
                 /* get the measures minutewise cumulated */
 

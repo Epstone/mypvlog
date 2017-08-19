@@ -25,7 +25,7 @@ namespace PVLog.DataLayer
         List<FlotLineChartTable> GetInverterWiseMinuteWiseWattageChartData(int plantId, DateTime date);
         void Cleanup();
 
-        void UpdateTemporaryToMinuteWise(int inverterId);
+        void AggregateTemporaryToMinuteWiseMeasures(int inverterId);
 
         void InsertTemporary(Measure measure);
 

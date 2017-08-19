@@ -60,7 +60,7 @@ namespace PVLog.Utility
             return new DateTime(now.Year, now.Month, now.Day, now.Hour, now.Minute, 0).AddMinutes(-1);
         }
 
-        public static DateTime GetWith0Second(DateTime time)
+        public static DateTime CropBelowSecondsInclusive(DateTime time)
         {
             return new DateTime(time.Year, time.Month, time.Day, time.Hour, time.Minute, 0);
         }
@@ -77,7 +77,7 @@ namespace PVLog.Utility
         public static bool EarlierThanThisMinute(DateTime itemDateTime)
         {
             DateTime currentMinute = GetCurrentMinute();
-            DateTime measureMinute = GetWith0Second(itemDateTime);
+            DateTime measureMinute = CropBelowSecondsInclusive(itemDateTime);
 
             return measureMinute < currentMinute;
         }
