@@ -79,13 +79,13 @@ SET foreign_key_checks = 1;";
 
 
 
-        internal void TruncateMinuteWiseMeasures()
+        internal void TruncateMeasureTable()
         {
             using (var mySqlConn = new MySql.Data.MySqlClient.MySqlConnection(_connectionString))
             {
                 mySqlConn.Open();
                 var sqlCom = mySqlConn.CreateCommand();
-                sqlCom.CommandText = @"TRUNCATE TABLE minute_wise;";
+                sqlCom.CommandText = @"TRUNCATE TABLE measure;";
                 sqlCom.ExecuteNonQuery();
 
                 mySqlConn.Close();

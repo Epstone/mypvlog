@@ -91,9 +91,6 @@ namespace zPVLogIntegrationTests.ManagementTest
       Assert.AreEqual(16.0, actual.GetKwh(tomorow, publicInverterId).Value);
       Assert.AreEqual(24.0, actual.GetKwh(dayAfterTomorow, publicInverterId).Value);
 
-      //check that removing all measures does not delete the day_kwh values
-      //truncate measure table and refill with the DaT values
-      _testDb.TruncateMinuteWiseMeasures();
 
       measureDb.StartTransaction();
       measureList_dayAfterTomorow.ForEach(y=>  measureDb.InsertMeasure(y));
