@@ -7,7 +7,7 @@ using PVLog.Enums;
 
 namespace PVLog.DataLayer
 {
-    public interface I_PlantRepository
+    public interface I_PlantRepository : IDisposable
     {
         int CreatePlant(SolarPlant plant);
         IEnumerable<SolarPlant> GetAllPlants();

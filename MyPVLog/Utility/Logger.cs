@@ -44,6 +44,16 @@ namespace PVLog.Utility
         {
             telemetry.TrackTrace(msg, Microsoft.ApplicationInsights.DataContracts.SeverityLevel.Warning);
         }
+
+        public static void LogDebug(string msg)
+        {
+            telemetry.TrackTrace(msg, Microsoft.ApplicationInsights.DataContracts.SeverityLevel.Verbose);
+        }
+
+        public static void TrackMetric(string message, double value)
+        {
+            telemetry.TrackMetric(message, value);
+        }
     }
 
 }

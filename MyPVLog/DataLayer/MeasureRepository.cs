@@ -276,7 +276,7 @@ WHERE m.InverterId = @inverterId;";
                     }
                     catch (Exception ex)
                     {
-                        //Logger.Log(ex, SeverityLevel.Warning, "could not store minute-wise measure plant: " + measure.PlantId);
+                        Logger.Log(ex, SeverityLevel.Warning, "could not store minute-wise measure plant: " + measure.PlantId);
                     }
                 }
 
@@ -291,7 +291,7 @@ WHERE m.InverterId = @inverterId;";
 
             }
             else
-                Logger.LogInfo("No temporary power measures for inverter " + inverterId + " skip minutwise calculation.");
+                Logger.LogDebug("No temporary power measures for inverter " + inverterId + " skip minutwise calculation.");
         }
 
         /// <summary>

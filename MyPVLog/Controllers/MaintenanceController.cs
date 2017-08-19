@@ -1,31 +1,26 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
-using PVLog.Management;
-using PVLog.Utility;
-using PVLog.DataLayer;
-using System.Configuration;
-
-namespace PVLog.Controllers
+﻿namespace PVLog.Controllers
 {
+    using System;
+    using System.Configuration;
+    using System.Diagnostics;
+    using System.Web.Mvc;
+    using DataLayer;
+    using Management;
+    using Utility;
+
     public class MaintenanceController : MyController
     {
-        MeasureManagement _measureManagement = new MeasureManagement();
+        private readonly MeasureManagement _measureManagement = new MeasureManagement();
 
         public MaintenanceController()
         {
-
         }
 
         public MaintenanceController(I_MeasureRepository measureRepository, I_PlantRepository plantRepo)
         {
-            base._measureRepository = measureRepository;
-            base._plantRepository = plantRepo;
+            _measureRepository = measureRepository;
+            _plantRepository = plantRepo;
         }
-
-        public bool AuthorizationOverride { get; set; }
 
         //
         // GET: /Maintenance/
@@ -46,29 +41,29 @@ namespace PVLog.Controllers
                 if (IsInTimeRange(startTime, endTime))
                 {
                     //calculate the minutewise wattage measures for today
-                    var minuteWiseStopwatch = new Stopwatch();
+                    var minuteWiseStopwatch = Stopwatch.StartNew();
 
 
                     foreach (var inverter in _plantRepository.GetAllInverters())
                     {
                         _measureRepository.AggregateTemporaryToMinuteWiseMeasures(inverter.InverterId);
-
                     }
 
-                    Logger.LogInfo("Recalculate Minutewise sec: " + minuteWiseStopwatch.LifeTime.TotalSeconds);
+                    Logger.TrackMetric("Aggregate measures: minutewise", minuteWiseStopwatch.Elapsed.TotalSeconds);
 
                     //Recalculate the kwh for today
-                    var kwhStopwatch = new Stopwatch();
+                    var kwhStopwatch = Stopwatch.StartNew();
                     UpdateTodaysKwhValues();
-                    Logger.LogInfo("Update todays kwh sec: " + kwhStopwatch.LifeTime.TotalSeconds);
+
+                    Logger.TrackMetric("Aggregate measures: Todays kWh", kwhStopwatch.Elapsed.TotalSeconds);
 
                     // update plants online status
-                    var onlineStatusWatch = new Stopwatch();
+                    var onlineStatusWatch = Stopwatch.StartNew();
                     _plantRepository.UpdatePlantOnlineStatus();
-                    Logger.LogInfo("Update plant online status sec: " + onlineStatusWatch.LifeTime.TotalSeconds);
+                    Logger.TrackMetric("Update plant online status", onlineStatusWatch.Elapsed.TotalSeconds);
 
                     // log total time
-                    Logger.LogInfo("Total: " + totalStopWatch.LifeTime.TotalSeconds + " sec");
+                    Logger.TrackMetric("Total update time", totalStopWatch.Elapsed.TotalSeconds);
                 }
             }
             catch (Exception ex)
@@ -82,18 +77,6 @@ namespace PVLog.Controllers
             }
 
             return new EmptyResult();
-        }
-
-        private bool isAuthorized(string pw)
-        {
-            if (AuthorizationOverride)
-            {
-                return true;
-            }
-
-            var maintenancePassword = ConfigurationManager.AppSettings["maintenance-password"];
-
-            return !string.IsNullOrEmpty(pw) && pw.Equals(maintenancePassword);
         }
 
         [HttpGet]
@@ -110,9 +93,23 @@ namespace PVLog.Controllers
             return new EmptyResult();
         }
 
+        public bool AuthorizationOverride { get; set; }
+
+        private bool isAuthorized(string pw)
+        {
+            if (AuthorizationOverride)
+            {
+                return true;
+            }
+
+            var maintenancePassword = ConfigurationManager.AppSettings["maintenance-password"];
+
+            return !string.IsNullOrEmpty(pw) && pw.Equals(maintenancePassword);
+        }
+
         private bool IsInTimeRange(DateTime startTime, DateTime endTime)
         {
-            return (DateTimeUtils.GetGermanNow() > startTime) && (DateTimeUtils.GetGermanNow() < endTime);
+            return DateTimeUtils.GetGermanNow() > startTime && DateTimeUtils.GetGermanNow() < endTime;
         }
 
         private void UpdateTodaysKwhValues()
@@ -125,7 +122,5 @@ namespace PVLog.Controllers
                 _measureManagement.ReCalculateKwh_by_dayToDB(today, today.AddDays(1), plant.PlantId);
             }
         }
-
-
     }
 }

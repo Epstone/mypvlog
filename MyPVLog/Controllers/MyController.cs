@@ -1,15 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Web.Mvc;
-using System.Web.Security;
-using PVLog.Models;
-using PVLog.DataLayer;
-using PVLog.OutputProcessing;
-
-namespace PVLog.Controllers
+﻿namespace PVLog.Controllers
 {
+    using System.Web.Mvc;
+    using System.Web.Routing;
+    using DataLayer;
+    using Models;
+    using OutputProcessing;
+
     public class MyController : Controller
     {
         public I_MeasureRepository _measureRepository { get; set; }
@@ -18,41 +14,34 @@ namespace PVLog.Controllers
         public KwhRepository _kwhRepository { get; set; }
         public UiDataProvider _dataProvider { get; set; }
 
-        protected override void Initialize(System.Web.Routing.RequestContext requestContext)
+        public int CurrentUserId => MembershipService.CurrentUserId;
+
+        public bool IsAdmin => User.IsInRole("Admin");
+
+        protected override void Initialize(RequestContext requestContext)
         {
             base.Initialize(requestContext);
 
-            if (this.MembershipService == null) this.MembershipService = new AccountMembershipService();
-
-            if (this._measureRepository == null) _measureRepository = new MeasureRepository();
-            if (this._plantRepository == null) _plantRepository = new PlantRepository();
-            if (this._kwhRepository == null) this._kwhRepository = new KwhRepository();
-            if (this._dataProvider == null) this._dataProvider = new UiDataProvider();
-        }
-
-        protected override void OnActionExecuted(ActionExecutedContext filterContext)
-        {
-            _measureRepository.Cleanup();
-            _plantRepository.Cleanup();
-            _dataProvider.CleanUp();
-            _kwhRepository.Cleanup();
-
-            base.OnActionExecuted(filterContext);
-        }
-
-        public int CurrentUserId
-        {
-            get
+            if (MembershipService == null)
             {
-                return (int)MembershipService.CurrentUserId;
+                MembershipService = new AccountMembershipService();
             }
-        }
 
-        public bool IsAdmin
-        {
-            get
+            if (_measureRepository == null)
             {
-                return User.IsInRole("Admin");
+                _measureRepository = new MeasureRepository();
+            }
+            if (_plantRepository == null)
+            {
+                _plantRepository = new PlantRepository();
+            }
+            if (_kwhRepository == null)
+            {
+                _kwhRepository = new KwhRepository();
+            }
+            if (_dataProvider == null)
+            {
+                _dataProvider = new UiDataProvider();
             }
         }
 
@@ -60,7 +49,9 @@ namespace PVLog.Controllers
         {
             if (disposing)
             {
-                _measureRepository.Dispose();
+                _measureRepository?.Dispose();
+                _plantRepository?.Dispose();
+                _kwhRepository?.Dispose();
             }
 
             base.Dispose(disposing);
