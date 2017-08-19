@@ -192,7 +192,7 @@ SELECT * FROM plants p
 
     public IEnumerable<Inverter> GetAllInverters()
     {
-      var cmd = "SELECT * FROM Inverter";
+      var cmd = "SELECT * FROM inverter";
       return ProfiledReadConnection.Query<Inverter>( cmd );
     }
 
