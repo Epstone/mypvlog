@@ -28,6 +28,7 @@
         {
             if (!isAuthorized(pw))
             {
+                Logger.LogWarning("not allowed update statistics request.");
                 return View("NotLocal");
             }
 
@@ -35,6 +36,8 @@
             DateTime startTime = DateTimeUtils.GetTodaysDate().AddHours(4);
             DateTime endTime = DateTimeUtils.GetTodaysDate().AddHours(23);
             var totalStopWatch = new Stopwatch();
+
+            Logger.LogInfo("Received update statistics request.");
 
             try
             {
@@ -75,6 +78,8 @@
             {
                 _measureManagement.CleanUp();
             }
+
+            Logger.LogInfo("Finished update statistics request.");
 
             return new EmptyResult();
         }
