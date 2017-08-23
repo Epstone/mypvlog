@@ -120,13 +120,7 @@ var pvChart = {
     plot: {},
 
     loadWattageChart: function (serverData) {
-
-      //$("#wattage-chart").width($(".wattage-box-outer").width());
-      //            var resultWattageChart = $.plot($("#wattage-chart"),
-      //                                        [{ data: serverData.Table, label: "P = ##### W"}],
-      //                                        pvChart.options.wattageLineChartOptions
-      //                                        );
-
+      
       //server response could be either a single object or an array, put it into array if necessary
       var data = $.isArray(serverData) ? serverData : [serverData];
 
@@ -136,8 +130,6 @@ var pvChart = {
         data[i].label += " P = ######"
 
       }
-      //      if ($.isEmptyObject(data[0].data))
-      //        return;
 
       var resultWattageChart = $.plot($("#wattage-chart"), data,
                                         pvChart.options.wattageLineChartOptions
@@ -152,7 +144,6 @@ var pvChart = {
       });
 
       return resultWattageChart;
-
     },
 
     bindHoverEvent: function () {
@@ -300,20 +291,9 @@ var pvChart = {
     /* column charts options */
     options: {
       width: '100%', height: 400, chartArea: { width: '100%', left: 50, top: 20 }
-      //hAxis: { textStyle: { color: 'white'} },
-      //vAxis: { textStyle: { color: 'white'} },
-      //legend: { textStyle: { color: 'white' }, position: 'in' }
-      // backgroundColor: { fill: '#210D36' }
     },
 
-    tableOptions: { sort: 'disable'
-      //      cssClassNames:
-      //                  { headerRow: 'transparency',
-      //                    hoverTableRow: 'transparency',
-      //                    tableRow: 'no-background-color',
-      //                    tableCell: 'no-background-color'
-      //                  }
-    }
+    tableOptions: { sort: 'disable'}
   },
 
   /* Utility functions for google charts tools */
