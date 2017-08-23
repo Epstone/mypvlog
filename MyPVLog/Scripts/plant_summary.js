@@ -38,12 +38,12 @@ $(function () {
     pvChart.loadGoogleChart(["gauge"], function () {
 
         // directly draw gauges at first
-      pvChart.loadGauges();
+        pvChart.loadGauges();
 
         //Updates the live ticker on a Xsec basis
-        var refreshId = setInterval(function () {
+        setInterval(function () {
 
-                pvChart.loadGauges();
+            pvChart.loadGauges();
 
         }, 5000);
     });
