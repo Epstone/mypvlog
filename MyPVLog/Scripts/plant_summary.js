@@ -37,13 +37,18 @@ $(function () {
     //gauges
     pvChart.loadGoogleChart(["gauge"], function () {
 
+        var callbacks = function(data) {
+            dataVisualizer.showGauges(data);
+            dataVisualizer.showTitle(data);
+        };
+
         // directly draw gauges at first
-        pvChart.loadGauges();
+        pvChart.loadInverterData(callbacks);
 
         //Updates the live ticker on a Xsec basis
         setInterval(function () {
 
-            pvChart.loadGauges();
+            pvChart.loadInverterData(callbacks);
 
         }, 5000);
     });

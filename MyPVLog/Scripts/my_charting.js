@@ -3,6 +3,51 @@
 var updateLegendTimeout = null;
 var latestPosition = null;
 
+
+var dataVisualizer = {
+    showGauges: function (serverData) {
+        for (var i in serverData) {
+
+            var inverterInfo = serverData[i];
+
+            //get parent gauge container
+            var parentBox = $("#inverter-" + inverterInfo.inverterId);
+            var acWattageMax = parentBox.data("ac-wattage");
+            pvChart.options.wattageGaugeOptions.max = (acWattageMax == 0) ? 15000 : acWattageMax;
+
+            //get gauge placeholders
+            var wattageGaugeDiv = parentBox.children(".wattage");
+            var temperatureGaugeDiv = parentBox.children(".temperature");
+
+            //render and update gauges
+
+            pvChart.renderGauges(wattageGaugeDiv, "W",
+                inverterInfo.wattage,
+                pvChart.options.wattageGaugeOptions);
+
+            pvChart.renderGauges(temperatureGaugeDiv, "°C",
+                inverterInfo.temperature,
+                pvChart.options.temperatureGaugeOptions);
+
+            // update measure time
+            parentBox.find(".measure-time").text(inverterInfo.time);
+        }
+    },
+
+    showTitle: function (inverters) {
+        var totalPower = 0;
+        var totalPotentialPower = 0;
+        
+        for (var i in inverters) {
+            var inverter = inverters[i];
+            totalPower += inverter.wattage;
+            totalPotentialPower += inverter.maxWattage;
+        }
+
+        document.title = totalPower + "W / " + totalPotentialPower + "W";
+    }
+}
+
 var pvChart = {
 
     options: {
@@ -46,39 +91,8 @@ var pvChart = {
     },
 
 
-    loadGauges: function () {
-
-        $.getJSON("/WebService/GaugeData", { plantId: $("body").data("plant-id") }, function (serverData) {
-
-            // iterate through the given inverter information 
-            for (var i in serverData) {
-
-                var inverterInfo = serverData[i];
-
-                //get parent gauge container
-                var parentBox = $("#inverter-" + inverterInfo.inverterId);
-                var acWattageMax = parentBox.data("ac-wattage");
-                pvChart.options.wattageGaugeOptions.max = (acWattageMax == 0) ? 15000 : acWattageMax;
-
-                //get gauge placeholders
-                var wattageGaugeDiv = parentBox.children(".wattage");
-                var temperatureGaugeDiv = parentBox.children(".temperature");
-
-                //render and update gauges
-
-                pvChart.renderGauges(wattageGaugeDiv, "W",
-                                            inverterInfo.wattage,
-                                            pvChart.options.wattageGaugeOptions);
-
-                pvChart.renderGauges(temperatureGaugeDiv, "°C",
-                                            inverterInfo.temperature,
-                                            pvChart.options.temperatureGaugeOptions);
-
-                // update measure time
-                parentBox.find(".measure-time").text(inverterInfo.time);
-            }
-
-        });
+    loadInverterData: function (callback) {
+        $.getJSON("/WebService/GaugeData", { plantId: $("body").data("plant-id") }, callback);
     },
 
     renderGauges: function (chartDiv, label, value, options) {
