@@ -33,11 +33,25 @@
             }
 
             //only update between 4am and 23pm
+            Logger.LogInfo("Received maintenance call.");
+
+            UpdateStatistics();
+            SendNotifications();
+
+            Logger.LogInfo("Finished update statistics request.");
+            return new EmptyResult();
+        }
+
+        private void SendNotifications()
+        {
+        }
+
+        private void UpdateStatistics()
+        {
             DateTime startTime = DateTimeUtils.GetTodaysDate().AddHours(4);
             DateTime endTime = DateTimeUtils.GetTodaysDate().AddHours(23);
             var totalStopWatch = new Stopwatch();
 
-            Logger.LogInfo("Received update statistics request.");
 
             try
             {
@@ -69,10 +83,6 @@
                 Logger.LogError(ex);
                 throw;
             }
-
-            Logger.LogInfo("Finished update statistics request.");
-
-            return new EmptyResult();
         }
 
         [HttpGet]

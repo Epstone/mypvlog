@@ -184,6 +184,7 @@
     <Compile Include="DataLayer\KwhRepository.cs" />
     <Compile Include="DataLayer\MeasureRepository.cs" />
     <Compile Include="DataLayer\PlantRepository.cs" />
+    <Compile Include="DataLayer\UserNotifications.cs" />
     <Compile Include="DataLayer\UtilDatabase.cs" />
     <Compile Include="Enums\E_EurKwh.cs" />
     <Compile Include="Enums\E_InverterMode.cs" />
