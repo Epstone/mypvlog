@@ -255,7 +255,7 @@ namespace solar_tests.DatabaseTest
                     OutputWattage = 41234
                 });
             }
-            _plantRepository.UpdatePlantOnlineStatus();
+            _plantRepository.SetPlantOnline();
 
             //check on/offline state of plants
             Assert.IsTrue(_plantRepository.GetPlantById(onlinePlant.PlantId).IsOnline);
@@ -265,7 +265,7 @@ namespace solar_tests.DatabaseTest
         public void When_a_plant_has_no_logs_then_its_status_is_set_to_offline()
         {
             var offlinePlant = DatabaseHelpers.CreatePlantWithOneInverter();
-            _plantRepository.UpdatePlantOnlineStatus();
+            _plantRepository.SetPlantOnline();
             Assert.IsFalse(_plantRepository.GetPlantById(offlinePlant.PlantId).IsOnline);
         }
 
@@ -274,8 +274,14 @@ namespace solar_tests.DatabaseTest
         public void Given_a_recently_created_plant_Then_its_status_is_set_to_online()
         {
             var plantWithoutInverter = DatabaseHelpers.CreatePlantGetId();
-            _plantRepository.UpdatePlantOnlineStatus();
+            _plantRepository.SetPlantOnline();
             Assert.IsFalse(_plantRepository.GetPlantById(plantWithoutInverter).IsOnline);
+        }
+
+        [Test]
+        public void Given_a_plant_online_status_is_updated_Then_this_state_is_reflected_in_database()
+        {
+            throw new NotImplementedException();
         }
 
     }

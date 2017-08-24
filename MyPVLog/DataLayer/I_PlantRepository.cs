@@ -41,6 +41,7 @@ namespace PVLog.DataLayer
         void DeleteInverterById(int id);
         void Cleanup();
 
-        void UpdatePlantOnlineStatus();
+        void SetPlantOnline();
+        void SetPlantOnline(int plantId, DateTime lastActivityDate);
     }
 }

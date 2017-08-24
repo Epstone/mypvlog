@@ -62,7 +62,7 @@
 
                     // update plants online status
                     var onlineStatusWatch = Stopwatch.StartNew();
-                    _plantRepository.UpdatePlantOnlineStatus();
+                    _plantRepository.SetPlantOnline();
                     Logger.TrackMetric("Update plant online status", onlineStatusWatch.Elapsed.TotalSeconds);
 
                     // log total time
