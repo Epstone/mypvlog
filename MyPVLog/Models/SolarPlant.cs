@@ -35,5 +35,6 @@ namespace PVLog.Models
     public bool IsDemoPlant { get; set; }
 
     public bool IsOnline { get; set; }
+      public DateTime LastMeasureDate { get; set; }
   }
 }

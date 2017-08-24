@@ -320,7 +320,7 @@ SELECT * FROM plants p
         /// <summary>
         /// Updates the online or offline status for all plants
         /// </summary>
-        public void SetPlantOnline()
+        public void UpdatePlantOnlineStatus()
         {
             var plants = this.GetAllPlants();
 
@@ -346,10 +346,19 @@ SELECT COUNT(m.MeasureId) FROM inverter i
             }
         }
 
-        public void SetPlantOnline(int plantId, DateTime lastActivityDate)
+        public void SetPlantOnline(int plantId, DateTime lastMeasureDate)
         {
-
-            ProfiledWriteConnection.Execute("UPDATE plants SET IsOnline = @isPlantOnline WHERE plantId = @plantId", new { plantId = plantId, isPlantOnline = true });
+            string updateStatement = @"UPDATE plants 
+SET 
+IsOnline = @isPlantOnline, 
+LastMeasureDate = @lastMeasureDate
+WHERE plantId = @plantId";
+            ProfiledWriteConnection.Execute(updateStatement, new
+            {
+                plantId = plantId,
+                lastMeasureDate = lastMeasureDate,
+                isPlantOnline = true
+            });
         }
 
         /// <summary>

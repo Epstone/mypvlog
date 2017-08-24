@@ -9,6 +9,9 @@ using PVLog.Enums;
 using PVLog;
 namespace solar_tests.DatabaseTest
 {
+    using FluentAssertions;
+    using PVLog.Utility;
+
     [TestFixture]
     public class PlantRepositoryTest
     {
@@ -255,7 +258,7 @@ namespace solar_tests.DatabaseTest
                     OutputWattage = 41234
                 });
             }
-            _plantRepository.SetPlantOnline();
+            _plantRepository.UpdatePlantOnlineStatus();
 
             //check on/offline state of plants
             Assert.IsTrue(_plantRepository.GetPlantById(onlinePlant.PlantId).IsOnline);
@@ -265,7 +268,7 @@ namespace solar_tests.DatabaseTest
         public void When_a_plant_has_no_logs_then_its_status_is_set_to_offline()
         {
             var offlinePlant = DatabaseHelpers.CreatePlantWithOneInverter();
-            _plantRepository.SetPlantOnline();
+            _plantRepository.UpdatePlantOnlineStatus();
             Assert.IsFalse(_plantRepository.GetPlantById(offlinePlant.PlantId).IsOnline);
         }
 
@@ -274,15 +277,29 @@ namespace solar_tests.DatabaseTest
         public void Given_a_recently_created_plant_Then_its_status_is_set_to_online()
         {
             var plantWithoutInverter = DatabaseHelpers.CreatePlantGetId();
-            _plantRepository.SetPlantOnline();
+            _plantRepository.UpdatePlantOnlineStatus();
             Assert.IsFalse(_plantRepository.GetPlantById(plantWithoutInverter).IsOnline);
         }
 
         [Test]
         public void Given_a_plant_online_status_is_updated_Then_this_state_is_reflected_in_database()
         {
-            throw new NotImplementedException();
+            var plantId = DatabaseHelpers.CreatePlantGetId();
+            DateTime expectedDate = DateTime.UtcNow;
+            _plantRepository.SetPlantOnline(plantId, expectedDate);
+
+            SolarPlant plant = _plantRepository.GetPlantById(plantId);
+
+            plant.IsOnline.Should().BeTrue();
+            MySqlDateTimeAssertion(plant.LastMeasureDate, expectedDate);
         }
 
+        private static void MySqlDateTimeAssertion(DateTime actualDate, DateTime expectedDate)
+        {
+            actualDate.Date.Should().Be(expectedDate.Date);
+            actualDate.Hour.Should().Be(expectedDate.Hour);
+            actualDate.Minute.Should().Be(expectedDate.Minute);
+            actualDate.Second.Should().Be(expectedDate.Second);
+        }
     }
 }
