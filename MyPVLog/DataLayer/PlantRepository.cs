@@ -186,8 +186,6 @@ SELECT * FROM plants p
             return (int)inverterId;
         }
 
-
-
         public IEnumerable<Inverter> GetAllInverters()
         {
             var cmd = "SELECT * FROM inverter";
@@ -385,8 +383,6 @@ SELECT COUNT(uha.PlantId) FROM user_has_plant uha
         {
             base.Dispose();
         }
-
-
 
     }
 }
