@@ -60,11 +60,6 @@
 
                     Logger.TrackMetric("Aggregate measures: Todays kWh", kwhStopwatch.Elapsed.TotalSeconds);
 
-                    // update plants online status
-                    var onlineStatusWatch = Stopwatch.StartNew();
-                    _plantRepository.UpdatePlantOnlineStatus();
-                    Logger.TrackMetric("Update plant online status", onlineStatusWatch.Elapsed.TotalSeconds);
-
                     // log total time
                     Logger.TrackMetric("Total update time", totalStopWatch.Elapsed.TotalSeconds);
                 }
@@ -73,10 +68,6 @@
             {
                 Logger.LogError(ex);
                 throw;
-            }
-            finally
-            {
-                _measureManagement.CleanUp();
             }
 
             Logger.LogInfo("Finished update statistics request.");

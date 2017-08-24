@@ -68,7 +68,6 @@ namespace PVLog.DataLayer
 
         public void DeletePlant(int systemID)
         {
-            // Delete the system from the pv systems table
             string text = "DELETE FROM plants WHERE (PlantID = ?PlantID);";
 
 
