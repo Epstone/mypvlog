@@ -19,7 +19,8 @@
             _measureRepositoryMock = new Mock<I_MeasureRepository>();
             _plantRepositoryMock = new Mock<I_PlantRepository>();
             _userNotificationsMock = new Mock<IUserNotifications>();
-            _maintenanceController = new MaintenanceController(_measureRepositoryMock.Object, _plantRepositoryMock.Object, _userNotificationsMock.Object);
+            _emailSenderMock = new Mock<IEmailSender>();
+            _maintenanceController = new MaintenanceController(_measureRepositoryMock.Object, _plantRepositoryMock.Object, _userNotificationsMock.Object, _emailSenderMock.Object);
         }
 
 
@@ -33,6 +34,7 @@
         private Mock<I_MeasureRepository> _measureRepositoryMock;
         private Mock<I_PlantRepository> _plantRepositoryMock;
         private Mock<IUserNotifications> _userNotificationsMock;
+        private Mock<IEmailSender> _emailSenderMock;
 
         private IEnumerable<Inverter> GetDummyInverterList()
         {
