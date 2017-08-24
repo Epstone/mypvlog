@@ -121,8 +121,6 @@ SELECT * FROM plants p
 
     public SolarPlant GetPlantById(int plantId)
     {
-
-
       var result = this.GetAllPlants().Where( x => x.PlantId == plantId );
 
       if (result.Count() == 0)
@@ -338,7 +336,6 @@ SELECT COUNT(m.MeasureId) FROM inverter i
   WHERE i.plantId = @plantId
   GROUP by i.plantId;";
 
-        // get measure count for that plant. If smaller 10 plant is offline
         var result = ProfiledReadConnection.Query<long>( measureCountSql, new { plantId = plant.PlantId } );
 
         bool isPlantOnline = (result.Count() != 0 && result.First() > 4);
