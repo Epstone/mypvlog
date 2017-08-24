@@ -1,8 +1,10 @@
 ﻿namespace PVLog.Controllers
 {
     using System;
+    using System.Collections.Generic;
     using System.Configuration;
     using System.Diagnostics;
+    using System.Linq;
     using System.Web.Mvc;
     using DataLayer;
     using Management;
@@ -10,14 +12,14 @@
 
     public class MaintenanceController : MyController
     {
+        private readonly IUserNotifications userNotifications;
+        private readonly IEmailSender emailSender;
         private readonly MeasureManagement _measureManagement = new MeasureManagement();
 
-        public MaintenanceController()
+        public MaintenanceController(I_MeasureRepository measureRepository, I_PlantRepository plantRepo, IUserNotifications userNotifications, IEmailSender emailSender)
         {
-        }
-
-        public MaintenanceController(I_MeasureRepository measureRepository, I_PlantRepository plantRepo)
-        {
+            this.userNotifications = userNotifications;
+            this.emailSender = emailSender;
             _measureRepository = measureRepository;
             _plantRepository = plantRepo;
         }
@@ -44,6 +46,13 @@
 
         private void SendNotifications()
         {
+            var plantNotifications = userNotifications.GetPlantNotifications().Where(x=>!x.Done);
+
+            //foreach (var plantNotification in plantNotifications)
+            //{
+            //    plantNotification.
+            //}
+            throw new NotImplementedException();
         }
 
         private void UpdateStatistics()

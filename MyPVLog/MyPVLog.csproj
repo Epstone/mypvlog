@@ -173,12 +173,14 @@
     <Compile Include="Controllers\AdministrationController.cs" />
     <Compile Include="Controllers\ExportController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\IEmailSender.cs" />
     <Compile Include="Controllers\InverterController.cs" />
     <Compile Include="Controllers\LogController.cs" />
     <Compile Include="Controllers\MaintenanceController.cs" />
     <Compile Include="Controllers\MyController.cs" />
     <Compile Include="Controllers\PlantController.cs" />
     <Compile Include="Controllers\WebServiceController.cs" />
+    <Compile Include="DataLayer\IUserNotifications.cs" />
     <Compile Include="DataLayer\I_MeasureRepository.cs" />
     <Compile Include="DataLayer\I_PlantRepository.cs" />
     <Compile Include="DataLayer\KwhRepository.cs" />

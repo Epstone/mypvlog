@@ -18,7 +18,8 @@
         {
             _measureRepositoryMock = new Mock<I_MeasureRepository>();
             _plantRepositoryMock = new Mock<I_PlantRepository>();
-            _maintenanceController = new MaintenanceController(_measureRepositoryMock.Object, _plantRepositoryMock.Object);
+            _userNotificationsMock = new Mock<IUserNotifications>();
+            _maintenanceController = new MaintenanceController(_measureRepositoryMock.Object, _plantRepositoryMock.Object, _userNotificationsMock.Object);
         }
 
 
@@ -31,6 +32,7 @@
         private MaintenanceController _maintenanceController;
         private Mock<I_MeasureRepository> _measureRepositoryMock;
         private Mock<I_PlantRepository> _plantRepositoryMock;
+        private Mock<IUserNotifications> _userNotificationsMock;
 
         private IEnumerable<Inverter> GetDummyInverterList()
         {
@@ -62,6 +64,9 @@
 
             //verify that the minute wise calculation process is started
             _measureRepositoryMock.Verify(x => x.AggregateTemporaryToMinuteWiseMeasures(It.IsAny<int>()), Times.Once());
+
+            _userNotificationsMock.Verify(x=>x.GetPlantNotifications(),Times.Once());
+
         }
     }
 }

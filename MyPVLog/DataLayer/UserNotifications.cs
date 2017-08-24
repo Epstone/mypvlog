@@ -4,12 +4,16 @@
     using System.Collections.Concurrent;
     using System.Collections.Generic;
     using System.Linq;
-    using System.Security.Cryptography.X509Certificates;
     using Models;
 
-    public class UserNotifications : IDisposable
+    public class UserNotifications : IUserNotifications
     {
         private readonly I_PlantRepository plantRepository;
+
+        public UserNotifications()
+        {
+            
+        }
 
         public UserNotifications(I_PlantRepository plantRepository)
         {
