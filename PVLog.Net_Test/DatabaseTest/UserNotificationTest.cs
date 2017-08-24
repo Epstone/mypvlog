@@ -61,6 +61,18 @@
             plantNotifications.First().Done.Should().BeTrue();
         }
 
+        [Test]
+        public void Given_a_plant_which_is_first_3_days_off_And_then_11_days_off_The_correct_notificationJobsAreCreated()
+        {
+            Given_a_plant_which_is_inactive_for_4_days();
+            var plantNotification = userNotifications.GetPlantNotifications().First();
+            plantNotification.NotificationType.Should().Be(NotificationType.Inactivity3Days);
+            solarPlantInactive4Days.LastMeasureDate = DateTime.UtcNow.Date.Subtract(TimeSpan.FromDays(11));
+            plantNotification = userNotifications.GetPlantNotifications().First();
+            plantNotification.NotificationType.Should().Be(NotificationType.Inactivity10days);
+            plantNotification.Done.Should().BeFalse();
+        }
+
         private void Given_a_plant_which_is_inactive_for_11_days()
         {
             this.plantRepositoryMock.Setup(x => x.GetAllPlants()).Returns(() =>
@@ -81,17 +93,15 @@
 
         private void Given_a_plant_which_is_inactive_for_4_days()
         {
-            this.plantRepositoryMock.Setup(x => x.GetAllPlants()).Returns(() =>
+            solarPlantInactive4Days = new SolarPlant()
             {
-                solarPlantInactive4Days = new SolarPlant()
-                {
-                    PlantId = inactivePlantId4Days,
-                    LastMeasureDate = DateTime.UtcNow.Subtract(TimeSpan.FromDays(4)),
-                };
-                return new List<SolarPlant>()
-                {
-                    solarPlantInactive4Days,
-                };
+                PlantId = inactivePlantId4Days,
+                LastMeasureDate = DateTime.UtcNow.Subtract(TimeSpan.FromDays(4)),
+            };
+
+            this.plantRepositoryMock.Setup(x => x.GetAllPlants()).Returns(() => new List<SolarPlant>()
+            {
+                solarPlantInactive4Days,
             });
             this.userNotifications = new UserNotifications(plantRepositoryMock.Object);
         }
