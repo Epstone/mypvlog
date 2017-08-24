@@ -37,16 +37,21 @@
 		<div class="editor-label">
 			<%: Html.LabelFor(model => model.PostalCode) %>
 		</div>
-		<div class="editor-field">
+	    <div class="editor-field">
 			<%: Html.TextBoxFor(model => model.PostalCode)%>
 			<%: Html.ValidationMessageFor(model => model.PostalCode)%>
 		</div>
-		<div class="editor-field">
+	    <div class="editor-field checkbox">
+	        <%: Html.CheckBoxFor(model => model.EmailNotificationsEnabled)%>	        
+	        <%: Html.LabelFor(model => model.EmailNotificationsEnabled) %>
+	        <%: Html.ValidationMessageFor(model => model.EmailNotificationsEnabled)%>
+	    </div>
+	    <div class="editor-field checkbox">
+	        <%: Html.CheckBoxFor(model => model.AutoCreateInverter)%>
 			<%: Html.LabelFor(model => model.AutoCreateInverter) %>
-			<%: Html.CheckBoxFor(model => model.AutoCreateInverter)%>
 			<%: Html.ValidationMessageFor(model => model.AutoCreateInverter)%>
 		</div>
-		<p>
+	    <p>
 			<input type="submit" value="Übernehmen" /></p>
 		<% } %>
 	</fieldset>

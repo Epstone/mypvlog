@@ -137,7 +137,8 @@ SELECT * FROM plants p
                                           SET Name = @name,
                                               AutoCreateInverter = @autoCreateInverter,
                                               PeakWattage = @peakWattage,
-                                              PostalCode = @postalCode
+                                              PostalCode = @postalCode,
+                                              EmailNotificationsEnabled = @emailNotificationsEnabled
                                         WHERE PlantId = @plantId", plantToUpdate);
         }
 

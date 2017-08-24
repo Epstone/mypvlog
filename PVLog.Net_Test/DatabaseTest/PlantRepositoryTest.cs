@@ -87,7 +87,8 @@ namespace solar_tests.DatabaseTest
                 PlantId = plant.PlantId,
                 AutoCreateInverter = false,
                 PeakWattage = 1843,
-                PostalCode = "1543"
+                PostalCode = "1543",
+                EmailNotificationsEnabled = true
             };
 
             //verify old plant first
@@ -102,6 +103,7 @@ namespace solar_tests.DatabaseTest
             Assert.IsFalse(actual.AutoCreateInverter);
             Assert.AreEqual("1543", actual.PostalCode);
             Assert.AreEqual(1843, actual.PeakWattage);
+            Assert.IsTrue(actual.EmailNotificationsEnabled);
         }
 
         [Test]
