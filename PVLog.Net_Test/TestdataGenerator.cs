@@ -161,7 +161,7 @@ namespace solar_tests
             return measure;
         }
 
-        internal static SolarPlant GetPlant()
+        public static SolarPlant GetPlant()
         {
             return new SolarPlant()
             {
@@ -169,7 +169,8 @@ namespace solar_tests
                 Name = "Test Anlage",
                 Password = "123456",
                 PeakWattage = 8000,
-                PostalCode = "12345"
+                PostalCode = "12345",
+                LastMeasureDate = DateTime.UtcNow
             };
         }
     }

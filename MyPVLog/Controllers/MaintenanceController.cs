@@ -46,13 +46,30 @@
 
         private void SendNotifications()
         {
-            var plantNotifications = userNotifications.GetPlantNotifications().Where(x=>!x.Done);
+            var plantNotifications = userNotifications.GetPlantNotifications().Where(x => !x.Done);
+            foreach (var plantNotification in plantNotifications.Where(x => !x.Done))
+            {
+                string body = $"Ihre PV Anlage hat zuletzt am {plantNotification.plant.LastMeasureDate.ToLocalTime()} Daten gesendet";
+                string subject = GetSubject(plantNotification);
 
-            //foreach (var plantNotification in plantNotifications)
-            //{
-            //    plantNotification.
-            //}
-            throw new NotImplementedException();
+
+                emailSender.Send(body, subject, "");
+            }
+        }
+
+        private string GetSubject(PlantNotification plantNotification)
+        {
+            switch (plantNotification.NotificationType)
+            {
+                case NotificationType.Inactivity3Days:
+                    return $"PV-Anlage '{plantNotification.plant.Name}' seit 3 Tagen inaktiv";
+                case NotificationType.Inactivity10days:
+                    return $"PV-Anlage '{plantNotification.plant.Name}' seit 10 Tagen inaktiv";
+                case NotificationType.PlantOnlineAgain:
+                    return $"PV-Anlage '{plantNotification.plant.Name}' wieder online";
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
         }
 
         private void UpdateStatistics()
