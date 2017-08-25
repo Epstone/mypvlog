@@ -228,6 +228,7 @@
     <Compile Include="Models\PlantView\PlantSummaryTableModel.cs" />
     <Compile Include="Models\SolarPlant.cs" />
     <Compile Include="Models\SortedKwhTable.cs" />
+    <Compile Include="Models\UserWrapper.cs" />
     <Compile Include="Models\WattageMeasure.cs" />
     <Compile Include="MySettings.cs" />
     <Compile Include="OutputProcessing\DatatableConverter.cs" />

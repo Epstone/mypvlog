@@ -6,7 +6,9 @@
     using System.Diagnostics;
     using System.Linq;
     using System.Web.Mvc;
+    using System.Web.Security;
     using DataLayer;
+    using Enums;
     using Management;
     using Utility;
 
@@ -46,14 +48,16 @@
 
         private void SendNotifications()
         {
+
             var plantNotifications = userNotifications.GetPlantNotifications().Where(x => !x.Done);
             foreach (var plantNotification in plantNotifications.Where(x => !x.Done))
             {
+                var recipientUserId = _plantRepository.GetUsersOfSolarPlant(plantNotification.plant.PlantId, E_PlantRole.Owner).First();
                 string body = $"Ihre PV Anlage hat zuletzt am {plantNotification.plant.LastMeasureDate.ToLocalTime()} Daten gesendet";
                 string subject = GetSubject(plantNotification);
+                var user = MembershipService.GetUser(recipientUserId);
 
-
-                emailSender.Send(body, subject, "");
+                emailSender.Send(body, subject, user.Email);
             }
         }
 

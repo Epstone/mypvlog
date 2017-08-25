@@ -15,6 +15,8 @@ namespace PVLog.DataLayer
 
         bool IsValidPlant(int plant, string pw);
 
+        List<int> GetUsersOfSolarPlant(int plantId, E_PlantRole role);
+
         int GetPrivateInverterId(int plant, int inverter);
         Inverter GetInverter(int privateInverterId);
 

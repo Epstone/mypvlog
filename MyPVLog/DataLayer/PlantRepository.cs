@@ -286,7 +286,7 @@ SELECT * FROM plants p
             return (Convert.ToInt32(sqlCom.ExecuteScalar()) >= 1);
         }
 
-        public List<int> GetUsersOfSolarPlant(int systemID, E_PlantRole role)
+        public List<int> GetUsersOfSolarPlant(int plantId, E_PlantRole role)
         {
             string text = @"SELECT UserID, PlantID FROM user_has_plant
                             WHERE (PlantID =?PlantID)
@@ -294,7 +294,7 @@ SELECT * FROM plants p
 
             var sql = base.GetReadCommand(text);
 
-            sql.Parameters.AddWithValue("?PlantID", systemID);
+            sql.Parameters.AddWithValue("?PlantID", plantId);
             sql.Parameters.AddWithValue("?PlantRole", role);
 
             List<int> result = new List<int>();
