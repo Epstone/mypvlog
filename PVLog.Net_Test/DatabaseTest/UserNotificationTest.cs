@@ -33,7 +33,8 @@
                 solarPlantInactive11Days = new SolarPlant
                 {
                     PlantId = 1234,
-                    LastMeasureDate = DateTime.UtcNow.Subtract(TimeSpan.FromDays(11))
+                    LastMeasureDate = DateTime.UtcNow.Subtract(TimeSpan.FromDays(11)),
+                    EmailNotificationsEnabled = true
                 };
                 return new List<SolarPlant>
                 {
@@ -48,7 +49,8 @@
             solarPlantInactive4Days = new SolarPlant
             {
                 PlantId = inactivePlantId4Days,
-                LastMeasureDate = DateTime.UtcNow.Subtract(TimeSpan.FromDays(4))
+                LastMeasureDate = DateTime.UtcNow.Subtract(TimeSpan.FromDays(4)),
+                EmailNotificationsEnabled = true
             };
 
             plantRepositoryMock.Setup(x => x.GetAllPlants()).Returns(() => new List<SolarPlant>
@@ -103,6 +105,40 @@
             plantNotifications.First().Done.Should().BeFalse();
             plantNotifications = userNotifications.GetPlantNotifications();
             plantNotifications.First().Done.Should().BeTrue();
+        }
+
+        [Test]
+        public void Given_different_plants_When_there_are_notifications_they_should_only_be_sent_for_plants_where_notifications_are_enabled()
+        {
+            Given_two_plants_one_with_activated_and_one_with_deactivaed_notifications();
+            var plantNotifications = userNotifications.GetPlantNotifications();
+            plantNotifications.Count().Should().Be(1);
+            plantNotifications.First().plant.EmailNotificationsEnabled.Should().BeTrue();
+        }
+
+        private void Given_two_plants_one_with_activated_and_one_with_deactivaed_notifications()
+        {
+            plantRepositoryMock.Setup(x => x.GetAllPlants()).Returns(() =>
+            {
+                var solarPlantInactive11DaysDisabled = new SolarPlant
+                {
+                    EmailNotificationsEnabled = true,
+                    PlantId = 1234,
+                    LastMeasureDate = DateTime.UtcNow.Subtract(TimeSpan.FromDays(11))
+                };
+                var solarPlantInactive11DaysEnabledNotifications = new SolarPlant
+                {
+                    EmailNotificationsEnabled = false,
+                    PlantId = 1234,
+                    LastMeasureDate = DateTime.UtcNow.Subtract(TimeSpan.FromDays(11))
+                };
+                return new List<SolarPlant>
+                {
+                    solarPlantInactive11DaysDisabled, solarPlantInactive11DaysEnabledNotifications
+                };
+            });
+            userNotifications = new UserNotifications(plantRepositoryMock.Object);
+
         }
     }
 }

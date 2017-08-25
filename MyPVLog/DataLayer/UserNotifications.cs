@@ -23,7 +23,7 @@
         static ConcurrentDictionary<int, PlantNotification> recentNotifications = new ConcurrentDictionary<int, PlantNotification>();
         public IEnumerable<PlantNotification> GetPlantNotifications()
         {
-            var plants = plantRepository.GetAllPlants().ToList();
+            var plants = plantRepository.GetAllPlants().Where(x=>x.EmailNotificationsEnabled).ToList();
             var result = plants.Where(PlantWithActivityBetween3And10Days)
                 .Select(plant => CreatePlantNotification(plant, NotificationType.Inactivity3Days)).ToList();
 
