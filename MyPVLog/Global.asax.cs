@@ -10,24 +10,26 @@ using SimpleMvcUserManagement;
 
 namespace MyPVLog
 {
-  // Hinweis: Anweisungen zum Aktivieren des klassischen Modus von IIS6 oder IIS7 
-  // finden Sie unter "http://go.microsoft.com/?LinkId=9394801".
-  public class MvcApplication : System.Web.HttpApplication
-  {
-    protected void Application_Start()
+    // Hinweis: Anweisungen zum Aktivieren des klassischen Modus von IIS6 oder IIS7 
+    // finden Sie unter "http://go.microsoft.com/?LinkId=9394801".
+    public class MvcApplication : System.Web.HttpApplication
     {
-      AreaRegistration.RegisterAllAreas();
+        protected void Application_Start()
+        {
+            AreaRegistration.RegisterAllAreas();
 
-      WebApiConfig.Register(GlobalConfiguration.Configuration);
-      FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
-      RouteConfig.RegisterRoutes(RouteTable.Routes);
+            WebApiConfig.Register(GlobalConfiguration.Configuration);
+            FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
+            RouteConfig.RegisterRoutes(RouteTable.Routes);
+
+
+        }
+
+
+
+        protected void Application_AuthenticateRequest()
+        {
+            UserManagementController.IsRequestAuthorized = Roles.IsUserInRole("Admin");
+        }
     }
-
-   
-
-    protected void Application_AuthenticateRequest()
-    {
-      UserManagementController.IsRequestAuthorized = Roles.IsUserInRole("Admin");
-    }
-  }
 }

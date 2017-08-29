@@ -43,6 +43,7 @@
             {
                 _dataProvider = new UiDataProvider();
             }
+
         }
 
         protected override void Dispose(bool disposing)
