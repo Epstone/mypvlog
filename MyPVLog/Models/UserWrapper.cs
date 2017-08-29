@@ -47,52 +47,79 @@
             return user.UnlockUser();
         }
 
-        public string UserName => user.UserName;
+        public string UserName
+        {
+            get { return user.UserName; }
+        }
 
-        public object ProviderUserKey => user.ProviderUserKey;
+        public object ProviderUserKey
+        {
+            get { return user.ProviderUserKey; }
+        }
 
         public string Email
         {
-            get => user.Email;
-            set => user.Email = value;
+            get { return user.Email; }
+            set { user.Email = value; }
         }
 
-        public string PasswordQuestion => user.PasswordQuestion;
+        public string PasswordQuestion
+        {
+            get { return user.PasswordQuestion; }
+        }
 
         public string Comment
         {
-            get => user.Comment;
-            set => user.Comment = value;
+            get { return user.Comment; }
+            set { user.Comment = value; }
         }
 
         public bool IsApproved
         {
-            get => user.IsApproved;
-            set => user.IsApproved = value;
+            get { return user.IsApproved; }
+            set { user.IsApproved = value; }
         }
 
-        public bool IsLockedOut => user.IsLockedOut;
+        public bool IsLockedOut
+        {
+            get { return user.IsLockedOut; }
+        }
 
-        public DateTime LastLockoutDate => user.LastLockoutDate;
+        public DateTime LastLockoutDate
+        {
+            get { return user.LastLockoutDate; }
+        }
 
-        public DateTime CreationDate => user.CreationDate;
+        public DateTime CreationDate
+        {
+            get { return user.CreationDate; }
+        }
 
         public DateTime LastLoginDate
         {
-            get => user.LastLoginDate;
-            set => user.LastLoginDate = value;
+            get { return user.LastLoginDate; }
+            set { user.LastLoginDate = value; }
         }
 
         public DateTime LastActivityDate
         {
-            get => user.LastActivityDate;
-            set => user.LastActivityDate = value;
+            get { return user.LastActivityDate; }
+            set { user.LastActivityDate = value; }
         }
 
-        public DateTime LastPasswordChangedDate => user.LastPasswordChangedDate;
+        public DateTime LastPasswordChangedDate
+        {
+            get { return user.LastPasswordChangedDate; }
+        }
 
-        public bool IsOnline => user.IsOnline;
+        public bool IsOnline
+        {
+            get { return user.IsOnline; }
+        }
 
-        public string ProviderName => user.ProviderName;
+        public string ProviderName
+        {
+            get { return user.ProviderName; }
+        }
     }
 }
