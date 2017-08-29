@@ -25,7 +25,6 @@
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="JSPlaceHolder" runat="server">
 	<%=Html.JavascriptImport("/Scripts/my_charting.js")%>
-	<script type="text/javascript" src="/Scripts/plant_month.js"></script>
 	<%=Html.JavascriptImport("/Scripts/jquery.monthpicker.min.js")%>
 	<% Html.RenderPartial("PlantJsInitialization", Model.Plant.PlantId); %>
 
