@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
-
-namespace PVLog.Controllers
+﻿namespace PVLog.Controllers
 {
+    using System.Web.Mvc;
+
     [HandleError]
     public class HomeController : Controller
     {
@@ -21,12 +17,12 @@ namespace PVLog.Controllers
 
         public ActionResult API()
         {
-          return View();
+            return View();
         }
 
         public ActionResult Impressum()
         {
-          return View();
+            return View();
         }
     }
 }

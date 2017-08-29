@@ -21,7 +21,6 @@ namespace PVLog.Controllers
 
     public ExportController(I_MeasureRepository i_MeasureRepository, I_PlantRepository i_PlantRepository)
     {
-      // TODO: Complete member initialization
       base._measureRepository = i_MeasureRepository;
       base._plantRepository = i_PlantRepository;
     }

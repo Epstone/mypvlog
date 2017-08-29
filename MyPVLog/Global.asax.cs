@@ -10,6 +10,11 @@ using SimpleMvcUserManagement;
 
 namespace MyPVLog
 {
+    using Autofac;
+    using Autofac.Integration.Mvc;
+    using PVLog.Controllers;
+    using PVLog.DataLayer;
+
     // Hinweis: Anweisungen zum Aktivieren des klassischen Modus von IIS6 oder IIS7 
     // finden Sie unter "http://go.microsoft.com/?LinkId=9394801".
     public class MvcApplication : System.Web.HttpApplication
@@ -22,7 +27,18 @@ namespace MyPVLog
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
 
+            var builder = new ContainerBuilder();
 
+            // Register your MVC controllers. (MvcApplication is the name of
+            // the class in Global.asax.)
+            builder.RegisterControllers(typeof(MvcApplication).Assembly);
+            builder.RegisterType<UserNotifications>().As<IUserNotifications>();
+            builder.RegisterType<EmailSender>().As<IEmailSender>();
+            builder.RegisterType<MeasureRepository>().As<I_MeasureRepository>();
+            builder.RegisterType<PlantRepository>().As<I_PlantRepository>();
+
+            var container = builder.Build();
+            DependencyResolver.SetResolver(new AutofacDependencyResolver(container));
         }
 
 
