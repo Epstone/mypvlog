@@ -9,7 +9,8 @@ namespace PVLog.Utility
         Error = 2,
         Warning = 1,
         Info = 0,
-        Startup = 3
+        Startup = 3,
+        Verbose = 4 
     }
 
 

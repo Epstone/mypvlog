@@ -11,6 +11,8 @@ using PVLog.Utility;
 
 namespace PVLog.Controllers
 {
+    using System.Net;
+
     public class LogController : MyController
     {
         public LogController()
@@ -43,17 +45,32 @@ namespace PVLog.Controllers
                     //store measure in repository and return the success view
                     LogPlantAcitivity(measure);
 
-                    return View("MeasureSuccess");
+                    return new HttpStatusCodeResult(HttpStatusCode.OK);
 
                 }
                 catch (ArgumentException ex)
                 {
-                    Logger.LogError(ex);
+                    LogMeasurementError(plant, ex, nameof(Kaco1));
+                    return LogFailResult();
                 }
             }
 
+            return InvalidPlantResult();
+        }
 
-            return View("MeasureFailed");
+        private static HttpStatusCodeResult LogFailResult()
+        {
+            return new HttpStatusCodeResult(HttpStatusCode.InternalServerError, "Log Error - please contact me at Patrickeps@gmx.de");
+        }
+
+        private static HttpStatusCodeResult InvalidPlantResult()
+        {
+            return new HttpStatusCodeResult(HttpStatusCode.InternalServerError, "invalid plant");
+        }
+
+        private static void LogMeasurementError(int plant, ArgumentException ex, string endpoint)
+        {
+            Logger.Log(ex, SeverityLevel.Verbose, $"Error saving {endpoint} measure for plantId:{plant}");
         }
 
         public ActionResult Kaco2(string data, int plant, string pw)
@@ -69,17 +86,16 @@ namespace PVLog.Controllers
                     measure.PrivateInverterId = ValidateGetPrivateInverterId(plant, measure.PublicInverterId);
 
                     LogPlantAcitivity(measure);
-                    return View("MeasureSuccess");
-
+                    return new HttpStatusCodeResult(HttpStatusCode.OK);
                 }
                 catch (ArgumentException ex)
                 {
-                    Logger.LogError(ex);
+                    LogMeasurementError(plant, ex, nameof(Kaco2));
+                    return LogFailResult();
                 }
 
             }
-
-            return View("MeasureFailed");
+            return InvalidPlantResult();
         }
 
         private bool IsValidPlant(int plant, string pw)
@@ -94,9 +110,6 @@ namespace PVLog.Controllers
             {
                 Logger.LogError(ex);
             }
-
-            if (!isValid)
-                ViewData["ErrorMessage"] = @"Sorry, the combination of your plant ID and password is not valid. Please recheck them or generate a new password on the website.";
 
             return isValid;
 
@@ -137,18 +150,17 @@ namespace PVLog.Controllers
 
                     //store measure in repository and return the success view
                     LogPlantAcitivity(measure);
-
-                    return View("MeasureSuccess");
-
+                    return new HttpStatusCodeResult(HttpStatusCode.OK);
                 }
                 catch (ArgumentException ex)
                 {
-                    Logger.LogError(ex);
+                    LogMeasurementError(plant, ex, nameof(Generic));
+                    return LogFailResult();
                 }
 
             }
 
-            return View("MeasureFailed");
+            return InvalidPlantResult();
         }
 
         private void LogPlantAcitivity(Measure measure)

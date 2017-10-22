@@ -25,6 +25,8 @@ namespace PVLog.Utility
                     return Microsoft.ApplicationInsights.DataContracts.SeverityLevel.Information;
                 case SeverityLevel.Warning:
                     return Microsoft.ApplicationInsights.DataContracts.SeverityLevel.Warning;
+                case SeverityLevel.Verbose:
+                    return Microsoft.ApplicationInsights.DataContracts.SeverityLevel.Verbose;
             }
 
             return Microsoft.ApplicationInsights.DataContracts.SeverityLevel.Error;
