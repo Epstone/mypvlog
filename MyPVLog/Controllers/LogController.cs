@@ -79,6 +79,8 @@ namespace PVLog.Controllers
             {
                 try
                 {
+                    Logger.LogDebug($"plant: {plant}, data: {data}");
+
                     //parse the measure
                     var measure = MeasureReader.ReadKaco2Data(data, plant);
 
