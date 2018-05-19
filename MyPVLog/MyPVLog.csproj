@@ -422,7 +422,6 @@
     <Content Include="Views\Shared\MeasureList.ascx" />
     <Content Include="Views\Shared\Message.ascx" />
     <Content Include="Views\Shared\NotLocal.aspx" />
-    <Content Include="Views\Shared\Piwik.ascx" />
     <Content Include="Views\Shared\PlantInfoTable.ascx" />
     <Content Include="Views\Shared\TopBanner.ascx" />
     <Content Include="Web.config">

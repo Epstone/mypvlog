@@ -42,8 +42,6 @@
 			</ul>
 		</div>
 	</div>
-	<%if (!Request.IsLocal)
-		 Html.RenderPartial("Piwik"); %>
 	<%=Html.JavascriptImport("/Scripts/jquery.ui.datepicker-de.js")%>
 	<asp:ContentPlaceHolder ID="JSPlaceHolder" runat="server" />
 	<%--<%Html.RenderPartial("FeedbackButton"); %>--%>
