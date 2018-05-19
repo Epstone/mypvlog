@@ -3,8 +3,9 @@
 <%if (!Request.IsLocal)
 	 {%>
 	<div id="disqus_thread">
+	Disqus wegen unfassbar überbürokratischer DSGVO abgeschaltet. Bitte Github siehe unten für die Kontaktaufnahme verwenden. 
 	</div>
-	<script type="text/javascript">
+	<!-- <script type="text/javascript">
 		var disqus_shortname = 'mypvlog'; // required: replace example with your forum shortname
 
 		/* * * DON'T EDIT BELOW THIS LINE * * */
@@ -17,4 +18,4 @@
 	<noscript>
 		Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
 	<a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
-	<%}  %>
+	<%} -->  %>
