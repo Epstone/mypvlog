@@ -294,7 +294,6 @@
 		
 	</dl>
 	<br class="clear" />
-	<%Html.RenderPartial("Disqus"); %>
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="HeadContent" runat="server">
 </asp:Content>

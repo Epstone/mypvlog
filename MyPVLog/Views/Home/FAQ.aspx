@@ -44,6 +44,4 @@
 	<p>
 	Der Dienst kann bis zu einer Anlagenröße von 20kwp kostenfrei genutzt werden. Möchten Sie eine größere Anlage anbinden, senden Sie bitte ein E-Mail an: Patrickeps[at]gmx.de
 	</p>
-	
-	<%Html.RenderPartial("Disqus"); %>
 </asp:Content>
