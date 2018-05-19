@@ -134,7 +134,7 @@ page width. Or, you can specify an exact pixel width. */
   font-size: .9em !important;
   margin-left: auto;
   margin-right: auto;
-  width: 50%;
+  width: 80%;
   position: relative;
 }
 .footer-content li {
