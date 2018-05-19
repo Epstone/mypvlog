@@ -37,6 +37,9 @@
 					<%=Html.ActionLink("Impressum","Impressum","Home") %>
 				</li>
 				<li>
+					<%=Html.ActionLink("Datenschutz","Datenschutz","Home") %>
+				</li>
+				<li>
 				<a href="http://www.pv-log.com">PV-Log.com</a></li><li><a href="http://www.sonnenertrag.eu/">Sonnenertrag.eu</a></li>
 				<li><a href="http://www.photovoltaikforum.com/">Photovoltaikforum</a></li>
 			</ul>

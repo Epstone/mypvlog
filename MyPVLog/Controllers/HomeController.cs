@@ -24,5 +24,10 @@
         {
             return View();
         }
+
+        public ActionResult Datenschutz()
+        {
+            return View();
+        }
     }
 }
