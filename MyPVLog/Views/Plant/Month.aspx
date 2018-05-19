@@ -22,7 +22,7 @@
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="JSPlaceHolder" runat="server">
 	<%=Html.JavascriptImport("/Scripts/my_charting.js")%>
-	<script type="text/javascript" src="http://www.google.com/jsapi"></script>
+	<script type="text/javascript" src="https://www.google.com/jsapi"></script>
 	<%=Html.JavascriptImport("/Scripts/jquery.monthpicker.min.js")%>
 	<% Html.RenderPartial("PlantJsInitialization", Model.Plant.PlantId); %>
 	<script type="text/javascript">
