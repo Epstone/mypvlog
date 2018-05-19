@@ -32,7 +32,7 @@
 	<div id="footer">
 		<div class="footer-outer left-right-shadow">
 			<ul class="footer-content horizontal-menu">
-				<li><a href="http://techcrawler.riedme.de/2012/02/25/mypvlog-ist-online/">About</a> </li>
+				<li><a href="https://github.com/Epstone/mypvlog">Github Project</a> </li>
 				<li>
 					<%=Html.ActionLink("Impressum","Impressum","Home") %>
 				</li>
