@@ -110,7 +110,7 @@
         {
             DateTime startTime = DateTimeUtils.GetTodaysDate().AddHours(4);
             DateTime endTime = DateTimeUtils.GetTodaysDate().AddHours(23);
-            var totalStopWatch = new Stopwatch();
+            var totalStopWatch = Stopwatch.StartNew();
 
 
             try
