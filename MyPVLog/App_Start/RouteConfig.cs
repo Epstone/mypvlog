@@ -16,6 +16,10 @@ namespace MyPVLog
 
       UserManagementController.RegisterMe();
 
+        routes.MapRoute("Robots.txt",
+            "robots.txt",
+            new { controller = "Home", action = "Robots" });
+
       // min_day.js
       routes.MapRoute(
           "minDayRoute", // Route name
