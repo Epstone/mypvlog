@@ -290,8 +290,6 @@ WHERE m.InverterId = @inverterId;";
                 ProfiledWriteConnection.Execute(deleteSql, new { inverterId, endDate = endTime.Value });
 
             }
-            else
-                Logger.LogDebug("No temporary power measures for inverter " + inverterId + " skip minutwise calculation.");
         }
 
         /// <summary>

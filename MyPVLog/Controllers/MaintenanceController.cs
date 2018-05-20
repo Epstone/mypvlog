@@ -46,19 +46,34 @@
             return new EmptyResult();
         }
 
-        private void SendNotifications()
+        public ActionResult UpdatePlantOnlineStatus(string pw)
         {
-
-            var plantNotifications = userNotifications.GetPlantNotifications().Where(x => !x.Done);
-            foreach (var plantNotification in plantNotifications.Where(x => !x.Done))
+            if (!isAuthorized(pw))
             {
-                var recipientUserId = _plantRepository.GetUsersOfSolarPlant(plantNotification.plant.PlantId, E_PlantRole.Owner).First();
-                string body = $"Ihre PV Anlage hat zuletzt am {plantNotification.plant.LastMeasureDate.ToLocalTime()} Daten gesendet";
-                string subject = GetSubject(plantNotification);
-                var user = MembershipService.GetUser(recipientUserId);
-
-                emailSender.Send(body, subject, user.Email);
+                Logger.LogWarning("not allowed update plant online status request.");
+                return View("NotLocal");
             }
+
+            Stopwatch watch = Stopwatch.StartNew();
+
+            _plantRepository.UpdatePlantOnlineStatus();
+            Logger.TrackMetric("Plant online status update", watch.Elapsed.TotalSeconds);
+
+            return new EmptyResult();
+        }
+
+        [HttpGet]
+        public ActionResult RemoveOldMeasures(string pw)
+        {
+            if (!isAuthorized(pw))
+            {
+                return View("NotLocal");
+            }
+
+            var dayCount = MySettings.KeepMeasureDayCount;
+            _measureRepository.RemoveMeasuresOlderThan(dayCount);
+
+            return new EmptyResult();
         }
 
         private string GetSubject(PlantNotification plantNotification)
@@ -73,6 +88,21 @@
                     return $"PV-Anlage '{plantNotification.plant.Name}' wieder online";
                 default:
                     throw new ArgumentOutOfRangeException();
+            }
+        }
+
+        private void SendNotifications()
+        {
+
+            var plantNotifications = userNotifications.GetPlantNotifications().Where(x => !x.Done);
+            foreach (var plantNotification in plantNotifications.Where(x => !x.Done))
+            {
+                var recipientUserId = _plantRepository.GetUsersOfSolarPlant(plantNotification.plant.PlantId, E_PlantRole.Owner).First();
+                string body = $"Ihre PV Anlage hat zuletzt am {plantNotification.plant.LastMeasureDate.ToLocalTime()} Daten gesendet";
+                string subject = GetSubject(plantNotification);
+                var user = MembershipService.GetUser(recipientUserId);
+
+                emailSender.Send(body, subject, user.Email);
             }
         }
 
@@ -113,20 +143,6 @@
                 Logger.LogError(ex);
                 throw;
             }
-        }
-
-        [HttpGet]
-        public ActionResult RemoveOldMeasures(string pw)
-        {
-            if (!isAuthorized(pw))
-            {
-                return View("NotLocal");
-            }
-
-            var dayCount = MySettings.KeepMeasureDayCount;
-            _measureRepository.RemoveMeasuresOlderThan(dayCount);
-
-            return new EmptyResult();
         }
 
         public bool AuthorizationOverride { get; set; }
