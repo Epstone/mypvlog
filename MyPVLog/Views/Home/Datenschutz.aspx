@@ -4,7 +4,7 @@
         <%=Html.Title("Datenschutz")%>
     </asp:Content>
     <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
-        <h1>Erfassung Daten und Informationen des Nutzers</h1>
+        <h1>Informationen zur Erfassung von Daten des Nutzers</h1>
         <p>
             Diese Internetseite erfasst mit jedem Aufruf allgemeine Daten und Informationen. Diese werden in Logfiles des Servers gespeichert.
             Erfasst werden

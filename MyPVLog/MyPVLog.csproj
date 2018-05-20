@@ -394,6 +394,7 @@
     <Content Include="Views\Home\FAQ.aspx" />
     <Content Include="Views\Home\Impressum.aspx" />
     <Content Include="Views\Home\Datenschutz.aspx" />
+    <Content Include="Views\Home\Robots.cshtml" />
     <Content Include="Views\Home\Index.aspx" />
     <Content Include="Views\Inverter\ConfirmInverterDeletion.aspx" />
     <Content Include="Views\Inverter\EditInverter.aspx" />
