@@ -43,7 +43,7 @@ namespace PVLog.Controllers
                     var measure = MeasureReader.ReadKaco1Data(data, plant, privateInverterId);
 
                     //store measure in repository and return the success view
-                    LogPlantAcitivity(measure);
+                    TrackPlantAcitivity(measure);
 
                     return new HttpStatusCodeResult(HttpStatusCode.OK);
 
@@ -83,7 +83,7 @@ namespace PVLog.Controllers
 
                     measure.PrivateInverterId = ValidateGetPrivateInverterId(plant, measure.PublicInverterId);
 
-                    LogPlantAcitivity(measure);
+                    TrackPlantAcitivity(measure);
                     return new HttpStatusCodeResult(HttpStatusCode.OK);
                 }
                 catch (ArgumentException ex)
@@ -147,7 +147,7 @@ namespace PVLog.Controllers
                     };
 
                     //store measure in repository and return the success view
-                    LogPlantAcitivity(measure);
+                    TrackPlantAcitivity(measure);
                     return new HttpStatusCodeResult(HttpStatusCode.OK);
                 }
                 catch (ArgumentException ex)
@@ -161,7 +161,7 @@ namespace PVLog.Controllers
             return InvalidPlantResult();
         }
 
-        private void LogPlantAcitivity(Measure measure)
+        private void TrackPlantAcitivity(Measure measure)
         {
             _plantRepository.SetPlantOnline(measure.PlantId, DateTime.UtcNow);
             _measureRepository.InsertTemporary(measure);
