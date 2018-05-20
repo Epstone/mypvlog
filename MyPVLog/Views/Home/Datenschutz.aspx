@@ -20,10 +20,17 @@
         </p>
 
         <h2>Datenspeicherung zu Vertragserf&uuml;llung</h2>
-        <p>Diese Webseite dient der Speicherung und Auswertung von Betriebsdaten von Photovoltaikanlagen und anderen Kleinkraftwerken. Hierzu ist es notwendig, &#13;&#10;            die vom Nutzer bereitgestellten Messwerte zu speichern und auszuwerten. Gespeichert werden Betriebsdaten wie Wattstunden pro Minute oder Temparatur der Wechselrichter. S&auml;mtliche erhobenen Daten dienen ausschlie&szlig;lich zur Bereitstellung des Dienstes.  &#13;&#10;</p>
+        <p>Diese Webseite dient der Speicherung und Auswertung von Betriebsdaten von Photovoltaikanlagen und anderen Kleinkraftwerken. Hierzu ist es notwendig, die vom Nutzer bereitgestellten Messwerte zu speichern und auszuwerten. Gespeichert werden Betriebsdaten wie Wattstunden pro Minute oder Temparatur der Wechselrichter. S&auml;mtliche erhobenen Daten dienen ausschlie&szlig;lich zur Bereitstellung des Dienstes. Sie werden automatisiert statistisch verwendet, um dem Nutzer auf dieser Webseite Daten zur Verf&uuml;gung stellen zu k&ouml;nnen. <br />
+        Die anonymen Daten der Server-Logfiles werden getrennt von allen durch eine betroffene Person angegebenen personenbezogenen Daten gespeichert.
+        </p>
 
         <h2>Datenl&ouml;schung</h2>
         <p>Die L&ouml;schung der eigenen Daten kann per Email an epstone2+mypvlog@gmail.com angefragt werden. Alternativ auch per Post an die im Impressum hinterlegte Adresse.</p>
+
+<h2>Cookies</h2>
+<p>
+    Die Internetseiten verwendet Cookies nur nach Login des Nutzers. Durch den Einsatz dieses Cookies können Einstellungen des Nutzers temporär auf dem Computer des Nutzers gespeichert werden. Die betroffene Person kann die Setzung von Cookies durch unsere Internetseite jederzeit mittels einer entsprechenden Einstellung des genutzten Internetbrowsers verhindern und damit der Setzung von Cookies dauerhaft widersprechen. Ferner können bereits gesetzte Cookies jederzeit über einen Internetbrowser oder andere Softwareprogramme gelöscht werden. Dies ist in allen gängigen Internetbrowsern möglich. Deaktiviert die betroffene Person die Setzung von Cookies in dem genutzten Internetbrowser, sind unter Umständen nicht alle Funktionen unserer Internetseite vollumfänglich nutzbar.
+</p>
 
     </asp:Content>
     <asp:Content ID="Content3" ContentPlaceHolderID="HeadContent" runat="server">
