@@ -1,4 +1,6 @@
-﻿namespace PVLog.Controllers
+﻿using System.Text;
+
+namespace PVLog.Controllers
 {
     using System.Web.Mvc;
 
@@ -32,8 +34,12 @@
         
         public ActionResult Robots()
         {
-             Response.ContentType = "text/plain";
-             return View();
+            StringBuilder stringBuilder = new StringBuilder();
+        
+            stringBuilder.AppendLine("user-agent: *");
+            stringBuilder.AppendLine("disallow: /");
+        
+            return this.Content(stringBuilder.ToString(), "text/plain", Encoding.UTF8);
         }
     }
 }
