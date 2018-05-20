@@ -26,11 +26,6 @@
 	<p>
 		Der MyPVLog Dienst an sich ist kein eigenständiger Datenlogger. Er ist darauf angewießen, dass die Betriebsdaten der Wechselrichtern ausgelesen und an das Portal übertragen werden. Mit dem Internet verbundene Wechselrichter könnten ihre Betriebsdaten eigentlich direkt an das Portal übertragen. Leider wird dies aber noch von keinem Wechselrichtertyp unterstützt.</p>
 	<h3>
-		Wie ist der Dienst enstanden?</h3>
-	<p>
-		Das Portal ist einen Weiterentwicklung der ehemaligen solar.riedme.de Anwendung. Im Gegensatz zu dieser Seite ist es nun möglich eigene Anlagen anzulegen und diese zu verwalten. Weiterhin wurden die Diagramme erweitert und überarbeitet und viele weitere Funktionen hinzugefügt.
-	</p>
-	<h3>
 		Wie kann ich mein Solarkraftwerk mit MyPVLog verbinden?</h3>
 	<p>
 		Derzeit wird der Dienst ausschließlich von Selbstbaulösungen unterstützt. Sobald ihr Datenlogger oder Generator mit myPVLog kompatibel ist, werden Sie hier darüber informiert.
@@ -38,10 +33,7 @@
 	<h3>
 		Wie lange werden die Daten gespeichert? (Update 28.06.2012)</h3>
 	<p>
-		Die Betriebsdaten der Wechselrichter/Generatoren werden minutenweise auf dem Server für 30 Tage gespeichert. Diese Beschränkung ist notwendig, um weiterhin einen kostenfreien Betrieb zu ermöglichen. Nur in diesem Zeitraum ist der Export der 15-Minuten-Solarlog Dateien möglich. Die Tageswerte (kwh/Tag pro Generator) bleiben unbegrenzt gespeichert.
+		Die minütlichen Betriebsdaten der Wechselrichter/Generatoren werden auf dem Server für 30 Tage gespeichert. Diese Beschränkung ist notwendig, um weiterhin einen kostenfreien Betrieb zu ermöglichen. Nur in diesem Zeitraum ist der Export der 15-Minuten-Solarlog Dateien möglich. Die Tageswerte (kwh/Tag pro Generator)  werden gespeichert, bis der Nutzer eine Löschung beantragt.
 	</p>
-	<h3>Welche Kosten entstehen für die Nutzung des Dienstes?</h3>
-	<p>
-	Der Dienst kann bis zu einer Anlagenröße von 20kwp kostenfrei genutzt werden. Möchten Sie eine größere Anlage anbinden, senden Sie bitte ein E-Mail an: Patrickeps[at]gmx.de
-	</p>
+	
 </asp:Content>
