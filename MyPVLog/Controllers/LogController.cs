@@ -250,15 +250,20 @@ namespace PVLog.Controllers
                     .GroupBy(x => x.DateTime.Ticks / oneMinute.Ticks, m => m, (l, measures) => measures)
                     .Select(AverageSamplesToOneMinute).ToList();
 
-                for (int i = measures.Count -1; i >= 0; i--)
-                {
-                    if (this.measures[i].DateTime < minuteLimitDateTime)
-                    {
-                        this.measures.RemoveAt(i);
-                    }
-                }
+                RemoveMeasuresUsedForCalculation(minuteLimitDateTime);
 
                 return minutes;
+            }
+        }
+
+        private void RemoveMeasuresUsedForCalculation(DateTime minuteLimitDateTime)
+        {
+            for (int i = measures.Count - 1; i >= 0; i--)
+            {
+                if (this.measures[i].DateTime < minuteLimitDateTime)
+                {
+                    this.measures.RemoveAt(i);
+                }
             }
         }
 
