@@ -80,7 +80,7 @@
             var plantNotifications = userNotifications.GetPlantNotifications();
 
             PlantNotification actualNotification = plantNotifications.First();
-            actualNotification.plant.ShouldBeEquivalentTo(solarPlantInactive11Days);
+            actualNotification.plant.Should().BeEquivalentTo(solarPlantInactive11Days);
             actualNotification.NotificationType.Should().Be(NotificationType.Inactivity10days);
         }
 
@@ -93,7 +93,7 @@
             var plantNotifications = userNotifications.GetPlantNotifications();
 
             PlantNotification actualNotification = plantNotifications.First();
-            actualNotification.plant.ShouldBeEquivalentTo(solarPlantInactive4Days);
+            actualNotification.plant.Should().BeEquivalentTo(solarPlantInactive4Days);
             actualNotification.NotificationType.Should().Be(NotificationType.Inactivity3Days);
         }
 

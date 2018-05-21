@@ -203,7 +203,7 @@ namespace PVLog.Controllers
 
     }
 
-    internal class MinuteWiseAggregator
+    public class MinuteWiseAggregator
     {
         private object syncroot = new object();
         List<Measure> measures = new List<Measure>();
@@ -224,8 +224,76 @@ namespace PVLog.Controllers
         /// <param name="inverterId"></param>
         public void UpdateMinuteWiseToDatabase(List<Measure> measures, int inverterId)
         {
-            
 
+
+        }
+
+        public void TrackMeasurements(IList<Measure> measures)
+        {
+            lock (syncroot)
+            {
+                this.measures.AddRange(measures);
+            }
+        }
+
+        public IList<Measure> GetAveragesForMinutes()
+        {
+            lock (syncroot)
+            {
+                var maxDatetime = this.measures.Max(x => x.DateTime);
+
+                var minuteLimitDateTime = DateTimeUtils.CropBelowSecondsInclusive(maxDatetime);
+
+                TimeSpan oneMinute = TimeSpan.FromMinutes(1);
+
+                var minutes = this.measures.Where(x => x.DateTime < minuteLimitDateTime)
+                    .GroupBy(x => x.DateTime.Ticks / oneMinute.Ticks, m => m, (l, measures) => measures)
+                    .Select(AverageSamplesToOneMinute).ToList();
+
+                for (int i = measures.Count -1; i >= 0; i--)
+                {
+                    if (this.measures[i].DateTime < minuteLimitDateTime)
+                    {
+                        this.measures.RemoveAt(i);
+                    }
+                }
+
+                return minutes;
+            }
+        }
+
+        private Measure AverageSamplesToOneMinute(IEnumerable<Measure> arg)
+        {
+            if (!arg.Any())
+            {
+                return null;
+            }
+
+            var average = new Measure();
+            var firstSample = arg.First();
+            average.DateTime = DateTimeUtils.CropBelowSecondsInclusive(firstSample.DateTime);
+            average.Value = arg.Average(m => m.Value);
+            average.GeneratorAmperage = arg.Average(m => m.GeneratorAmperage);
+            average.GeneratorVoltage = arg.Average(m => m.GeneratorVoltage);
+            average.GeneratorWattage = arg.Average(m => m.GeneratorWattage);
+            average.GridAmperage = arg.Average(m => m.GridAmperage);
+            average.GridVoltage = arg.Average(m => m.OutputWattage);
+            average.OutputWattage = arg.Average(m => m.OutputWattage);
+            average.PlantId = firstSample.PlantId;
+            average.PrivateInverterId = firstSample.PrivateInverterId;
+            average.PublicInverterId = firstSample.PublicInverterId;
+            average.SystemStatus = firstSample.SystemStatus;
+            average.Temperature = arg.Max(m => m.Temperature);
+
+            return average;
+        }
+
+        public int GetSampleCount()
+        {
+            lock (syncroot)
+            {
+                return this.measures.Count;
+            }
         }
     }
 }
