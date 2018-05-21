@@ -15,6 +15,8 @@ namespace PVLog.Controllers
 
     public class LogController : MyController
     {
+        private MinuteWiseAggregator _minuteWiseAggregator;
+
         public LogController()
         {
 
@@ -165,6 +167,7 @@ namespace PVLog.Controllers
         {
             _plantRepository.SetPlantOnline(measure.PlantId, DateTime.UtcNow);
             _measureRepository.InsertTemporary(measure);
+            _minuteWiseAggregator = new MinuteWiseAggregator();
         }
 
 
@@ -198,5 +201,31 @@ namespace PVLog.Controllers
             return privateInverterId;
         }
 
+    }
+
+    internal class MinuteWiseAggregator
+    {
+        private object syncroot = new object();
+        List<Measure> measures = new List<Measure>();
+
+        public void TrackMeasurement(Measure sample)
+        {
+            lock (syncroot)
+            {
+                this.measures.Add(sample);
+            }
+        }
+
+
+        /// <summary>
+        /// Measures contain only measures from one plant at a time
+        /// </summary>
+        /// <param name="measures"></param>
+        /// <param name="inverterId"></param>
+        public void UpdateMinuteWiseToDatabase(List<Measure> measures, int inverterId)
+        {
+            
+
+        }
     }
 }
