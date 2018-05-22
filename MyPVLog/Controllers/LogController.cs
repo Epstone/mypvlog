@@ -240,34 +240,45 @@ namespace PVLog.Controllers
         {
             lock (syncroot)
             {
-                var maxDatetime = this.measures.Max(x => x.DateTime);
+                var samplesPerInverter = this.measures.GroupBy(x => x.PrivateInverterId, x => x, (key, list) => list.ToList());
 
-                var minuteLimitDateTime = DateTimeUtils.CropBelowSecondsInclusive(maxDatetime);
+                var result = samplesPerInverter.Select(CalculateMinutesForInverter).SelectMany(x => x).ToList();
 
-                TimeSpan oneMinute = TimeSpan.FromMinutes(1);
-
-                var minutes = this.measures.Where(x => x.DateTime < minuteLimitDateTime)
-                    .GroupBy(x => x.DateTime.Ticks / oneMinute.Ticks, m => m, (l, measures) => measures)
-                    .Select(AverageSamplesToOneMinute).ToList();
-
-                RemoveMeasuresUsedForCalculation(minuteLimitDateTime);
-
-                return minutes;
-            }
-        }
-
-        private void RemoveMeasuresUsedForCalculation(DateTime minuteLimitDateTime)
-        {
-            for (int i = measures.Count - 1; i >= 0; i--)
-            {
-                if (this.measures[i].DateTime < minuteLimitDateTime)
+                foreach (var measure in this.MeasuresToRemove)
                 {
-                    this.measures.RemoveAt(i);
+                    this.measures.Remove(measure);
                 }
+                this.MeasuresToRemove.Clear();
+
+                return result;
             }
         }
 
-        private Measure AverageSamplesToOneMinute(IEnumerable<Measure> arg)
+        private List<Measure> CalculateMinutesForInverter(List<Measure> inverterMeasures)
+        {
+            var maxDatetime = inverterMeasures.Max(x => x.DateTime);
+
+            var minuteLimitDateTime = DateTimeUtils.CropBelowSecondsInclusive(maxDatetime);
+
+            TimeSpan oneMinute = TimeSpan.FromMinutes(1);
+
+            var minutes = inverterMeasures.Where(x => x.DateTime < minuteLimitDateTime)
+                .GroupBy(x => x.DateTime.Ticks / oneMinute.Ticks, m => m, (l, measures) => measures)
+                .Select(AverageSamplesToOneMinute).ToList();
+
+            MarkMeasuresForDeletion(minuteLimitDateTime, inverterMeasures);
+
+            return minutes;
+        }
+
+        internal List<Measure> MeasuresToRemove = new List<Measure>();
+
+        private void MarkMeasuresForDeletion(DateTime minuteLimitDateTime, List<Measure> inverterMeasures)
+        {
+            this.MeasuresToRemove.AddRange(inverterMeasures.Where(x => x.DateTime < minuteLimitDateTime));
+        }
+
+        private static Measure AverageSamplesToOneMinute(IEnumerable<Measure> arg)
         {
             if (!arg.Any())
             {
