@@ -18,7 +18,7 @@
         private readonly IEmailSender emailSender;
         private readonly MeasureManagement _measureManagement = new MeasureManagement();
 
-        public MaintenanceController(I_MeasureRepository measureRepository, I_PlantRepository plantRepo, IUserNotifications userNotifications, IEmailSender emailSender)
+        public MaintenanceController(IMeasureRepository measureRepository, I_PlantRepository plantRepo, IUserNotifications userNotifications, IEmailSender emailSender)
         {
             this.userNotifications = userNotifications;
             this.emailSender = emailSender;

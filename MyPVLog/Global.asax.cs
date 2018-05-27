@@ -34,8 +34,9 @@ namespace MyPVLog
             builder.RegisterControllers(typeof(MvcApplication).Assembly);
             builder.RegisterType<UserNotifications>().As<IUserNotifications>();
             builder.RegisterType<EmailSender>().As<IEmailSender>();
-            builder.RegisterType<MeasureRepository>().As<I_MeasureRepository>();
+            builder.RegisterType<MeasureRepository>().As<IMeasureRepository>();
             builder.RegisterType<PlantRepository>().As<I_PlantRepository>();
+            builder.RegisterType<InverterTrackerRegistry>().As<IInverterTrackerRegistry>().SingleInstance();
 
             var container = builder.Build();
             DependencyResolver.SetResolver(new AutofacDependencyResolver(container));

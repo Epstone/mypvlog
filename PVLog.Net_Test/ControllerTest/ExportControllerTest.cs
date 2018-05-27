@@ -14,13 +14,13 @@ namespace solar_tests.ControllerTest
   {
     ExportController _exportController;
     Mock<I_PlantRepository> _plantRepositoryMock;
-    Mock<I_MeasureRepository> _measureRepositoryMock;
+    Mock<IMeasureRepository> _measureRepositoryMock;
 
     [SetUp]
     public void Setup()
     {
       _plantRepositoryMock = new Mock<I_PlantRepository>();
-      _measureRepositoryMock = new Mock<I_MeasureRepository>();
+      _measureRepositoryMock = new Mock<IMeasureRepository>();
 
       _exportController = new ExportController(_measureRepositoryMock.Object,
                                           _plantRepositoryMock.Object);

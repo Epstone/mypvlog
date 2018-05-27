@@ -249,7 +249,7 @@ namespace solar_tests.DatabaseTest
             var onlinePlant = DatabaseHelpers.CreatePlantWithOneInverter();
 
             // create and store measure for online repository
-            I_MeasureRepository measureRepo = new MeasureRepository();
+            IMeasureRepository measureRepo = new MeasureRepository();
 
             for (int i = 0; i < 5; i++)
             {

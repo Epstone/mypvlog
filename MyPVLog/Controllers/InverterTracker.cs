@@ -8,7 +8,7 @@ namespace PVLog.Controllers
     public class InverterTracker
     {
         private readonly object _syncroot = new object();
-        List<Measure> measures = new List<Measure>();
+        readonly List<Measure> _measures = new List<Measure>();
         private int _inverterId;
         private static readonly TimeSpan OneMinute = TimeSpan.FromMinutes(1);
 
@@ -21,7 +21,7 @@ namespace PVLog.Controllers
         {
             lock (_syncroot)
             {
-                this.measures.Add(sample);
+                this._measures.Add(sample);
             }
         }
 
@@ -29,7 +29,7 @@ namespace PVLog.Controllers
         {
             lock (_syncroot)
             {
-                this.measures.AddRange(measures);
+                this._measures.AddRange(measures);
             }
         }
 
@@ -43,8 +43,8 @@ namespace PVLog.Controllers
 
         private List<Measure> CalculateMinutesForInverter()
         {
-            var maxDatetime = this.measures.Max(x => x.DateTime);
-            var minDateTime = this.measures.Min(x => x.DateTime);
+            var maxDatetime = this._measures.Max(x => x.DateTime);
+            var minDateTime = this._measures.Min(x => x.DateTime);
 
             if (maxDatetime - minDateTime < OneMinute)
             {
@@ -54,11 +54,11 @@ namespace PVLog.Controllers
             var minuteLimitDateTime = DateTimeUtils.CropBelowSecondsInclusive(maxDatetime);
 
 
-            var minutes = this.measures.Where(x => x.DateTime < minuteLimitDateTime)
+            var minutes = this._measures.Where(x => x.DateTime < minuteLimitDateTime)
                 .GroupBy(x => x.DateTime.Ticks / OneMinute.Ticks, m => m, (l, measures) => measures)
                 .Select(AverageSamplesToOneMinute).ToList();
 
-            this.measures.RemoveAll(x => x.DateTime < maxDatetime);
+            this._measures.RemoveAll(x => x.DateTime < maxDatetime);
 
             return minutes;
         }
@@ -93,7 +93,15 @@ namespace PVLog.Controllers
         {
             lock (_syncroot)
             {
-                return this.measures.Count;
+                return this._measures.Count;
+            }
+        }
+
+        public Measure GetLastestMeasure()
+        {
+            lock (this._syncroot)
+            {
+                return this._measures.LastOrDefault();
             }
         }
     }

@@ -21,7 +21,7 @@ namespace PVLog.Controllers
 
         }
 
-        public LogController(I_MeasureRepository measureRepository, I_PlantRepository plantRepository, IInverterTrackerRegistry inverterTrackerRegistry)
+        public LogController(IMeasureRepository measureRepository, I_PlantRepository plantRepository, IInverterTrackerRegistry inverterTrackerRegistry)
         {
             _inverterTrackerRegistry = inverterTrackerRegistry;
             this._measureRepository = measureRepository;

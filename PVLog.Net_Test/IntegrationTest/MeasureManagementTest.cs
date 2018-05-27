@@ -21,7 +21,7 @@ namespace zPVLogIntegrationTests.ManagementTest
   {
 
     TestDbSetup _testDb;
-    I_MeasureRepository _measureRepository;
+    IMeasureRepository _measureRepository;
     [SetUp]
     public void Init()
     {

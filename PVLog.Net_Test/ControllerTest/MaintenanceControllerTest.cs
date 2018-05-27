@@ -18,7 +18,7 @@
         [SetUp]
         public void Setup()
         {
-            _measureRepositoryMock = new Mock<I_MeasureRepository>();
+            _measureRepositoryMock = new Mock<IMeasureRepository>();
             _plantRepositoryMock = new Mock<I_PlantRepository>();
             _userNotificationsMock = new Mock<IUserNotifications>();
             _emailSenderMock = new Mock<IEmailSender>();
@@ -41,7 +41,7 @@
         }
 
         private MaintenanceController _maintenanceController;
-        private Mock<I_MeasureRepository> _measureRepositoryMock;
+        private Mock<IMeasureRepository> _measureRepositoryMock;
         private Mock<I_PlantRepository> _plantRepositoryMock;
         private Mock<IUserNotifications> _userNotificationsMock;
         private Mock<IEmailSender> _emailSenderMock;

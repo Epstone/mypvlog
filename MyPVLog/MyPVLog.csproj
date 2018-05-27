@@ -197,7 +197,7 @@
     <Compile Include="Controllers\PlantController.cs" />
     <Compile Include="Controllers\WebServiceController.cs" />
     <Compile Include="DataLayer\IUserNotifications.cs" />
-    <Compile Include="DataLayer\I_MeasureRepository.cs" />
+    <Compile Include="DataLayer\IMeasureRepository.cs" />
     <Compile Include="DataLayer\I_PlantRepository.cs" />
     <Compile Include="DataLayer\KwhRepository.cs" />
     <Compile Include="DataLayer\MeasureRepository.cs" />

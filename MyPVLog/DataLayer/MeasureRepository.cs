@@ -14,7 +14,7 @@ using PVLog.OutputProcessing;
 
 namespace PVLog.DataLayer
 {
-    public class MeasureRepository : MySqlRepositoryBase, I_MeasureRepository
+    public class MeasureRepository : MySqlRepositoryBase, IMeasureRepository
     {
         public MeasureRepository()
         {

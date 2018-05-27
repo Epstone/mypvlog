@@ -10,14 +10,14 @@
     public class LogControllerTest
     {
         private LogController _logController;
-        private Mock<I_MeasureRepository> _measureRepositoryMock;
+        private Mock<IMeasureRepository> _measureRepositoryMock;
         private Mock<I_PlantRepository> _plantRepositoryMock;
 
         [SetUp]
         public void Setup()
         {
             _plantRepositoryMock = new Mock<I_PlantRepository>();
-            _measureRepositoryMock = new Mock<I_MeasureRepository>();
+            _measureRepositoryMock = new Mock<IMeasureRepository>();
             var mock = new Mock<IInverterTrackerRegistry>();
             _logController = new LogController(_measureRepositoryMock.Object,
                 _plantRepositoryMock.Object, mock.Object);

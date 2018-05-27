@@ -8,7 +8,7 @@
 
     public class MyController : Controller
     {
-        public I_MeasureRepository _measureRepository { get; set; }
+        public IMeasureRepository _measureRepository { get; set; }
         public I_PlantRepository _plantRepository { get; set; }
         public IMembershipService MembershipService { get; set; }
         public KwhRepository _kwhRepository { get; set; }
