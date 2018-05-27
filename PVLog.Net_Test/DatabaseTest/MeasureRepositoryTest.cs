@@ -1,7 +1,6 @@
 ﻿namespace solar_tests.DatabaseTest
 {
     using System;
-    using System.Collections.Generic;
     using System.Linq;
     using FluentAssertions;
     using NUnit.Framework;
@@ -55,11 +54,6 @@
             actualMeasures.Count().Should().Be(expectedMeasuresCount); // minute could not be complete yet
         }
 
-        private void When_I_aggregate_the_measures_to_minute_wise()
-        {
-            _measureRepository.AggregateTemporaryToMinuteWiseMeasures(plant.InverterId);
-        }
-
         private void Given_measures_for_five_seconds_of_a_minute(TestSolarPlant plant, DateTime minute_1)
         {
             var secondMeasures = Enumerable.Range(1, 5).Select(second =>
@@ -71,20 +65,6 @@
             }).ToList();
 
             secondMeasures.ForEach(measure => _measureRepository.InsertTemporary(measure));
-        }
-
-        private void Then_the_values_should_be_equivalent()
-        {
-            IEnumerable<Measure> measures = _measureRepository.GetMinuteWiseMeasures(plant.InverterId);
-            var measure = measures.First();
-
-            measure.Value.Should().Be(testMeasure.Value);
-            measure.MeasureId.Should().NotBe(0);
-            measure.PlantId.Should().Be(plant.PlantId);
-            measure.PrivateInverterId.Should().Be(plant.InverterId);
-            measure.PublicInverterId.Should().NotBe(0);
-            measure.SystemStatus.Should().BeNull();
-            measure.Temperature.Should().Be(testMeasure.Temperature);
         }
 
         private void Given_a_completed_measure_minute_in_temporary_table()
@@ -132,45 +112,6 @@
             var plant = DatabaseHelpers.CreatePlantWithOneInverter();
             var result = _measureRepository.GetLatestMeasuresByPlant(plant.PlantId);
             Assert.IsTrue(result.Count == 0);
-        }
-
-        [Test]
-        public void Given_a_temporary_measure_is_aggregated_Then_the_values_should_be_consistent()
-        {
-            Given_a_completed_measure_minute_in_temporary_table();
-            When_I_aggregate_the_measures_to_minute_wise();
-            Then_the_values_should_be_equivalent();
-        }
-
-        // todo, write test case for transaction
-
-        /// <summary>
-        ///     Tests the minute wise wattage generation
-        /// </summary>
-        [Test]
-        public void Given_measures_for_3_minutes_When_I_aggregate_Then_there_are_2_minute_wise_measures_created()
-        {
-            Given_measures_for_first_3_minutes();
-
-            When_I_aggregate_the_measures_to_minute_wise();
-
-            Then_expected_measures_count_should_be(2);
-        }
-
-
-        [Test]
-        public void
-            Given_measures_for_seconds_When_I_aggregate_Then_they_are_aggregated_to_a_minute_measurement()
-        {
-            Given_measures_for_five_seconds_of_a_minute(plant, minute1);
-
-            When_I_aggregate_the_measures_to_minute_wise();
-            Then_expected_measures_count_should_be(0);
-
-            When_I_create_the_measures_in_the_following_minute();
-            When_I_aggregate_the_measures_to_minute_wise();
-
-            Then_expected_measures_count_should_be(1);
         }
 
         [Test]

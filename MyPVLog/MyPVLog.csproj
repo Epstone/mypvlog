@@ -189,8 +189,10 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\IEmailSender.cs" />
     <Compile Include="Controllers\InverterController.cs" />
+    <Compile Include="Controllers\InverterTrackerRegistry.cs" />
     <Compile Include="Controllers\LogController.cs" />
     <Compile Include="Controllers\MaintenanceController.cs" />
+    <Compile Include="Controllers\InverterTracker.cs" />
     <Compile Include="Controllers\MyController.cs" />
     <Compile Include="Controllers\PlantController.cs" />
     <Compile Include="Controllers\WebServiceController.cs" />

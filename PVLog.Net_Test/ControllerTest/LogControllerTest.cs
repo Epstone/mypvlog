@@ -18,9 +18,9 @@
         {
             _plantRepositoryMock = new Mock<I_PlantRepository>();
             _measureRepositoryMock = new Mock<I_MeasureRepository>();
-
+            var mock = new Mock<IInverterTrackerRegistry>();
             _logController = new LogController(_measureRepositoryMock.Object,
-                _plantRepositoryMock.Object);
+                _plantRepositoryMock.Object, mock.Object);
 
             _plantRepositoryMock.Setup(x => x.IsValidPlant(It.IsAny<int>(), It.IsAny<string>()))
                 .Returns(true);

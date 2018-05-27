@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using PVLog.DataLayer;
@@ -15,15 +13,17 @@ namespace PVLog.Controllers
 
     public class LogController : MyController
     {
-        private MinuteWiseAggregator _minuteWiseAggregator;
+        private readonly IInverterTrackerRegistry _inverterTrackerRegistry;
+        private InverterTracker _inverterTracker;
 
         public LogController()
         {
 
         }
 
-        public LogController(I_MeasureRepository measureRepository, I_PlantRepository plantRepository)
+        public LogController(I_MeasureRepository measureRepository, I_PlantRepository plantRepository, IInverterTrackerRegistry inverterTrackerRegistry)
         {
+            _inverterTrackerRegistry = inverterTrackerRegistry;
             this._measureRepository = measureRepository;
             this._plantRepository = plantRepository;
         }
@@ -45,7 +45,7 @@ namespace PVLog.Controllers
                     var measure = MeasureReader.ReadKaco1Data(data, plant, privateInverterId);
 
                     //store measure in repository and return the success view
-                    TrackPlantAcitivity(measure);
+                    UpdateMinuteWiseMeasures(measure);
 
                     return new HttpStatusCodeResult(HttpStatusCode.OK);
 
@@ -85,7 +85,7 @@ namespace PVLog.Controllers
 
                     measure.PrivateInverterId = ValidateGetPrivateInverterId(plant, measure.PublicInverterId);
 
-                    TrackPlantAcitivity(measure);
+                    UpdateMinuteWiseMeasures(measure);
                     return new HttpStatusCodeResult(HttpStatusCode.OK);
                 }
                 catch (ArgumentException ex)
@@ -149,7 +149,7 @@ namespace PVLog.Controllers
                     };
 
                     //store measure in repository and return the success view
-                    TrackPlantAcitivity(measure);
+                    UpdateMinuteWiseMeasures(measure);
                     return new HttpStatusCodeResult(HttpStatusCode.OK);
                 }
                 catch (ArgumentException ex)
@@ -163,11 +163,17 @@ namespace PVLog.Controllers
             return InvalidPlantResult();
         }
 
-        private void TrackPlantAcitivity(Measure measure)
+        private void UpdateMinuteWiseMeasures(Measure measure)
         {
             _plantRepository.SetPlantOnline(measure.PlantId, DateTime.UtcNow);
-            _measureRepository.InsertTemporary(measure);
-            _minuteWiseAggregator = new MinuteWiseAggregator();
+            _inverterTrackerRegistry.CreateOrGetTracker(measure.PrivateInverterId);
+            _inverterTracker.TrackMeasurement(measure);
+            var averagesForMinutes = _inverterTracker.GetAveragesForMinutes();
+
+            if (averagesForMinutes.Count > 0)
+            {
+                _measureRepository.InsertMeasure(measure);
+            }
         }
 
 
@@ -201,115 +207,5 @@ namespace PVLog.Controllers
             return privateInverterId;
         }
 
-    }
-
-    public class MinuteWiseAggregator
-    {
-        private object syncroot = new object();
-        List<Measure> measures = new List<Measure>();
-
-        public void TrackMeasurement(Measure sample)
-        {
-            lock (syncroot)
-            {
-                this.measures.Add(sample);
-            }
-        }
-
-
-        /// <summary>
-        /// Measures contain only measures from one plant at a time
-        /// </summary>
-        /// <param name="measures"></param>
-        /// <param name="inverterId"></param>
-        public void UpdateMinuteWiseToDatabase(List<Measure> measures, int inverterId)
-        {
-
-
-        }
-
-        public void TrackMeasurements(IList<Measure> measures)
-        {
-            lock (syncroot)
-            {
-                this.measures.AddRange(measures);
-            }
-        }
-
-        public IList<Measure> GetAveragesForMinutes()
-        {
-            lock (syncroot)
-            {
-                var samplesPerInverter = this.measures.GroupBy(x => x.PrivateInverterId, x => x, (key, list) => list.ToList());
-
-                var result = samplesPerInverter.Select(CalculateMinutesForInverter).SelectMany(x => x).ToList();
-
-                foreach (var measure in this.MeasuresToRemove)
-                {
-                    this.measures.Remove(measure);
-                }
-                this.MeasuresToRemove.Clear();
-
-                return result;
-            }
-        }
-
-        private List<Measure> CalculateMinutesForInverter(List<Measure> inverterMeasures)
-        {
-            var maxDatetime = inverterMeasures.Max(x => x.DateTime);
-
-            var minuteLimitDateTime = DateTimeUtils.CropBelowSecondsInclusive(maxDatetime);
-
-            TimeSpan oneMinute = TimeSpan.FromMinutes(1);
-
-            var minutes = inverterMeasures.Where(x => x.DateTime < minuteLimitDateTime)
-                .GroupBy(x => x.DateTime.Ticks / oneMinute.Ticks, m => m, (l, measures) => measures)
-                .Select(AverageSamplesToOneMinute).ToList();
-
-            MarkMeasuresForDeletion(minuteLimitDateTime, inverterMeasures);
-
-            return minutes;
-        }
-
-        internal List<Measure> MeasuresToRemove = new List<Measure>();
-
-        private void MarkMeasuresForDeletion(DateTime minuteLimitDateTime, List<Measure> inverterMeasures)
-        {
-            this.MeasuresToRemove.AddRange(inverterMeasures.Where(x => x.DateTime < minuteLimitDateTime));
-        }
-
-        private static Measure AverageSamplesToOneMinute(IEnumerable<Measure> arg)
-        {
-            if (!arg.Any())
-            {
-                return null;
-            }
-
-            var average = new Measure();
-            var firstSample = arg.First();
-            average.DateTime = DateTimeUtils.CropBelowSecondsInclusive(firstSample.DateTime);
-            average.Value = arg.Average(m => m.Value);
-            average.GeneratorAmperage = arg.Average(m => m.GeneratorAmperage);
-            average.GeneratorVoltage = arg.Average(m => m.GeneratorVoltage);
-            average.GeneratorWattage = arg.Average(m => m.GeneratorWattage);
-            average.GridAmperage = arg.Average(m => m.GridAmperage);
-            average.GridVoltage = arg.Average(m => m.OutputWattage);
-            average.OutputWattage = arg.Average(m => m.OutputWattage);
-            average.PlantId = firstSample.PlantId;
-            average.PrivateInverterId = firstSample.PrivateInverterId;
-            average.PublicInverterId = firstSample.PublicInverterId;
-            average.SystemStatus = firstSample.SystemStatus;
-            average.Temperature = arg.Max(m => m.Temperature);
-
-            return average;
-        }
-
-        public int GetSampleCount()
-        {
-            lock (syncroot)
-            {
-                return this.measures.Count;
-            }
-        }
     }
 }

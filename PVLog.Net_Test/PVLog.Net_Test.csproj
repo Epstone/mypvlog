@@ -142,7 +142,7 @@
   <ItemGroup>
     <Compile Include="AverageCalctulatorTest.cs" />
     <Compile Include="DatabaseTest\UserNotificationTest.cs" />
-    <Compile Include="MinuteTrackerTest.cs" />
+    <Compile Include="InverterTrackerTest.cs" />
     <Compile Include="TestdataGenerator.cs" />
     <Compile Include="ControllerTest\ExportControllerTest.cs" />
     <Compile Include="ControllerTest\LogControllerTest.cs" />

@@ -120,12 +120,6 @@
                     //calculate the minutewise wattage measures for today
                     var minuteWiseStopwatch = Stopwatch.StartNew();
 
-
-                    foreach (var inverter in _plantRepository.GetAllInverters())
-                    {
-                        _measureRepository.AggregateTemporaryToMinuteWiseMeasures(inverter.InverterId);
-                    }
-
                     Logger.TrackMetric("Aggregate measures: minutewise", minuteWiseStopwatch.Elapsed.TotalSeconds);
 
                     //Recalculate the kwh for today

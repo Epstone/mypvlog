@@ -14,18 +14,11 @@ namespace PVLog.DataLayer
         IEnumerable<Measure> GetMinuteWiseMeasures(int inverterId);
         IEnumerable<Measure> GetMinuteWiseMeasures(DateTime startDate, DateTime endDate, int inverterID);
 
-        //Measure GetLatesMeasureByInverter(int inverterId);
-
         IList<Measure> GetLatestMeasuresByPlant(int plantId);
 
         FlotLineChartTable GetCumulatedMinuteWiseWattageChartData(int plantId, DateTime date);
 
-        //IEnumerable<Models.IMeasure> GetCumulatedMinuteWiseForKwhChart(DateTime dateTime, int plantId);
-
         List<FlotLineChartTable> GetInverterWiseMinuteWiseWattageChartData(int plantId, DateTime date);
-        void Cleanup();
-
-        void AggregateTemporaryToMinuteWiseMeasures(int inverterId);
 
         void InsertTemporary(Measure measure);
 

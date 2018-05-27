@@ -27,7 +27,11 @@ namespace PVLog
         public int PlantId { get; set; }
         public int? Temperature { get; set; }
         public int? SystemStatus { get; set; }
+        
+        // Internal Inverter ID in the Database
         public int PrivateInverterId { get; set; }
+
+        // Inverter ID just unique for each plant
         public int PublicInverterId { get; set; }
         public double? GridVoltage { get; set; }
         public double? GridAmperage { get; set; }

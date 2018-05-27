@@ -60,17 +60,6 @@
             }
         }
 
-        [Test]
-        public void UpdateStatisticsTest()
-        {
-            // setup plant repository
-            _plantRepositoryMock.Setup(x => x.GetAllInverters()).Returns(() => DummyInverterList);
-
-            When_The_update_request_is_processed();
-
-            //verify that the minute wise calculation process is started
-            _measureRepositoryMock.Verify(x => x.AggregateTemporaryToMinuteWiseMeasures(It.IsAny<int>()), Times.Once());
-        }
 
         private void When_The_update_request_is_processed()
         {

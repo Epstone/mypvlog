@@ -32,7 +32,11 @@ namespace PVLog.DataLayer
             base.Initialize(readConnectionString, writeConnectionString);
         }
 
-        /* MINUTE WISE MEASURE */
+        /// <summary>
+        /// Measures for every minute
+        /// </summary>
+        /// <param name="measure"></param>
+        /// <returns></returns>
         public long InsertMeasure(Measure measure)
         {
             long measureId = this.StoreWattage(measure.DateTime, measure.OutputWattage, measure.PrivateInverterId);
@@ -225,72 +229,7 @@ WHERE m.InverterId = @inverterId;";
 
             return ProfiledReadConnection.Query<Measure>(cmd, new { inverterId });
         }
-
-        /// <summary>
-        /// Takes all temporary measures for the specified inverter, cumulates them to minutewise and stores them to the measure tables
-        /// </summary>
-        /// <param name="inverterId">The inverter which should be used for generating minutewise data</param>
-        public void AggregateTemporaryToMinuteWiseMeasures(int inverterId)
-        {
-            // get latest datetime and set this as upper bound
-            var endTime = this.GetLatestTemporaryMeasureDateTime(inverterId);
-
-            //endtime is null if we don't have to calculate anything
-            if (endTime != null)
-            {
-                //crop second information from date time
-                endTime = DateTimeUtils.CropBelowSecondsInclusive(endTime.Value);
-
-                /* get the measures minutewise cumulated */
-
-                string selectSql = @"
-	SELECT 
-		tm.InverterId as PrivateInverterId
-    , AVG(OutputWattage) as OutputWattage
-    , CAST(DATE_FORMAT(DateTime, '%Y-%m-%d %H:%i:00') AS DATETIME) as croppedDate
-    , i.PublicInverterId
-    , i.PlantId
-    , CAST(DATE_FORMAT(DateTime, '%Y-%m-%d %H:%i:00') AS DATETIME) as DateTime
-    , AVG(tm.GeneratorVoltage) as GeneratorVoltage
-    , AVG(tm.GeneratorWattage) as GeneratorWattage
-    , AVG(tm.GeneratorAmperage) as GeneratorAmperage
-    , AVG(tm.GridVoltage) as GridVoltage
-    , AVG(tm.GridAmperage) as GridAmperage
-    , MAX(Temperature) as Temperature
-
-		  FROM temporary_measure tm
-        INNER JOIN inverter i
-          ON i.inverterId = tm.InverterId
-		  WHERE tm.inverterId = @inverterId 
-          AND `DateTime` < @endTime
-		GROUP BY croppedDate;";
-
-                var temporaryCumulated = ProfiledReadConnection.Query<Measure>(selectSql, new { inverterId, endTime });
-
-                /* try to insert the cumulated measures into the measure table */
-                foreach (var measure in temporaryCumulated)
-                {
-                    try
-                    {
-                        this.InsertMeasure(measure);
-                    }
-                    catch (Exception ex)
-                    {
-                        Logger.Log(ex, SeverityLevel.Warning, "could not store minute-wise measure plant: " + measure.PlantId);
-                    }
-                }
-
-                /* delete all temporary measures as we have them now cumulated in the measure table */
-
-                string deleteSql = @"
-  DELETE FROM temporary_measure 
-    WHERE DateTime < @endDate 
-      AND inverterId = @inverterId;";
-
-                ProfiledWriteConnection.Execute(deleteSql, new { inverterId, endDate = endTime.Value });
-
-            }
-        }
+        
 
         /// <summary>
         /// Returns the datetime of the most recent measure in the temporary table
