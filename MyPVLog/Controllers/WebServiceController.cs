@@ -15,9 +15,9 @@ namespace PVLog.Controllers
 {
     public class WebServiceController : MyController
     {
-        private readonly InverterTrackerRegistry _inverterTrackerRegistry;
+        private readonly IInverterTrackerRegistry _inverterTrackerRegistry;
 
-        public WebServiceController(InverterTrackerRegistry inverterTrackerRegistry)
+        public WebServiceController(IInverterTrackerRegistry inverterTrackerRegistry)
         {
             _inverterTrackerRegistry = inverterTrackerRegistry;
         }
