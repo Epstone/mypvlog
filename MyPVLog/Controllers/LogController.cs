@@ -14,7 +14,6 @@ namespace PVLog.Controllers
     public class LogController : MyController
     {
         private readonly IInverterTrackerRegistry _inverterTrackerRegistry;
-        private InverterTracker _inverterTracker;
 
         public LogController(IMeasureRepository measureRepository, I_PlantRepository plantRepository, IInverterTrackerRegistry inverterTrackerRegistry)
         {
@@ -161,9 +160,9 @@ namespace PVLog.Controllers
         private void UpdateMinuteWiseMeasures(Measure measure)
         {
             _plantRepository.SetPlantOnline(measure.PlantId, DateTime.UtcNow);
-            _inverterTrackerRegistry.CreateOrGetTracker(measure.PrivateInverterId);
-            _inverterTracker.TrackMeasurement(measure);
-            var averagesForMinutes = _inverterTracker.GetAveragesForMinutes();
+            var inverterTracker = _inverterTrackerRegistry.CreateOrGetTracker(measure.PrivateInverterId);
+            inverterTracker.TrackMeasurement(measure);
+            var averagesForMinutes = inverterTracker.GetAveragesForMinutes();
 
             if (averagesForMinutes.Count > 0)
             {
