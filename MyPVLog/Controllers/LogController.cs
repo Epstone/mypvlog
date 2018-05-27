@@ -16,11 +16,6 @@ namespace PVLog.Controllers
         private readonly IInverterTrackerRegistry _inverterTrackerRegistry;
         private InverterTracker _inverterTracker;
 
-        public LogController()
-        {
-
-        }
-
         public LogController(IMeasureRepository measureRepository, I_PlantRepository plantRepository, IInverterTrackerRegistry inverterTrackerRegistry)
         {
             _inverterTrackerRegistry = inverterTrackerRegistry;
