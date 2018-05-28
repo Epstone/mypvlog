@@ -41,7 +41,7 @@ namespace PVLog.Controllers
         public JsonResult GaugeData(int plantId)
         {
             var allInvertersByPlant = _plantRepository.GetAllInvertersByPlant(plantId);
-            var invertersByPlant = allInvertersByPlant as Inverter[] ?? allInvertersByPlant.ToArray();
+            var invertersByPlant = allInvertersByPlant.ToArray();
             var inverterTrackers = invertersByPlant.Select(x => _inverterTrackerRegistry.CreateOrGetTracker(x.InverterId));
 
             var lastestMeasures = inverterTrackers.Select(x=> x.GetLastestMeasure()).ToArray();
@@ -57,7 +57,7 @@ namespace PVLog.Controllers
                                  inverterId = measure.PublicInverterId,
                                  wattage = measure.OutputWattage,
                                  temperature = measure.Temperature,
-                                 maxWattage = invertersByPlant.Single(x=>x.InverterId == measure.PrivateInverterId).ACPowerMax,
+                                 maxWattage = 15000,
                                  time = measure.DateTime.ToLongTimeString()
                              };
                 }
