@@ -10,6 +10,7 @@ using PVLog.Utility;
 using PVLog.Enums;
 using System.Threading;
 using System.Globalization;
+using PVLog.Models;
 
 namespace PVLog.Controllers
 {
@@ -40,7 +41,8 @@ namespace PVLog.Controllers
         public JsonResult GaugeData(int plantId)
         {
             var allInvertersByPlant = _plantRepository.GetAllInvertersByPlant(plantId);
-            var inverterTrackers = allInvertersByPlant.Select(x => _inverterTrackerRegistry.CreateOrGetTracker(x.InverterId));
+            var invertersByPlant = allInvertersByPlant as Inverter[] ?? allInvertersByPlant.ToArray();
+            var inverterTrackers = invertersByPlant.Select(x => _inverterTrackerRegistry.CreateOrGetTracker(x.InverterId));
 
             var lastestMeasures = inverterTrackers.Select(x=> x.GetLastestMeasure()).ToArray();
 
@@ -55,7 +57,7 @@ namespace PVLog.Controllers
                                  inverterId = measure.PublicInverterId,
                                  wattage = measure.OutputWattage,
                                  temperature = measure.Temperature,
-                                 maxWattage = 15000,
+                                 maxWattage = invertersByPlant.Single(x=>x.InverterId == measure.PrivateInverterId).ACPowerMax,
                                  time = measure.DateTime.ToLongTimeString()
                              };
                 }

@@ -77,5 +77,26 @@ namespace solar_tests
             IEnumerable<Measure> samplesAggregated = aggregator.GetAveragesForMinutes();
             samplesAggregated.Count().Should().Be(1);
         }
+
+        [Test]
+        public void When_there_is_an_average_minute_Then_the_sample_is_rounded_to_the_minute()
+        {
+            var samples = new List<Measure>()
+            {
+                TestdataGenerator.GetTestMeasure(new DateTime(2018, 07, 06, 3, 2, 1), 100, inverterId),
+                TestdataGenerator.GetTestMeasure(new DateTime(2018, 07, 06, 3, 2, 19), 100, inverterId),
+                TestdataGenerator.GetTestMeasure(new DateTime(2018, 07, 06, 3, 2, 24), 100, inverterId),
+                TestdataGenerator.GetTestMeasure(new DateTime(2018, 07, 06, 3, 3, 1), 100, inverterId),
+                TestdataGenerator.GetTestMeasure(new DateTime(2018, 07, 06, 3, 3, 54), 100, inverterId),
+                TestdataGenerator.GetTestMeasure(new DateTime(2018, 07, 06, 3, 3, 57), 100, inverterId),
+                TestdataGenerator.GetTestMeasure(new DateTime(2018, 07, 06, 3, 4, 57), 100, inverterId),
+            };
+
+            aggregator.TrackMeasurements(samples);
+
+            var samplesAggregated = aggregator.GetAveragesForMinutes();
+            samplesAggregated.First().DateTime.Should().Be(new DateTime(2018, 07, 06, 3, 2, 0));
+            samplesAggregated[1].DateTime.Should().Be(new DateTime(2018, 07, 06, 3, 3, 0));
+        }
     }
 }

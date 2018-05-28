@@ -166,7 +166,10 @@ namespace PVLog.Controllers
 
             if (averagesForMinutes.Count > 0)
             {
-                _measureRepository.InsertMeasure(measure);
+                foreach (var avgMeasure in averagesForMinutes)
+                {
+                    _measureRepository.InsertMeasure(avgMeasure);
+                }
             }
         }
 
