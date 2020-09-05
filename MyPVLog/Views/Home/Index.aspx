@@ -11,14 +11,19 @@
     <meta name="robots" content="index, follow">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
-    <h2>
-        Ein herstellerunabhängiger Datenlogger Service
+
+    <div style="margin:100px 0;border: 3px solid red" >
+        <h2 style="color: red">MyPVLog schließt die Pforten</h2>
+        <p>
+            Nach etwa 10 Jahren muss ich leider ankündigen, dass ich den Dienst zum 01.03.2021 abschalten werde. Aus zeitlichen und finanziellen Gründen kann ich die Seite leider nicht mehr guten Gewissens weiterbetreiben. Eine Alternative wäre beispielsweise der <a href="https://www.photovoltaik4all.de/datenlogger/solar-base-15">Solarlog Datenlogger</a>. Danke für euer bisheriges Vertrauen und ich hoffe ihr findet eine passende Alternative!
+        </p>
+    </div>
+    <h2>Ein herstellerunabhängiger Datenlogger Service
     </h2>
     <p>
         myPVLog liefert die aktuellen Betriebsdaten ihrer Photovoltaikanlage in Echtzeit, überwacht und berechnet die Erträge über Jahre hinweg. Legen Sie Zettel und Stift beiseite!
     </p>
-    <h2 class="main-page">
-        Funktionsweise
+    <h2 class="main-page">Funktionsweise
     </h2>
     <ol class="how-it-works">
         <li>Betriebsdaten Auslesen</li>
@@ -27,8 +32,7 @@
     </ol>
     <img src="../../Content/img/simple-architecture.gif" class="simple-architecture" alt="Aufbau" />
     <br class="clear" />
-    <h2 class="main-page">
-        Im Detail
+    <h2 class="main-page">Im Detail
     </h2>
     <p>
         Im ersten Schritt müssen die Betriebsdaten des Generators durch einen beliebigen Client Computer ausgelesen werden. Hierfür eignen sich auch herkömmliche DSL Router mit alternativer Linux Firmware. Beim Aufbau ist der Client der schwierigste Punkt, da die meisten Wechselrichter unterschiedliche Schnittstellen und Protokolle besitzen.
@@ -48,7 +52,8 @@
     <h3>09.07.2013 Serverumzug</h3>
     <p>
         Nach dem Serverumzug gab es ein paar Probleme mit nicht nachvollziehbaren Abstürzen des Apache Web Servers in Kombination mit Mono (.NET Framework Alternative).
-        Die Seite ist deshalb nun weiter in die Azure Cloud umgezogen und läuft hoffentlich von nun an reibungslos für die nächsten Jahre. <br />
+        Die Seite ist deshalb nun weiter in die Azure Cloud umgezogen und läuft hoffentlich von nun an reibungslos für die nächsten Jahre.
+        <br />
     </p>
 
     <h2>Kommentare</h2>
